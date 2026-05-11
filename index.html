@@ -141,7 +141,27 @@
   .status-head .lt .dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.4s infinite}
   .status-head .rt{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--text-3);text-transform:uppercase}
   .status-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px 24px;gap:18px;position:relative;z-index:1}
-  .status-side{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .status-side{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+  .status-circle{cursor:zoom-in}
+
+  /* Zoom popup */
+  .zoom-pop{position:absolute;top:0;left:50%;width:360px;max-width:min(86vw, 380px);transform:translate(-50%, calc(-100% - 16px)) scale(.92);opacity:0;pointer-events:none;transition:opacity .22s ease, transform .22s ease;z-index:200;border-radius:12px;overflow:hidden;border:4px solid;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08)}
+  .status-side.win .zoom-pop{border-color:#22c55e;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(34,197,94,.4), 0 0 50px rgba(34,197,94,.25)}
+  .status-side.lose .zoom-pop{border-color:#ef4444;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(239,68,68,.4)}
+  .status-side.tie .zoom-pop{border-color:var(--gold)}
+  .zoom-pop img{width:100%;height:auto;display:block}
+  .zoom-pop::after{content:'';position:absolute;left:50%;bottom:-10px;transform:translateX(-50%) rotate(45deg);width:18px;height:18px;background:#0a0e16;border-right:3px solid;border-bottom:3px solid;border-color:inherit}
+  .status-side.win .zoom-pop::after{border-color:#22c55e}
+  .status-side.lose .zoom-pop::after{border-color:#ef4444}
+  .status-side:hover .zoom-pop,
+  .status-side.expanded .zoom-pop{opacity:1;transform:translate(-50%, calc(-100% - 16px)) scale(1);pointer-events:auto}
+  @media (max-width:780px){
+    .zoom-pop{width:280px;max-width:86vw;border-width:3px}
+  }
+  @media (hover:none){
+    .status-side:hover .zoom-pop{opacity:0}
+    .status-side.expanded .zoom-pop{opacity:1}
+  }
   .status-circle{position:relative;width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid;box-shadow:0 0 0 4px #0a0e16, 0 0 0 6px rgba(255,255,255,.10), 0 14px 40px rgba(0,0,0,.55);transition:transform .4s ease}
   .status-circle img{width:100%;height:100%;object-fit:cover;display:block}
   .status-side.win .status-circle{width:210px;height:210px;border-color:#22c55e;animation:winGlow 2.6s ease-in-out infinite}
@@ -567,6 +587,7 @@
             <div class="status-circle">
               <img id="status-img-left" src="status-winner.png" alt="winner">
             </div>
+            <div class="zoom-pop"><img id="status-zoom-left" src="status-winner.png" alt="winner zoom"></div>
             <span class="status-stamp" id="status-stamp-left">WINNER</span>
             <div class="status-name" id="status-name-left">George</div>
             <div class="status-tag" id="status-tag-left">DOMINATING</div>
@@ -576,6 +597,7 @@
             <div class="status-circle">
               <img id="status-img-right" src="status-loser.png" alt="loser">
             </div>
+            <div class="zoom-pop"><img id="status-zoom-right" src="status-loser.png" alt="loser zoom"></div>
             <span class="status-stamp" id="status-stamp-right">LOSER</span>
             <div class="status-name" id="status-name-right">Nachito</div>
             <div class="status-tag" id="status-tag-right">ON THE MAT</div>
@@ -1039,6 +1061,8 @@ function renderStatus(c, s){
   const right = document.getElementById("status-right");
   const imgL = document.getElementById("status-img-left");
   const imgR = document.getElementById("status-img-right");
+  const zoomL = document.getElementById("status-zoom-left");
+  const zoomR = document.getElementById("status-zoom-right");
   const stampL = document.getElementById("status-stamp-left");
   const stampR = document.getElementById("status-stamp-right");
   const nameL = document.getElementById("status-name-left");
@@ -1059,6 +1083,7 @@ function renderStatus(c, s){
     right.classList.add("lose");
     imgL.src = "status-winner.png"; imgL.alt = "George ganando";
     imgR.src = "status-loser.png"; imgR.alt = "Nachito perdiendo";
+    zoomL.src = "status-winner.png"; zoomR.src = "status-loser.png";
     stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
     nameL.textContent = "George"; nameR.textContent = "Nachito";
     tagL.textContent = momentumNeg(s, "george") ? "EN ALERTA" : "DOMINATING";
@@ -1070,6 +1095,7 @@ function renderStatus(c, s){
     right.classList.add("lose");
     imgL.src = "nachito.png"; imgL.alt = "Nachito ganando";
     imgR.src = "george.png"; imgR.alt = "George perdiendo";
+    zoomL.src = "nachito.png"; zoomR.src = "george.png";
     stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
     nameL.textContent = "Nachito"; nameR.textContent = "George";
     tagL.textContent = "DOMINATING";
@@ -1081,6 +1107,7 @@ function renderStatus(c, s){
     right.classList.add("tie");
     imgL.src = "george.png"; imgL.alt = "George";
     imgR.src = "nachito.png"; imgR.alt = "Nachito";
+    zoomL.src = "george.png"; zoomR.src = "nachito.png";
     stampL.textContent = "ON FIRE"; stampR.textContent = "ON FIRE";
     nameL.textContent = "George"; nameR.textContent = "Nachito";
     tagL.textContent = "TIED";
@@ -1328,6 +1355,20 @@ function toast(msg){
 }
 
 document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+
+// Tap-to-toggle status zoom (mobile, where :hover isn't reliable)
+document.querySelectorAll(".status-side .status-circle").forEach(c => {
+  c.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const side = c.closest(".status-side");
+    document.querySelectorAll(".status-side").forEach(s => { if (s !== side) s.classList.remove("expanded"); });
+    side.classList.toggle("expanded");
+  });
+});
+document.addEventListener("click", () => {
+  document.querySelectorAll(".status-side").forEach(s => s.classList.remove("expanded"));
+});
+
 render();
 </script>
 </body>
