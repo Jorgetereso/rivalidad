@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rivalry — George vs Nachito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy:#002b5c;
+    --navy-2:#001a3d;
+    --navy-3:#003a7a;
+    --red:#d50032;
+    --red-dark:#a8002a;
+    --gold:#c69214;
+    --gold-light:#e8b73a;
+    --white:#ffffff;
+    --gray-50:#f5f6f8;
+    --gray-100:#eceef2;
+    --gray-200:#d8dce3;
+    --gray-300:#b9bfc9;
+    --gray-500:#6b7280;
+    --gray-700:#3a4150;
+    --gray-900:#11151c;
+    --ink:#0a0f17;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--ink);background:var(--gray-50);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+  /* ====== TOP BAR ====== */
+  .topbar{background:var(--navy);color:#fff;border-bottom:3px solid var(--red)}
+  .topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:18px}
+  .brand-mark .dot{width:10px;height:10px;background:var(--red);border-radius:50%}
+  .brand-sub{font-family:'Oswald';font-size:12px;letter-spacing:3px;opacity:.7;border-left:1px solid rgba(255,255,255,.2);padding-left:14px}
+  .topbar nav{display:flex;gap:24px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+  .topbar nav a{color:#fff;text-decoration:none;opacity:.85;transition:opacity .15s;border-bottom:2px solid transparent;padding-bottom:4px}
+  .topbar nav a:hover{opacity:1;border-bottom-color:var(--red)}
+  .topbar nav a.active{opacity:1;border-bottom-color:var(--red)}
+  @media (max-width:760px){.topbar nav{display:none}}
+
+  /* ====== BANNER (like PGA event banner) ====== */
+  .banner{background:linear-gradient(110deg, var(--navy-2) 0%, var(--navy) 45%, var(--navy-3) 100%);color:#fff;border-bottom:1px solid rgba(0,0,0,.1);position:relative;overflow:hidden}
+  .banner::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 2px, transparent 2px 12px);pointer-events:none}
+  .banner-inner{max-width:1280px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;position:relative;z-index:1}
+  .event-tag{display:flex;align-items:center;gap:14px}
+  .event-tag .pill{background:var(--red);color:#fff;font-family:'Oswald';font-size:11px;letter-spacing:2.5px;padding:5px 10px;border-radius:3px;font-weight:600}
+  .event-tag .title{font-family:'Oswald';font-size:20px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+  .event-meta{display:flex;gap:28px;font-size:13px;color:rgba(255,255,255,.85)}
+  .event-meta .em-num{font-family:'Oswald';font-weight:700;color:#fff;font-size:18px;display:block;letter-spacing:.5px}
+  .event-meta .em-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6)}
+
+  /* ====== LAYOUT ====== */
+  .container{max-width:1280px;margin:0 auto;padding:24px}
+  .grid-main{display:grid;grid-template-columns:1fr;gap:24px}
+
+  /* ====== SECTION TITLE (PGA style) ====== */
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .sec-head h2{font-family:'Oswald';font-size:22px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
+  .sec-head .sec-sub{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gray-500);font-weight:600}
+
+  /* ====== HERO MATCHUP CARD ====== */
+  .matchup{background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,30,90,.06);overflow:hidden;border:1px solid var(--gray-100)}
+  .matchup-top{background:var(--navy);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--red)}
+  .matchup-top .ttl{font-family:'Oswald';font-size:14px;letter-spacing:3px;text-transform:uppercase}
+  .matchup-top .live{display:flex;align-items:center;gap:8px;font-size:11px;font-family:'Oswald';letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+  .matchup-top .live::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .matchup-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:30px 24px}
+  @media (max-width:760px){.matchup-body{grid-template-columns:1fr;gap:20px;padding:20px}}
+
+  .player{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:10px}
+  .player.left{align-items:flex-end;text-align:right}
+  .player.right{align-items:flex-start;text-align:left}
+  @media (max-width:760px){.player.left,.player.right{align-items:center;text-align:center}}
+
+  .player-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--navy);box-shadow:0 8px 28px rgba(0,0,0,.18);position:relative}
+  .player.leading .player-photo{border-color:var(--gold)}
+  .photo-wrap{position:relative;display:inline-block}
+  .photo-crown{position:absolute;top:-22px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:30px;display:none}
+  .player.leading .photo-crown{display:block}
+  .badge-rank{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:'Oswald';font-size:11px;padding:3px 12px;border-radius:3px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;border:2px solid #fff;white-space:nowrap}
+  .player.leading .badge-rank{background:var(--red)}
+
+  .player-name{font-family:'Oswald';font-size:34px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:18px;line-height:1}
+  .player-nick{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--gray-500);margin-top:6px;font-weight:600}
+  .player-score{font-family:'Oswald';font-size:96px;font-weight:700;line-height:.85;color:var(--navy);margin-top:14px;font-variant-numeric:tabular-nums}
+  .player.leading .player-score{color:var(--red)}
+  .player-score-lbl{font-size:11px;text-transform:uppercase;letter-spacing:2.5px;color:var(--gray-500);font-weight:700;margin-top:6px}
+  .player-streaks{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  .player.left .player-streaks{justify-content:flex-end}
+  .player.right .player-streaks{justify-content:flex-start}
+  @media (max-width:760px){.player.left .player-streaks,.player.right .player-streaks{justify-content:center}}
+  .streak-pill{background:var(--gray-50);border:1px solid var(--gray-200);font-size:11px;padding:5px 10px;border-radius:3px;font-weight:600;color:var(--gray-700);letter-spacing:.3px;font-family:'Inter'}
+  .streak-pill.fire{background:#fff5e6;border-color:#f7c66a;color:#8a5a00}
+
+  .versus{text-align:center;padding:0 10px}
+  .versus .vs{font-family:'Oswald';font-size:28px;font-weight:700;color:var(--gray-300);letter-spacing:2px;margin-bottom:10px}
+  .versus .ties-box{background:linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);color:#fff;padding:18px 22px;border-radius:6px;box-shadow:0 6px 18px rgba(198,146,20,.35);min-width:140px;border:3px solid #fff;outline:2px solid var(--gold)}
+  .versus .ties-box .tn{font-family:'Oswald';font-size:56px;line-height:.9;font-weight:700;text-shadow:0 2px 6px rgba(0,0,0,.15)}
+  .versus .ties-box .tl{font-size:10px;text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-top:6px;opacity:.95}
+  .versus .ties-box .ts{font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-top:4px;opacity:.9}
+
+  /* ====== COMMENTARY ====== */
+  .commentary{background:#fff;border-left:5px solid var(--red);padding:16px 20px;border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:15px;line-height:1.55;color:var(--gray-900)}
+  .commentary .who{font-family:'Oswald';text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--red);font-weight:700;display:block;margin-bottom:6px}
+
+  /* ====== STAT STRIP ====== */
+  .stat-strip{background:#fff;display:grid;grid-template-columns:repeat(6, 1fr);border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+  @media (max-width:900px){.stat-strip{grid-template-columns:repeat(3, 1fr)}}
+  @media (max-width:500px){.stat-strip{grid-template-columns:repeat(2, 1fr)}}
+  .stat-cell{padding:18px 16px;border-right:1px solid var(--gray-100);text-align:center}
+  .stat-cell:last-child{border-right:none}
+  .stat-cell .sv{font-family:'Oswald';font-size:30px;font-weight:700;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+  .stat-cell .sl{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--gray-500);margin-top:8px;font-weight:700}
+  .stat-cell .ss{font-size:11px;color:var(--gray-500);margin-top:2px}
+  .stat-cell.accent .sv{color:var(--red)}
+  .stat-cell.gold .sv{color:var(--gold)}
+
+  /* ====== TIE SECTION (featured) ====== */
+  .tie-feature{background:linear-gradient(135deg, #fffbef 0%, #fef3d9 100%);border-radius:6px;border:1px solid var(--gold);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden;position:relative}
+  .tie-feature::before{content:'';position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%)}
+  .tie-feature-inner{padding:24px 26px 24px 32px;display:grid;grid-template-columns:1fr 2fr;gap:30px;align-items:center}
+  @media (max-width:760px){.tie-feature-inner{grid-template-columns:1fr;gap:20px}}
+  .tie-headline{display:flex;flex-direction:column}
+  .tie-headline .kicker{font-family:'Oswald';text-transform:uppercase;letter-spacing:3.5px;font-size:11px;color:var(--gold);font-weight:700}
+  .tie-headline .num{font-family:'Oswald';font-size:96px;line-height:.9;color:var(--navy);font-weight:700;margin:4px 0 2px;letter-spacing:-1px}
+  .tie-headline .lbl{font-family:'Oswald';font-size:24px;text-transform:uppercase;color:var(--navy);font-weight:600;letter-spacing:1px}
+  .tie-headline .micro{font-size:13px;color:var(--gray-700);margin-top:10px;line-height:1.45;font-style:italic}
+  .tie-list{display:flex;flex-direction:column;gap:8px}
+  .tie-row{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:center;background:#fff;border:1px solid #f1e5c0;border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px;transition:transform .15s}
+  .tie-row:hover{transform:translateX(2px)}
+  .tie-row .pos{font-family:'Oswald';color:var(--gray-300);font-size:18px;font-weight:700}
+  .tie-row .cn{font-family:'Oswald';font-size:17px;text-transform:uppercase;letter-spacing:1px;font-weight:600;color:var(--ink)}
+  .tie-row .tg{font-size:11px;color:var(--gray-500);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+  .tie-row .he{font-size:22px}
+  .tie-empty{padding:20px;text-align:center;color:var(--gray-500);font-style:italic;background:#fff;border-radius:4px;border:1px dashed var(--gray-200)}
+
+  /* ====== CHARTS ====== */
+  .charts-row{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+  @media (max-width:900px){.charts-row{grid-template-columns:1fr}}
+  .chart-card{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+  .chart-card .ch-head{background:var(--navy);color:#fff;padding:12px 18px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .chart-card .ch-body{padding:18px;position:relative;height:280px}
+  .chart-card.full .ch-body{height:340px}
+
+  /* ====== LEADERBOARD (history) ====== */
+  .leaderboard{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+  .lb-toolbar{padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--gray-100);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .chip{font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:#fff;border:1px solid var(--gray-200);color:var(--gray-700);padding:6px 12px;border-radius:3px;cursor:pointer;font-weight:600;transition:all .15s}
+  .chip:hover{border-color:var(--navy);color:var(--navy)}
+  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .chip.active.tie-chip{background:var(--gold);border-color:var(--gold)}
+  .lb-table{width:100%;border-collapse:collapse}
+  .lb-table th{text-align:left;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-500);padding:12px 18px;border-bottom:2px solid var(--gray-100);font-weight:600;background:#fafbfc}
+  .lb-table td{padding:14px 18px;border-bottom:1px solid var(--gray-100);font-size:14px;vertical-align:middle}
+  .lb-table tr:last-child td{border-bottom:none}
+  .lb-table tr:hover td{background:#fafbfc}
+  .lb-table tr.tie-row-lb td{background:linear-gradient(90deg, rgba(232,183,58,.08) 0%, transparent 30%);}
+  .lb-table .num{font-family:'Oswald';color:var(--gray-300);font-weight:700;width:50px}
+  .lb-table .course{font-weight:600;text-transform:uppercase;font-family:'Oswald';letter-spacing:.5px;font-size:15px}
+  .lb-table .course .date{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--gray-500);margin-top:2px;text-transform:none;letter-spacing:0}
+  .lb-table .res{font-size:22px;width:50px;text-align:center}
+  .lb-table .who-cell{width:130px}
+  .pill{display:inline-block;font-family:'Oswald';font-size:11px;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:3px;font-weight:700}
+  .pill.george{background:var(--navy);color:#fff}
+  .pill.nachito{background:var(--red);color:#fff}
+  .pill.tie{background:var(--gold);color:#fff}
+  .lb-table .del{width:40px;text-align:right}
+  .lb-table .del button{background:none;border:none;color:var(--gray-300);cursor:pointer;font-size:14px;padding:6px;transition:color .15s}
+  .lb-table .del button:hover{color:var(--red)}
+  .lb-empty{padding:40px;text-align:center;color:var(--gray-500)}
+
+  /* ====== ADD MATCH ====== */
+  .add-match{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+  .add-match .am-head{background:var(--red);color:#fff;padding:12px 18px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;display:flex;align-items:center;justify-content:space-between}
+  .add-match .am-head .micro{font-family:'Inter';font-size:11px;text-transform:none;letter-spacing:0;opacity:.85;font-weight:400}
+  .am-body{padding:20px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-700);font-weight:600;margin-bottom:6px}
+  .field input{width:100%;padding:11px 12px;border:1px solid var(--gray-200);border-radius:3px;font-size:14px;font-family:'Inter';color:var(--ink);outline:none;background:#fff;transition:border-color .15s}
+  .field input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,43,92,.1)}
+  .field-row{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+  .winner-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-bottom:14px}
+  .wb{padding:14px 8px;border:2px solid var(--gray-200);background:#fff;border-radius:3px;cursor:pointer;font-family:'Oswald';font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:13px;color:var(--gray-700);transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .wb .we{font-size:24px;line-height:1}
+  .wb:hover{border-color:var(--navy);color:var(--navy)}
+  .wb.george.selected{border-color:var(--navy);background:var(--navy);color:#fff}
+  .wb.nachito.selected{border-color:var(--red);background:var(--red);color:#fff}
+  .wb.tie.selected{border-color:var(--gold);background:var(--gold);color:#fff}
+  .submit{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:3px;font-family:'Oswald';font-size:14px;text-transform:uppercase;letter-spacing:2px;font-weight:700;cursor:pointer;transition:background .15s}
+  .submit:hover:not(:disabled){background:var(--navy-3)}
+  .submit:disabled{background:var(--gray-200);color:var(--gray-500);cursor:not-allowed}
+
+  /* ====== FOOTER ====== */
+  footer{background:var(--navy-2);color:rgba(255,255,255,.6);padding:24px;margin-top:40px;border-top:3px solid var(--red);text-align:center;font-size:12px;letter-spacing:.5px}
+  footer .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  footer button{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  footer button:hover{border-color:var(--red);color:#fff}
+
+  /* ====== TOAST ====== */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;padding:14px 26px;border-radius:3px;font-family:'Oswald';font-size:14px;text-transform:uppercase;letter-spacing:2px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.25);border-left:4px solid var(--red)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ====== TWO COLUMN BOTTOM ====== */
+  .two-col{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark"><span class="dot"></span> THE RIVALRY</div>
+      <div class="brand-sub">EST. FOREVER · 9 HOLES OF EGO</div>
+    </div>
+    <nav>
+      <a href="#matchup" class="active">Matchup</a>
+      <a href="#stats">Stats</a>
+      <a href="#ties">Ties</a>
+      <a href="#leaderboard">Historial</a>
+      <a href="#add">Agregar</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ BANNER ============ -->
+<div class="banner">
+  <div class="banner-inner">
+    <div class="event-tag">
+      <span class="pill">EN CURSO</span>
+      <span class="title">George vs Nachito · Lifetime Series</span>
+    </div>
+    <div class="event-meta">
+      <div><span class="em-num" id="meta-total">0</span><span class="em-label">Partidos</span></div>
+      <div><span class="em-num" id="meta-courses">0</span><span class="em-label">Canchas</span></div>
+      <div><span class="em-num" id="meta-last">—</span><span class="em-label">Última</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN ============ -->
+<div class="container">
+  <div class="grid-main">
+
+    <!-- MATCHUP CARD -->
+    <section id="matchup">
+      <div class="matchup">
+        <div class="matchup-top">
+          <span class="ttl">Head to Head · Career</span>
+          <span class="live">Live</span>
+        </div>
+        <div class="matchup-body">
+          <div class="player left" id="card-george">
+            <div class="photo-wrap">
+              <span class="photo-crown">👑</span>
+              <img class="player-photo" src="george.png" alt="George">
+              <span class="badge-rank" id="badge-george">P1</span>
+            </div>
+            <div class="player-name">George</div>
+            <div class="player-nick">🍆 LA BENIGENA</div>
+            <div class="player-score" id="score-george">0</div>
+            <div class="player-score-lbl">VICTORIAS</div>
+            <div class="player-streaks" id="streaks-george"></div>
+          </div>
+
+          <div class="versus">
+            <div class="vs">VS</div>
+            <div class="ties-box">
+              <div class="tn" id="score-ties">0</div>
+              <div class="tl">EMPATES</div>
+              <div class="ts">★ honor compartido ★</div>
+            </div>
+          </div>
+
+          <div class="player right" id="card-nachito">
+            <div class="photo-wrap">
+              <span class="photo-crown">👑</span>
+              <img class="player-photo" src="nachito.png" alt="Nachito">
+              <span class="badge-rank" id="badge-nachito">P2</span>
+            </div>
+            <div class="player-name">Nachito</div>
+            <div class="player-nick">🦷 EL DENTISTA</div>
+            <div class="player-score" id="score-nachito">0</div>
+            <div class="player-score-lbl">VICTORIAS</div>
+            <div class="player-streaks" id="streaks-nachito"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMENTARY -->
+    <div class="commentary">
+      <span class="who">Análisis del comentarista</span>
+      <span id="commentary-text">…</span>
+    </div>
+
+    <!-- STAT STRIP -->
+    <section id="stats">
+      <div class="sec-head"><h2>Tournament Stats</h2><span class="sec-sub">Career totals</span></div>
+      <div class="stat-strip" id="stat-strip"></div>
+    </section>
+
+    <!-- TIE FEATURE -->
+    <section id="ties">
+      <div class="sec-head"><h2>The Ties · El club del empate</h2><span class="sec-sub">Donde nadie pudo ganar</span></div>
+      <div class="tie-feature">
+        <div class="tie-feature-inner">
+          <div class="tie-headline">
+            <span class="kicker">★ HONORABLE PUSH ★</span>
+            <span class="num" id="tie-num">0</span>
+            <span class="lbl">Empates en la historia</span>
+            <span class="micro" id="tie-micro">El empate honorable: ningún ego herido, ninguna gloria. Sólo dos amigos jugando bien.</span>
+          </div>
+          <div class="tie-list" id="tie-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section>
+      <div class="sec-head"><h2>Stat Tracker</h2><span class="sec-sub">Gráficos &amp; tendencias</span></div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="ch-head">Distribución total</div>
+          <div class="ch-body"><canvas id="pieChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="ch-head">Evolución acumulada · match por match</div>
+          <div class="ch-body"><canvas id="lineChart"></canvas></div>
+        </div>
+        <div class="chart-card full" style="grid-column:1/-1">
+          <div class="ch-head">Por cancha · campo de batalla</div>
+          <div class="ch-body"><canvas id="barChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD + ADD -->
+    <section>
+      <div class="two-col">
+        <div id="leaderboard">
+          <div class="sec-head"><h2>Leaderboard · Historial</h2><span class="sec-sub">Todos los partidos</span></div>
+          <div class="leaderboard">
+            <div class="lb-toolbar">
+              <span class="chip active" data-filter="all">Todos</span>
+              <span class="chip" data-filter="george">🍆 George</span>
+              <span class="chip" data-filter="nachito">🦷 Nachito</span>
+              <span class="chip tie-chip" data-filter="tie">🤝 Empates</span>
+            </div>
+            <table class="lb-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Cancha</th>
+                  <th style="text-align:center">Res.</th>
+                  <th>Ganador</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="lb-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="add">
+          <div class="sec-head"><h2>Sumar Match</h2><span class="sec-sub">Recién jugado</span></div>
+          <div class="add-match">
+            <div class="am-head">
+              <span>Agregar resultado</span>
+              <span class="micro">Persiste local</span>
+            </div>
+            <div class="am-body">
+              <div class="field">
+                <label>Cancha</label>
+                <input type="text" id="input-course" placeholder="ej. Chapelco" list="course-list" autocomplete="off">
+                <datalist id="course-list"></datalist>
+              </div>
+              <div class="field">
+                <label>Fecha</label>
+                <input type="date" id="input-date">
+              </div>
+              <div class="field">
+                <label>¿Quién ganó?</label>
+                <div class="winner-row">
+                  <button class="wb george" data-winner="george"><span class="we">🍆</span>George</button>
+                  <button class="wb tie" data-winner="tie"><span class="we">🤝</span>Igual</button>
+                  <button class="wb nachito" data-winner="nachito"><span class="we">🦷</span>Nachito</button>
+                </div>
+              </div>
+              <button class="submit" id="submit-btn" disabled>Sumar al historial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div>THE RIVALRY · GEORGE 🍆 vs NACHITO 🦷 · GOLF, EGO Y BENIGENAS</div>
+    <div style="display:flex;gap:8px">
+      <button id="export-btn">Exportar</button>
+      <button id="import-btn">Importar</button>
+      <button id="reset-btn">Reset</button>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= DATA ======================= */
+const SEED_MATCHES = [
+  { course: "Potrerillo", winner: "george" },
+  { course: "Terron", winner: "nachito" },
+  { course: "Tortugas", winner: "tie" },
+  { course: "Highland", winner: "george" },
+  { course: "Miramar", winner: "tie" },
+  { course: "Pilar Golf", winner: "george" },
+  { course: "Pilar Golf", winner: "nachito" },
+  { course: "Sierra de la Ventana", winner: "nachito" },
+  { course: "Everlinks", winner: "george" },
+  { course: "Llao Llao", winner: "george" },
+  { course: "Chapelco", winner: "george" },
+  { course: "Chapelco", winner: "george" },
+  { course: "Chapelco", winner: "george" },
+  { course: "Desafío", winner: "george" },
+  { course: "Orquídea", winner: "tie" },
+  { course: "Pinamar", winner: "george" },
+  { course: "Chapelco", winner: "nachito" },
+  { course: "Chapelco", winner: "nachito" },
+  { course: "Chapelco", winner: "nachito" },
+  { course: "Chapelco", winner: "nachito" },
+  { course: "Martindale", winner: "tie" },
+];
+const STORAGE_KEY = "rivalidad_nach_v2";
+
+function loadMatches() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      // migrate from v1 if present
+      const old = localStorage.getItem("rivalidad_nach_v1");
+      const seed = old ? JSON.parse(old) : SEED_MATCHES;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+      return [...seed];
+    }
+    return JSON.parse(raw);
+  } catch(e) { return [...SEED_MATCHES]; }
+}
+function saveMatches(m){ localStorage.setItem(STORAGE_KEY, JSON.stringify(m)); }
+
+let MATCHES = loadMatches();
+let activeFilter = "all";
+let selectedWinner = null;
+let pieChart, lineChart, barChart;
+
+/* ======================= HELPERS ======================= */
+function counts(){ const c={george:0,nachito:0,tie:0}; MATCHES.forEach(m=>c[m.winner]++); return c; }
+function winRate(c){ const t=c.george+c.nachito+c.tie; return t?{g:c.george/t*100,n:c.nachito/t*100,t:c.tie/t*100}:{g:0,n:0,t:0}; }
+function streaks(){
+  let maxG=0,maxN=0,curG=0,curN=0,maxT=0,curT=0;
+  MATCHES.forEach(m=>{
+    if(m.winner==="george"){curG++;curN=0;curT=0;maxG=Math.max(maxG,curG)}
+    else if(m.winner==="nachito"){curN++;curG=0;curT=0;maxN=Math.max(maxN,curN)}
+    else{curT++;curG=0;curN=0;maxT=Math.max(maxT,curT)}
+  });
+  let cw=null,cl=0;
+  for(let i=MATCHES.length-1;i>=0;i--){
+    const w=MATCHES[i].winner;
+    if(w==="tie"){ if(cw===null) continue; else break; }
+    if(cw===null){cw=w;cl=1} else if(w===cw) cl++; else break;
+  }
+  return {maxG,maxN,maxT,currentWho:cw,currentLen:cl};
+}
+function byCourse(){
+  const map={};
+  MATCHES.forEach(m=>{
+    if(!map[m.course]) map[m.course]={course:m.course,george:0,nachito:0,tie:0,total:0};
+    map[m.course][m.winner]++; map[m.course].total++;
+  });
+  return Object.values(map).sort((a,b)=>b.total-a.total||a.course.localeCompare(b.course));
+}
+function uniqueCourses(){ return [...new Set(MATCHES.map(m=>m.course))].sort(); }
+function tieList(){ return MATCHES.map((m,i)=>({...m,idx:i+1})).filter(m=>m.winner==="tie"); }
+
+function commentaryText(c,s){
+  const diff = c.george - c.nachito;
+  const tieCt = c.tie;
+  const total = c.george + c.nachito + c.tie;
+  const tiePct = total ? (tieCt/total*100).toFixed(0) : 0;
+  const lines = [];
+  if (diff >= 5) lines.push("La benigena reina sin piedad. Nachito está cobrando rivalidad, no goles.");
+  else if (diff >= 2) lines.push("George manda con la huerta. El dentista no llega a la fila siguiente.");
+  else if (diff === 1) lines.push("George arriba por un suspiro. Una mala vuelta y Nachito empata.");
+  else if (diff === 0) lines.push("Empate técnico en la rivalidad. Hay que jugar mañana aunque llueva.");
+  else if (diff === -1) lines.push("Nachito asoma la muela. Un par de bogeys y George recupera.");
+  else if (diff >= -4) lines.push("El dentista te está abriendo la boca. Reforzá el swing.");
+  else lines.push("Catástrofe odontológica. George necesita prótesis.");
+
+  if (tieCt >= 3) lines.push(`${tieCt} empates (${tiePct}% del total) — esta rivalidad respeta el honor.`);
+  if (s.currentLen >= 3){
+    if (s.currentWho === "george") lines.push(`Racha actual: ${s.currentLen} benigenas seguidas 🔥`);
+    else lines.push(`Racha actual: ${s.currentLen} muelas seguidas. Hay anestesia en el carrito.`);
+  }
+  return lines.join(" ");
+}
+
+/* ======================= RENDER ======================= */
+function render(){
+  const c = counts();
+  const s = streaks();
+  const tList = tieList();
+  const total = c.george + c.nachito + c.tie;
+  const courses = uniqueCourses().length;
+  const last = MATCHES[MATCHES.length-1];
+
+  // banner meta
+  document.getElementById("meta-total").textContent = total;
+  document.getElementById("meta-courses").textContent = courses;
+  document.getElementById("meta-last").textContent = last ? last.course : "—";
+
+  // scores
+  document.getElementById("score-george").textContent = c.george;
+  document.getElementById("score-nachito").textContent = c.nachito;
+  document.getElementById("score-ties").textContent = c.tie;
+
+  // leader
+  const gLead = c.george > c.nachito, nLead = c.nachito > c.george;
+  document.getElementById("card-george").classList.toggle("leading", gLead);
+  document.getElementById("card-nachito").classList.toggle("leading", nLead);
+  document.getElementById("badge-george").textContent = gLead ? "LEADER" : (c.george===c.nachito?"TIED":"P2");
+  document.getElementById("badge-nachito").textContent = nLead ? "LEADER" : (c.george===c.nachito?"TIED":"P2");
+
+  // streak pills
+  let gpills = `<span class="streak-pill fire">🔥 mejor racha: ${s.maxG}</span>`;
+  if (s.currentWho === "george" && s.currentLen >= 1) gpills += `<span class="streak-pill">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-george").innerHTML = gpills;
+  let npills = `<span class="streak-pill fire">🔥 mejor racha: ${s.maxN}</span>`;
+  if (s.currentWho === "nachito" && s.currentLen >= 1) npills += `<span class="streak-pill">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-nachito").innerHTML = npills;
+
+  // commentary
+  document.getElementById("commentary-text").textContent = commentaryText(c, s);
+
+  // stat strip
+  const wr = winRate(c);
+  const h2h = c.george > c.nachito ? `+${c.george-c.nachito}` : c.nachito > c.george ? `+${c.nachito-c.george}` : "0";
+  const h2hWho = c.george > c.nachito ? "George" : c.nachito > c.george ? "Nachito" : "Empate";
+  const cl = byCourse();
+  const mostPlayed = cl[0] ? cl[0].course : "—";
+  const mostPlayedN = cl[0] ? cl[0].total : 0;
+  document.getElementById("stat-strip").innerHTML = `
+    <div class="stat-cell"><div class="sv">${total}</div><div class="sl">Partidos totales</div></div>
+    <div class="stat-cell"><div class="sv">${h2h}</div><div class="sl">Head to head</div><div class="ss">${h2hWho}</div></div>
+    <div class="stat-cell"><div class="sv">${wr.g.toFixed(0)}%</div><div class="sl">Win % George</div></div>
+    <div class="stat-cell accent"><div class="sv">${wr.n.toFixed(0)}%</div><div class="sl">Win % Nachito</div></div>
+    <div class="stat-cell gold"><div class="sv">${wr.t.toFixed(0)}%</div><div class="sl">Empate %</div></div>
+    <div class="stat-cell"><div class="sv" style="font-size:18px">${mostPlayed}</div><div class="sl">Cancha + jugada</div><div class="ss">${mostPlayedN}× rounds</div></div>
+  `;
+
+  // ties section
+  document.getElementById("tie-num").textContent = c.tie;
+  const tieMicro = c.tie === 0
+    ? "Sin empates todavía. Alguien tiene que ceder."
+    : c.tie === 1
+    ? "Un solo empate honorable. Una historia, una cancha, dos egos."
+    : `${c.tie} empates en la historia. Cuando nadie pudo ganar, ambos ganaron. ${s.maxT >= 2 ? `Máxima racha de empates seguidos: ${s.maxT}.` : ""}`;
+  document.getElementById("tie-micro").textContent = tieMicro;
+
+  const tieListEl = document.getElementById("tie-list");
+  if (!tList.length) {
+    tieListEl.innerHTML = `<div class="tie-empty">Todavía no hay empates registrados.</div>`;
+  } else {
+    tieListEl.innerHTML = tList.map((t,i) => `
+      <div class="tie-row">
+        <div class="pos">#${String(t.idx).padStart(2,"0")}</div>
+        <div>
+          <div class="cn">${escapeHTML(t.course)}</div>
+          <div class="tg">${tieTagline(i, t.course)}</div>
+        </div>
+        <div class="he">🤝</div>
+      </div>
+    `).join("");
+  }
+
+  renderHistory();
+  renderCharts();
+  refreshCourseDatalist();
+}
+
+function tieTagline(i, course){
+  const tags = [
+    "ni vencedor ni vencido",
+    "empate honorable",
+    "el handshake del fairway",
+    "la cancha decidió no decidir",
+    "los dos en el green, los dos en silencio",
+    "respeto mutuo, ego intacto"
+  ];
+  return tags[i % tags.length];
+}
+
+function renderHistory(){
+  const tbody = document.getElementById("lb-body");
+  const filtered = MATCHES.map((m,i)=>({...m,idx:i+1}))
+    .filter(m => activeFilter === "all" || m.winner === activeFilter)
+    .reverse();
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="5" class="lb-empty">No hay partidos con ese filtro.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(m => {
+    const emoji = m.winner === "george" ? "🍆" : m.winner === "nachito" ? "🦷" : "🤝";
+    const whoLabel = m.winner === "george" ? "George" : m.winner === "nachito" ? "Nachito" : "Empate";
+    const rowClass = m.winner === "tie" ? "tie-row-lb" : "";
+    const dateLine = m.date ? `<span class="date">${m.date}</span>` : "";
+    return `
+      <tr class="${rowClass}">
+        <td class="num">${String(m.idx).padStart(2,"0")}</td>
+        <td class="course">${escapeHTML(m.course)}${dateLine}</td>
+        <td class="res">${emoji}</td>
+        <td class="who-cell"><span class="pill ${m.winner}">${whoLabel}</span></td>
+        <td class="del"><button data-idx="${m.idx-1}" title="Borrar">✕</button></td>
+      </tr>`;
+  }).join("");
+  tbody.querySelectorAll(".del button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = parseInt(btn.dataset.idx,10);
+      const m = MATCHES[i];
+      if (confirm(`¿Borrar el partido en ${m.course}?`)) {
+        MATCHES.splice(i,1);
+        saveMatches(MATCHES);
+        render();
+        toast("Partido eliminado");
+      }
+    });
+  });
+}
+
+function renderCharts(){
+  const c = counts();
+
+  // Pie
+  const ctxP = document.getElementById("pieChart").getContext("2d");
+  if (pieChart) pieChart.destroy();
+  pieChart = new Chart(ctxP, {
+    type: "doughnut",
+    data: {
+      labels: ["🍆 George", "🦷 Nachito", "🤝 Empates"],
+      datasets: [{
+        data: [c.george, c.nachito, c.tie],
+        backgroundColor: ["#002b5c", "#d50032", "#c69214"],
+        borderColor: "#fff", borderWidth: 4, hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } },
+        tooltip: {
+          backgroundColor: "#002b5c", titleFont:{family:"Oswald",size:13}, bodyFont:{size:13},
+          callbacks: { label: ctx => {
+            const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            return `${ctx.label}: ${ctx.parsed} (${t?(ctx.parsed/t*100).toFixed(1):0}%)`;
+          }}
+        }
+      }
+    }
+  });
+
+  // Line
+  let cg = 0, cn = 0, ct = 0;
+  const labels = MATCHES.map((m,i)=>`#${i+1}`);
+  const dataG = [], dataN = [], dataT = [];
+  MATCHES.forEach(m => {
+    if (m.winner === "george") cg++;
+    if (m.winner === "nachito") cn++;
+    if (m.winner === "tie") ct++;
+    dataG.push(cg); dataN.push(cn); dataT.push(ct);
+  });
+  const ctxL = document.getElementById("lineChart").getContext("2d");
+  if (lineChart) lineChart.destroy();
+  lineChart = new Chart(ctxL, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "🍆 George", data: dataG, borderColor: "#002b5c", backgroundColor: "rgba(0,43,92,.08)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🦷 Nachito", data: dataN, borderColor: "#d50032", backgroundColor: "rgba(213,0,50,.08)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🤝 Empates", data: dataT, borderColor: "#c69214", backgroundColor: "rgba(198,146,20,.08)", borderWidth: 2, fill: false, tension: .25, pointRadius: 2, pointHoverRadius: 4, borderDash: [5,5] },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { ticks: { color: "#6b7280", font:{size:10} }, grid: { color: "#eceef2" } },
+        y: { ticks: { color: "#6b7280", stepSize: 1 }, grid: { color: "#eceef2" }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Bar
+  const courseData = byCourse();
+  const ctxB = document.getElementById("barChart").getContext("2d");
+  if (barChart) barChart.destroy();
+  barChart = new Chart(ctxB, {
+    type: "bar",
+    data: {
+      labels: courseData.map(x=>x.course),
+      datasets: [
+        { label: "🍆 George", data: courseData.map(x=>x.george), backgroundColor: "#002b5c" },
+        { label: "🦷 Nachito", data: courseData.map(x=>x.nachito), backgroundColor: "#d50032" },
+        { label: "🤝 Empates", data: courseData.map(x=>x.tie), backgroundColor: "#c69214" },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { stacked: true, ticks: { color: "#3a4150", font:{size:11,weight:"600"} }, grid: { display: false } },
+        y: { stacked: true, ticks: { color: "#6b7280", stepSize: 1 }, grid: { color: "#eceef2" }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+function refreshCourseDatalist(){
+  document.getElementById("course-list").innerHTML = uniqueCourses().map(c=>`<option value="${escapeHTML(c)}">`).join("");
+}
+
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+
+/* ======================= EVENTS ======================= */
+document.querySelectorAll(".lb-toolbar .chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".lb-toolbar .chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderHistory();
+  });
+});
+document.querySelectorAll(".wb").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedWinner = btn.dataset.winner;
+    updateSubmitState();
+  });
+});
+const courseInput = document.getElementById("input-course");
+courseInput.addEventListener("input", updateSubmitState);
+function updateSubmitState(){
+  const ok = courseInput.value.trim().length > 0 && selectedWinner !== null;
+  document.getElementById("submit-btn").disabled = !ok;
+}
+document.getElementById("submit-btn").addEventListener("click", () => {
+  const course = courseInput.value.trim();
+  if (!course || !selectedWinner) return;
+  const date = document.getElementById("input-date").value || null;
+  const match = { course, winner: selectedWinner };
+  if (date) match.date = date;
+  MATCHES.push(match);
+  saveMatches(MATCHES);
+  courseInput.value = "";
+  document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+  document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+  selectedWinner = null;
+  updateSubmitState();
+  render();
+  const e = match.winner === "george" ? "🍆" : match.winner === "nachito" ? "🦷" : "🤝";
+  toast(`${e} ${course}`);
+});
+
+document.getElementById("export-btn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(MATCHES, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `rivalidad-nach-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById("import-btn").addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.type = "file"; input.accept = "application/json";
+  input.onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const d = JSON.parse(ev.target.result);
+        if (!Array.isArray(d)) throw new Error("formato inválido");
+        MATCHES = d; saveMatches(MATCHES); render(); toast("Importado");
+      } catch(err){ alert("Error: "+err.message); }
+    };
+    r.readAsText(f);
+  };
+  input.click();
+});
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (confirm("Resetear al estado original (21 partidos)?")) {
+    MATCHES = [...SEED_MATCHES]; saveMatches(MATCHES); render(); toast("Reseteado");
+  }
+});
+
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+render();
+</script>
+</body>
+</html>
