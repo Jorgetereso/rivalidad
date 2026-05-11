@@ -148,9 +148,10 @@
   @keyframes winGlow{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6), 0 14px 40px rgba(0,0,0,.55)}50%{box-shadow:0 0 0 14px rgba(34,197,94,0), 0 14px 40px rgba(0,0,0,.55)}}
   .status-side.lose .status-circle{border-color:#ef4444;filter:saturate(.85)}
   .status-side.tie .status-circle{border-color:var(--gold)}
-  .status-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:'Anton';letter-spacing:4px;font-size:22px;padding:6px 14px;border:3px solid;border-radius:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);color:#fff}
-  .status-side.win .status-stamp{color:#86efac;border-color:#22c55e;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+  .status-stamp{display:inline-block;position:relative;z-index:3;margin-top:-14px;font-family:'Anton';letter-spacing:3.5px;font-size:15px;padding:5px 14px;border:3px solid;border-radius:4px;background:#0a0e16;color:#fff;transform:rotate(-2deg);box-shadow:0 6px 18px rgba(0,0,0,.45);text-transform:uppercase;white-space:nowrap}
+  .status-side.win .status-stamp{color:#86efac;border-color:#22c55e}
   .status-side.lose .status-stamp{color:#fca5a5;border-color:#ef4444}
+  .status-side.tie .status-stamp{color:var(--gold-2);border-color:var(--gold)}
   .status-name{font-family:'Anton';font-size:24px;letter-spacing:1.5px;color:#fff;margin-top:14px;text-transform:uppercase}
   .status-tag{font-family:'Oswald';font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-top:4px;padding:3px 10px;border-radius:2px}
   .status-side.win .status-tag{background:rgba(34,197,94,.18);color:#86efac;border:1px solid rgba(34,197,94,.4)}
@@ -165,7 +166,7 @@
     .status-head .lt{font-size:12px;letter-spacing:2px}
     .status-body{padding:18px 12px;gap:8px}
     .status-circle{width:120px;height:120px;border-width:4px}
-    .status-stamp{font-size:14px;padding:4px 9px;letter-spacing:2.5px;border-width:2px}
+    .status-stamp{font-size:12px;padding:4px 10px;letter-spacing:2.5px;border-width:2px;margin-top:-11px}
     .status-vs{font-size:28px}
     .status-name{font-size:18px;margin-top:10px;letter-spacing:1px}
     .status-tag{font-size:9px;letter-spacing:1.8px;padding:2px 8px}
@@ -173,7 +174,7 @@
   }
   @media (max-width:380px){
     .status-circle{width:100px;height:100px}
-    .status-stamp{font-size:11px;padding:3px 7px;letter-spacing:2px}
+    .status-stamp{font-size:11px;padding:3px 8px;letter-spacing:2px;margin-top:-9px}
     .status-vs{font-size:22px}
     .status-name{font-size:16px}
   }
@@ -558,8 +559,8 @@
           <div class="status-side" id="status-left">
             <div class="status-circle">
               <img id="status-img-left" src="status-winner.png" alt="winner">
-              <span class="status-stamp" id="status-stamp-left">WINNER</span>
             </div>
+            <span class="status-stamp" id="status-stamp-left">WINNER</span>
             <div class="status-name" id="status-name-left">George</div>
             <div class="status-tag" id="status-tag-left">DOMINATING</div>
           </div>
@@ -567,8 +568,8 @@
           <div class="status-side" id="status-right">
             <div class="status-circle">
               <img id="status-img-right" src="status-loser.png" alt="loser">
-              <span class="status-stamp" id="status-stamp-right">LOSER</span>
             </div>
+            <span class="status-stamp" id="status-stamp-right">LOSER</span>
             <div class="status-name" id="status-name-right">Nachito</div>
             <div class="status-tag" id="status-tag-right">ON THE MAT</div>
           </div>
