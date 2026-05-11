@@ -144,19 +144,19 @@
   .status-side{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
   .status-circle{cursor:zoom-in}
 
-  /* Zoom popup */
-  .zoom-pop{position:absolute;top:0;left:50%;width:360px;max-width:min(86vw, 380px);transform:translate(-50%, calc(-100% - 16px)) scale(.92);opacity:0;pointer-events:none;transition:opacity .22s ease, transform .22s ease;z-index:200;border-radius:12px;overflow:hidden;border:4px solid;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08)}
-  .status-side.win .zoom-pop{border-color:#22c55e;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(34,197,94,.4), 0 0 50px rgba(34,197,94,.25)}
-  .status-side.lose .zoom-pop{border-color:#ef4444;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(239,68,68,.4)}
+  /* Zoom popup — aparece encima del círculo, sin salir del bloque */
+  .zoom-pop{position:absolute;top:-10px;left:50%;width:340px;max-width:min(86vw, 360px);transform:translateX(-50%) scale(.85);transform-origin:center top;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:200;border-radius:12px;overflow:hidden;border:4px solid;box-shadow:0 24px 60px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.08)}
+  .status-side.win .zoom-pop{border-color:#22c55e;box-shadow:0 24px 60px rgba(0,0,0,.75), 0 0 0 1px rgba(34,197,94,.5), 0 0 60px rgba(34,197,94,.3)}
+  .status-side.lose .zoom-pop{border-color:#ef4444;box-shadow:0 24px 60px rgba(0,0,0,.75), 0 0 0 1px rgba(239,68,68,.5)}
   .status-side.tie .zoom-pop{border-color:var(--gold)}
   .zoom-pop img{width:100%;height:auto;display:block}
-  .zoom-pop::after{content:'';position:absolute;left:50%;bottom:-10px;transform:translateX(-50%) rotate(45deg);width:18px;height:18px;background:#0a0e16;border-right:3px solid;border-bottom:3px solid;border-color:inherit}
-  .status-side.win .zoom-pop::after{border-color:#22c55e}
-  .status-side.lose .zoom-pop::after{border-color:#ef4444}
   .status-side:hover .zoom-pop,
-  .status-side.expanded .zoom-pop{opacity:1;transform:translate(-50%, calc(-100% - 16px)) scale(1);pointer-events:auto}
+  .status-side.expanded .zoom-pop{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
   @media (max-width:780px){
-    .zoom-pop{width:280px;max-width:86vw;border-width:3px}
+    .zoom-pop{width:260px;max-width:86vw;border-width:3px;top:-6px}
+  }
+  @media (max-width:380px){
+    .zoom-pop{width:230px}
   }
   @media (hover:none){
     .status-side:hover .zoom-pop{opacity:0}
