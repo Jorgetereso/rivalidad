@@ -3,213 +3,280 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rivalry — George vs Nachito</title>
+<title>THE RIVALRY · George vs Nachito</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root{
-    --navy:#002b5c;
-    --navy-2:#001a3d;
-    --navy-3:#003a7a;
-    --red:#d50032;
-    --red-dark:#a8002a;
-    --gold:#c69214;
-    --gold-light:#e8b73a;
+    --bg:#07080c;
+    --bg-2:#0c0e15;
+    --card:#10131c;
+    --card-2:#161a27;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.16);
+    --text:#f1f5f9;
+    --text-2:#94a3b8;
+    --text-3:#64748b;
+    --red:#e11d48;
+    --red-2:#f43f5e;
+    --red-glow:rgba(225,29,72,.55);
+    --blue:#0ea5e9;
+    --blue-2:#38bdf8;
+    --blue-glow:rgba(14,165,233,.55);
+    --gold:#f59e0b;
+    --gold-2:#fbbf24;
     --white:#ffffff;
-    --gray-50:#f5f6f8;
-    --gray-100:#eceef2;
-    --gray-200:#d8dce3;
-    --gray-300:#b9bfc9;
-    --gray-500:#6b7280;
-    --gray-700:#3a4150;
-    --gray-900:#11151c;
-    --ink:#0a0f17;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--ink);background:var(--gray-50);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 20%, rgba(225,29,72,.12), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 85% 80%, rgba(14,165,233,.12), transparent 60%),
+      var(--bg);
+    min-height:100vh;
+  }
 
   /* ====== TOP BAR ====== */
-  .topbar{background:var(--navy);color:#fff;border-bottom:3px solid var(--red)}
-  .topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+  .topbar{background:rgba(7,8,12,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .topbar-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
   .brand{display:flex;align-items:center;gap:14px}
-  .brand-mark{display:flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:18px}
-  .brand-mark .dot{width:10px;height:10px;background:var(--red);border-radius:50%}
-  .brand-sub{font-family:'Oswald';font-size:12px;letter-spacing:3px;opacity:.7;border-left:1px solid rgba(255,255,255,.2);padding-left:14px}
-  .topbar nav{display:flex;gap:24px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
-  .topbar nav a{color:#fff;text-decoration:none;opacity:.85;transition:opacity .15s;border-bottom:2px solid transparent;padding-bottom:4px}
-  .topbar nav a:hover{opacity:1;border-bottom-color:var(--red)}
-  .topbar nav a.active{opacity:1;border-bottom-color:var(--red)}
-  @media (max-width:760px){.topbar nav{display:none}}
+  .brand-mark{font-family:'Anton',sans-serif;letter-spacing:3px;text-transform:uppercase;font-size:22px;color:#fff;display:flex;align-items:center;gap:10px}
+  .brand-mark::before{content:'';width:6px;height:22px;background:var(--red);transform:skewX(-15deg)}
+  .brand-mark::after{content:'';width:6px;height:22px;background:var(--blue);transform:skewX(-15deg)}
+  .brand-sub{font-family:'Oswald';font-size:11px;letter-spacing:3px;color:var(--text-2);border-left:1px solid var(--line);padding-left:14px;text-transform:uppercase}
+  .topbar nav{display:flex;gap:6px;font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .topbar nav a{color:var(--text-2);text-decoration:none;padding:8px 12px;border-radius:3px;transition:all .15s}
+  .topbar nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+  @media (max-width:760px){.topbar nav{display:none}.brand-sub{display:none}}
 
-  /* ====== BANNER (like PGA event banner) ====== */
-  .banner{background:linear-gradient(110deg, var(--navy-2) 0%, var(--navy) 45%, var(--navy-3) 100%);color:#fff;border-bottom:1px solid rgba(0,0,0,.1);position:relative;overflow:hidden}
-  .banner::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 2px, transparent 2px 12px);pointer-events:none}
-  .banner-inner{max-width:1280px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;position:relative;z-index:1}
-  .event-tag{display:flex;align-items:center;gap:14px}
-  .event-tag .pill{background:var(--red);color:#fff;font-family:'Oswald';font-size:11px;letter-spacing:2.5px;padding:5px 10px;border-radius:3px;font-weight:600}
-  .event-tag .title{font-family:'Oswald';font-size:20px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
-  .event-meta{display:flex;gap:28px;font-size:13px;color:rgba(255,255,255,.85)}
-  .event-meta .em-num{font-family:'Oswald';font-weight:700;color:#fff;font-size:18px;display:block;letter-spacing:.5px}
-  .event-meta .em-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6)}
+  /* ====== FIGHT BANNER ====== */
+  .banner{position:relative;background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);border-bottom:1px solid var(--line);overflow:hidden}
+  .banner::before{content:'';position:absolute;top:0;left:0;right:50%;bottom:0;background:linear-gradient(110deg, rgba(225,29,72,.15) 0%, transparent 70%);pointer-events:none}
+  .banner::after{content:'';position:absolute;top:0;left:50%;right:0;bottom:0;background:linear-gradient(-110deg, rgba(14,165,233,.15) 0%, transparent 70%);pointer-events:none}
+  .banner-inner{max-width:1320px;margin:0 auto;padding:30px 24px 24px;position:relative;z-index:1;text-align:center}
+  .banner .kicker{display:inline-flex;align-items:center;gap:10px;background:rgba(225,29,72,.15);border:1px solid var(--red);color:var(--red-2);padding:6px 14px;border-radius:3px;font-family:'Oswald';font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .banner .kicker .liveDot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  .banner h1{font-family:'Anton',sans-serif;font-size:clamp(40px,8vw,84px);line-height:.95;letter-spacing:1px;text-transform:uppercase;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.6)}
+  .banner h1 .vs-token{display:inline-block;color:#fff;font-size:.65em;margin:0 .35em;background:linear-gradient(135deg, var(--red) 0%, var(--red-2) 50%, var(--blue) 50%, var(--blue-2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;transform:skewX(-8deg);display:inline-block}
+  .banner .meta-row{display:flex;justify-content:center;gap:36px;margin-top:22px;flex-wrap:wrap}
+  .banner .meta-row .m{text-align:center}
+  .banner .meta-row .m .n{font-family:'Anton';font-size:26px;color:#fff;line-height:1}
+  .banner .meta-row .m .l{font-family:'Oswald';font-size:10px;letter-spacing:2.5px;color:var(--text-2);text-transform:uppercase;margin-top:4px}
 
   /* ====== LAYOUT ====== */
-  .container{max-width:1280px;margin:0 auto;padding:24px}
-  .grid-main{display:grid;grid-template-columns:1fr;gap:24px}
+  .container{max-width:1320px;margin:0 auto;padding:28px 24px 24px}
+  .grid{display:grid;grid-template-columns:1fr;gap:30px}
 
-  /* ====== SECTION TITLE (PGA style) ====== */
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;border-bottom:2px solid var(--ink);padding-bottom:10px}
-  .sec-head h2{font-family:'Oswald';font-size:22px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
-  .sec-head .sec-sub{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gray-500);font-weight:600}
+  /* ====== SECTION HEADER ====== */
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:14px}
+  .sec-head h2{font-family:'Anton',sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:2px;color:#fff;display:flex;align-items:center;gap:14px}
+  .sec-head h2::before{content:'';width:5px;height:24px;background:linear-gradient(180deg, var(--red) 0%, var(--blue) 100%);transform:skewX(-15deg)}
+  .sec-head .sub{font-family:'Oswald';font-size:11px;letter-spacing:2.5px;color:var(--text-3);text-transform:uppercase;font-weight:600;border-top:1px solid var(--line);flex:1;padding-top:6px;text-align:right;margin-left:14px}
 
-  /* ====== HERO MATCHUP CARD ====== */
-  .matchup{background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,30,90,.06);overflow:hidden;border:1px solid var(--gray-100)}
-  .matchup-top{background:var(--navy);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--red)}
-  .matchup-top .ttl{font-family:'Oswald';font-size:14px;letter-spacing:3px;text-transform:uppercase}
-  .matchup-top .live{display:flex;align-items:center;gap:8px;font-size:11px;font-family:'Oswald';letter-spacing:2px;text-transform:uppercase;color:var(--red)}
-  .matchup-top .live::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.8s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  /* ====== MATCHUP CARD (head-to-head) ====== */
+  .matchup{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .matchup::before{content:'';position:absolute;top:0;bottom:0;left:0;right:50%;background:radial-gradient(ellipse at 50% 50%, rgba(225,29,72,.18), transparent 70%);pointer-events:none}
+  .matchup::after{content:'';position:absolute;top:0;bottom:0;left:50%;right:0;background:radial-gradient(ellipse at 50% 50%, rgba(14,165,233,.18), transparent 70%);pointer-events:none}
+  .matchup-body{display:grid;grid-template-columns:1fr 100px 1fr;align-items:stretch;padding:36px 30px;gap:20px;position:relative;z-index:1}
+  @media (max-width:780px){.matchup-body{grid-template-columns:1fr;padding:24px 20px}}
 
-  .matchup-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:30px 24px}
-  @media (max-width:760px){.matchup-body{grid-template-columns:1fr;gap:20px;padding:20px}}
+  .corner{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:14px}
+  .corner.red{align-items:flex-end;text-align:right}
+  .corner.blue{align-items:flex-start;text-align:left}
+  @media (max-width:780px){.corner.red,.corner.blue{align-items:center;text-align:center}}
 
-  .player{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:10px}
-  .player.left{align-items:flex-end;text-align:right}
-  .player.right{align-items:flex-start;text-align:left}
-  @media (max-width:760px){.player.left,.player.right{align-items:center;text-align:center}}
+  .corner-tag{font-family:'Anton';font-size:12px;letter-spacing:4px;text-transform:uppercase;padding:5px 12px;border-radius:2px;margin-bottom:14px;color:#fff;display:inline-flex;align-items:center;gap:8px}
+  .corner.red .corner-tag{background:linear-gradient(90deg, var(--red) 0%, var(--red-2) 100%);box-shadow:0 4px 20px var(--red-glow)}
+  .corner.blue .corner-tag{background:linear-gradient(90deg, var(--blue) 0%, var(--blue-2) 100%);box-shadow:0 4px 20px var(--blue-glow)}
 
-  .player-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--navy);box-shadow:0 8px 28px rgba(0,0,0,.18);position:relative}
-  .player.leading .player-photo{border-color:var(--gold)}
-  .photo-wrap{position:relative;display:inline-block}
-  .photo-crown{position:absolute;top:-22px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:30px;display:none}
-  .player.leading .photo-crown{display:block}
-  .badge-rank{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:'Oswald';font-size:11px;padding:3px 12px;border-radius:3px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;border:2px solid #fff;white-space:nowrap}
-  .player.leading .badge-rank{background:var(--red)}
+  .photo-wrap{position:relative;display:inline-block;margin-bottom:14px}
+  .photo-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:linear-gradient(135deg, currentColor, transparent);opacity:.5;z-index:-1;filter:blur(8px)}
+  .corner.red .photo-wrap{color:var(--red)}
+  .corner.blue .photo-wrap{color:var(--blue)}
+  .corner.leading .photo-wrap::before{opacity:.9;animation:glow 2.5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:blur(8px);opacity:.6}50%{filter:blur(14px);opacity:1}}
+  .corner-photo{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid;display:block;box-shadow:0 12px 40px rgba(0,0,0,.5);background:#000}
+  .corner.red .corner-photo{border-color:var(--red)}
+  .corner.blue .corner-photo{border-color:var(--blue)}
+  .belt{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:34px;display:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+  .corner.leading .belt{display:block}
 
-  .player-name{font-family:'Oswald';font-size:34px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:18px;line-height:1}
-  .player-nick{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--gray-500);margin-top:6px;font-weight:600}
-  .player-score{font-family:'Oswald';font-size:96px;font-weight:700;line-height:.85;color:var(--navy);margin-top:14px;font-variant-numeric:tabular-nums}
-  .player.leading .player-score{color:var(--red)}
-  .player-score-lbl{font-size:11px;text-transform:uppercase;letter-spacing:2.5px;color:var(--gray-500);font-weight:700;margin-top:6px}
-  .player-streaks{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center}
-  .player.left .player-streaks{justify-content:flex-end}
-  .player.right .player-streaks{justify-content:flex-start}
-  @media (max-width:760px){.player.left .player-streaks,.player.right .player-streaks{justify-content:center}}
-  .streak-pill{background:var(--gray-50);border:1px solid var(--gray-200);font-size:11px;padding:5px 10px;border-radius:3px;font-weight:600;color:var(--gray-700);letter-spacing:.3px;font-family:'Inter'}
-  .streak-pill.fire{background:#fff5e6;border-color:#f7c66a;color:#8a5a00}
+  .corner-name{font-family:'Anton',sans-serif;font-size:46px;line-height:.9;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-top:6px}
+  .corner-nick{font-family:'Oswald';font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--text-2);margin-top:8px;font-weight:600}
+  .corner.red .corner-nick em{color:var(--red-2);font-style:normal}
+  .corner.blue .corner-nick em{color:var(--blue-2);font-style:normal}
 
-  .versus{text-align:center;padding:0 10px}
-  .versus .vs{font-family:'Oswald';font-size:28px;font-weight:700;color:var(--gray-300);letter-spacing:2px;margin-bottom:10px}
-  .versus .ties-box{background:linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);color:#fff;padding:18px 22px;border-radius:6px;box-shadow:0 6px 18px rgba(198,146,20,.35);min-width:140px;border:3px solid #fff;outline:2px solid var(--gold)}
-  .versus .ties-box .tn{font-family:'Oswald';font-size:56px;line-height:.9;font-weight:700;text-shadow:0 2px 6px rgba(0,0,0,.15)}
-  .versus .ties-box .tl{font-size:10px;text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-top:6px;opacity:.95}
-  .versus .ties-box .ts{font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-top:4px;opacity:.9}
+  .record{display:flex;align-items:baseline;gap:8px;margin-top:18px}
+  .corner.red .record{flex-direction:row-reverse}
+  .record .big{font-family:'Anton';font-size:88px;line-height:.85;font-variant-numeric:tabular-nums}
+  .corner.red .record .big{color:var(--red-2)}
+  .corner.blue .record .big{color:var(--blue-2)}
+  .record .lbl{font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:700}
 
-  /* ====== COMMENTARY ====== */
-  .commentary{background:#fff;border-left:5px solid var(--red);padding:16px 20px;border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:15px;line-height:1.55;color:var(--gray-900)}
-  .commentary .who{font-family:'Oswald';text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--red);font-weight:700;display:block;margin-bottom:6px}
+  .streak-row{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  .corner.red .streak-row{justify-content:flex-end}
+  .corner.blue .streak-row{justify-content:flex-start}
+  @media (max-width:780px){.corner .streak-row{justify-content:center}}
+  .sp{font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:5px 10px;border-radius:2px;color:var(--text-2);font-weight:600}
+  .sp.hot{background:rgba(245,158,11,.12);border-color:var(--gold);color:var(--gold-2)}
+
+  /* CENTER VS */
+  .vs-block{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative}
+  .vs-block .versus{font-family:'Anton';font-size:80px;line-height:1;color:#fff;background:linear-gradient(135deg, var(--red) 0%, var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-8deg);letter-spacing:-2px;text-shadow:0 0 40px rgba(255,255,255,.1)}
+  @media (max-width:780px){.vs-block .versus{font-size:60px}}
+  .vs-tag{font-family:'Oswald';font-size:10px;letter-spacing:3px;color:var(--text-3);text-transform:uppercase;text-align:center}
+
+  /* ====== COMMENTARY (single punchy line) ====== */
+  .commentary{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:6px;padding:16px 22px;display:flex;align-items:center;gap:18px}
+  .commentary .label{font-family:'Anton';font-size:12px;letter-spacing:3px;color:var(--red-2);text-transform:uppercase;white-space:nowrap}
+  .commentary .text{font-family:'Oswald';font-size:18px;color:#fff;font-weight:500;letter-spacing:.3px}
+
+  /* ====== TALE OF THE TAPE ====== */
+  .tape{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .tape-head{background:linear-gradient(90deg, var(--red) 0%, #0f1218 50%, var(--blue) 100%);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .tape-head .red-side{font-family:'Anton';font-size:18px;color:#fff;letter-spacing:1.5px}
+  .tape-head .center{font-family:'Anton';font-size:13px;letter-spacing:3px;color:#fff;background:rgba(0,0,0,.5);padding:4px 14px;border-radius:2px}
+  .tape-head .blue-side{font-family:'Anton';font-size:18px;color:#fff;letter-spacing:1.5px}
+  .tape-body{display:grid}
+  .tape-row{display:grid;grid-template-columns:1fr 180px 1fr;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);gap:14px}
+  .tape-row:last-child{border-bottom:none}
+  .tape-row .red-val{text-align:right;font-family:'Anton';font-size:32px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .blue-val{text-align:left;font-family:'Anton';font-size:32px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .red-val.win{color:var(--red-2);text-shadow:0 0 20px var(--red-glow)}
+  .tape-row .blue-val.win{color:var(--blue-2);text-shadow:0 0 20px var(--blue-glow)}
+  .tape-row .lbl{font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;text-align:center;color:var(--text-2);font-weight:600}
+  .form-strip{display:inline-flex;gap:4px;justify-content:flex-end}
+  .blue-val .form-strip{justify-content:flex-start}
+  .form-dot{width:22px;height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Anton';font-size:11px;color:#fff}
+  .form-dot.W{background:rgba(34,197,94,.85);border:1px solid #16a34a}
+  .form-dot.L{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text-3)}
+  .form-dot.T{background:rgba(245,158,11,.85);border:1px solid #d97706}
+  @media (max-width:680px){.tape-row{grid-template-columns:1fr 120px 1fr;padding:12px 14px}.tape-row .red-val,.tape-row .blue-val{font-size:24px}}
+
+  /* ====== PREDICTION ====== */
+  .pred-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
+  @media (max-width:900px){.pred-grid{grid-template-columns:1fr}}
+  .pred-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .pred-card .ch{background:linear-gradient(90deg, var(--red) 0%, var(--blue) 100%);padding:10px 18px;font-family:'Anton';font-size:14px;letter-spacing:3px;color:#fff;text-transform:uppercase;display:flex;justify-content:space-between}
+  .pred-card .ch .sub{font-family:'Oswald';font-size:11px;opacity:.85;letter-spacing:1.5px}
+  .pred-body{padding:22px}
+
+  .pred-bar{position:relative;height:46px;border-radius:4px;overflow:hidden;background:#000;display:flex;box-shadow:inset 0 2px 8px rgba(0,0,0,.6)}
+  .pred-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Anton';font-size:18px;letter-spacing:1px;position:relative;transition:width .8s ease}
+  .pred-seg.g{background:linear-gradient(90deg, var(--red) 0%, var(--red-2) 100%)}
+  .pred-seg.t{background:linear-gradient(90deg, #d97706 0%, var(--gold) 100%)}
+  .pred-seg.n{background:linear-gradient(90deg, var(--blue-2) 0%, var(--blue) 100%)}
+  .pred-legend{display:flex;justify-content:space-between;margin-top:12px;font-family:'Oswald';font-size:11px;letter-spacing:1.5px;color:var(--text-2);text-transform:uppercase}
+  .pred-legend span strong{color:#fff;font-family:'Anton';font-size:14px;display:block}
+  .pred-method{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.5;font-style:italic;border-top:1px solid var(--line);padding-top:12px}
+
+  .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:100%}
+  .mom-card{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+  .mom-card.red{border-top:3px solid var(--red)}
+  .mom-card.blue{border-top:3px solid var(--blue)}
+  .mom-card .name{font-family:'Anton';font-size:16px;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
+  .mom-card .arrow{font-family:'Anton';font-size:42px;line-height:1;margin:8px 0}
+  .mom-card.up .arrow{color:#22c55e}
+  .mom-card.down .arrow{color:#ef4444}
+  .mom-card.flat .arrow{color:var(--text-3)}
+  .mom-card .delta{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;color:var(--text-2);text-transform:uppercase}
+  .mom-card .desc{font-size:11px;color:var(--text-3);margin-top:8px;line-height:1.4}
 
   /* ====== STAT STRIP ====== */
-  .stat-strip{background:#fff;display:grid;grid-template-columns:repeat(6, 1fr);border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+  .stat-strip{background:var(--card);display:grid;grid-template-columns:repeat(5, 1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden}
   @media (max-width:900px){.stat-strip{grid-template-columns:repeat(3, 1fr)}}
   @media (max-width:500px){.stat-strip{grid-template-columns:repeat(2, 1fr)}}
-  .stat-cell{padding:18px 16px;border-right:1px solid var(--gray-100);text-align:center}
+  .stat-cell{padding:18px 14px;border-right:1px solid var(--line);text-align:center}
   .stat-cell:last-child{border-right:none}
-  .stat-cell .sv{font-family:'Oswald';font-size:30px;font-weight:700;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
-  .stat-cell .sl{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--gray-500);margin-top:8px;font-weight:700}
-  .stat-cell .ss{font-size:11px;color:var(--gray-500);margin-top:2px}
-  .stat-cell.accent .sv{color:var(--red)}
-  .stat-cell.gold .sv{color:var(--gold)}
-
-  /* ====== TIE SECTION (featured) ====== */
-  .tie-feature{background:linear-gradient(135deg, #fffbef 0%, #fef3d9 100%);border-radius:6px;border:1px solid var(--gold);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden;position:relative}
-  .tie-feature::before{content:'';position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%)}
-  .tie-feature-inner{padding:24px 26px 24px 32px;display:grid;grid-template-columns:1fr 2fr;gap:30px;align-items:center}
-  @media (max-width:760px){.tie-feature-inner{grid-template-columns:1fr;gap:20px}}
-  .tie-headline{display:flex;flex-direction:column}
-  .tie-headline .kicker{font-family:'Oswald';text-transform:uppercase;letter-spacing:3.5px;font-size:11px;color:var(--gold);font-weight:700}
-  .tie-headline .num{font-family:'Oswald';font-size:96px;line-height:.9;color:var(--navy);font-weight:700;margin:4px 0 2px;letter-spacing:-1px}
-  .tie-headline .lbl{font-family:'Oswald';font-size:24px;text-transform:uppercase;color:var(--navy);font-weight:600;letter-spacing:1px}
-  .tie-headline .micro{font-size:13px;color:var(--gray-700);margin-top:10px;line-height:1.45;font-style:italic}
-  .tie-list{display:flex;flex-direction:column;gap:8px}
-  .tie-row{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:center;background:#fff;border:1px solid #f1e5c0;border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px;transition:transform .15s}
-  .tie-row:hover{transform:translateX(2px)}
-  .tie-row .pos{font-family:'Oswald';color:var(--gray-300);font-size:18px;font-weight:700}
-  .tie-row .cn{font-family:'Oswald';font-size:17px;text-transform:uppercase;letter-spacing:1px;font-weight:600;color:var(--ink)}
-  .tie-row .tg{font-size:11px;color:var(--gray-500);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
-  .tie-row .he{font-size:22px}
-  .tie-empty{padding:20px;text-align:center;color:var(--gray-500);font-style:italic;background:#fff;border-radius:4px;border:1px dashed var(--gray-200)}
+  .stat-cell .sv{font-family:'Anton';font-size:30px;color:#fff;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .stat-cell.red .sv{color:var(--red-2)}
+  .stat-cell.blue .sv{color:var(--blue-2)}
+  .stat-cell.gold .sv{color:var(--gold-2)}
+  .stat-cell .sl{font-family:'Oswald';font-size:10px;letter-spacing:1.8px;color:var(--text-3);margin-top:8px;font-weight:700;text-transform:uppercase}
+  .stat-cell .ss{font-size:11px;color:var(--text-2);margin-top:2px}
 
   /* ====== CHARTS ====== */
-  .charts-row{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+  .charts-row{display:grid;grid-template-columns:1fr 2fr;gap:20px}
   @media (max-width:900px){.charts-row{grid-template-columns:1fr}}
-  .chart-card{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
-  .chart-card .ch-head{background:var(--navy);color:#fff;padding:12px 18px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .chart-card .ch-head{background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);padding:11px 18px;font-family:'Anton';font-size:13px;letter-spacing:2.5px;color:#fff;text-transform:uppercase}
   .chart-card .ch-body{padding:18px;position:relative;height:280px}
   .chart-card.full .ch-body{height:340px}
 
-  /* ====== LEADERBOARD (history) ====== */
-  .leaderboard{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
-  .lb-toolbar{padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--gray-100);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .chip{font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:#fff;border:1px solid var(--gray-200);color:var(--gray-700);padding:6px 12px;border-radius:3px;cursor:pointer;font-weight:600;transition:all .15s}
-  .chip:hover{border-color:var(--navy);color:var(--navy)}
-  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .chip.active.tie-chip{background:var(--gold);border-color:var(--gold)}
+  /* ====== TIES (compact strip) ====== */
+  .ties-strip{background:linear-gradient(90deg, rgba(245,158,11,.08) 0%, transparent 100%);border:1px solid rgba(245,158,11,.25);border-left:4px solid var(--gold);border-radius:6px;padding:14px 20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .ties-strip .tn{font-family:'Anton';font-size:38px;color:var(--gold-2);line-height:1}
+  .ties-strip .tl{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--text-2);text-transform:uppercase;font-weight:600;display:block}
+  .ties-strip .courses{flex:1;display:flex;gap:8px;flex-wrap:wrap}
+  .tie-chip{font-family:'Oswald';font-size:12px;letter-spacing:1px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold-2);padding:5px 10px;border-radius:3px;font-weight:600;text-transform:uppercase}
+
+  /* ====== LEADERBOARD ====== */
+  .lb-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .lb-toolbar{padding:12px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-family:'Oswald';font-size:11px;letter-spacing:1.8px;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 12px;border-radius:3px;cursor:pointer;font-weight:600;transition:all .15s}
+  .chip:hover{border-color:var(--line-2);color:#fff}
+  .chip.active{background:#fff;color:#000;border-color:#fff}
   .lb-table{width:100%;border-collapse:collapse}
-  .lb-table th{text-align:left;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-500);padding:12px 18px;border-bottom:2px solid var(--gray-100);font-weight:600;background:#fafbfc}
-  .lb-table td{padding:14px 18px;border-bottom:1px solid var(--gray-100);font-size:14px;vertical-align:middle}
+  .lb-table th{text-align:left;font-family:'Oswald';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);padding:11px 16px;border-bottom:1px solid var(--line);font-weight:600;background:rgba(255,255,255,.01)}
+  .lb-table td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
   .lb-table tr:last-child td{border-bottom:none}
-  .lb-table tr:hover td{background:#fafbfc}
-  .lb-table tr.tie-row-lb td{background:linear-gradient(90deg, rgba(232,183,58,.08) 0%, transparent 30%);}
-  .lb-table .num{font-family:'Oswald';color:var(--gray-300);font-weight:700;width:50px}
-  .lb-table .course{font-weight:600;text-transform:uppercase;font-family:'Oswald';letter-spacing:.5px;font-size:15px}
-  .lb-table .course .date{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--gray-500);margin-top:2px;text-transform:none;letter-spacing:0}
-  .lb-table .res{font-size:22px;width:50px;text-align:center}
-  .lb-table .who-cell{width:130px}
-  .pill{display:inline-block;font-family:'Oswald';font-size:11px;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:3px;font-weight:700}
-  .pill.george{background:var(--navy);color:#fff}
-  .pill.nachito{background:var(--red);color:#fff}
-  .pill.tie{background:var(--gold);color:#fff}
-  .lb-table .del{width:40px;text-align:right}
-  .lb-table .del button{background:none;border:none;color:var(--gray-300);cursor:pointer;font-size:14px;padding:6px;transition:color .15s}
-  .lb-table .del button:hover{color:var(--red)}
-  .lb-empty{padding:40px;text-align:center;color:var(--gray-500)}
+  .lb-table tr:hover td{background:rgba(255,255,255,.02)}
+  .lb-table .num{font-family:'Anton';color:var(--text-3);font-size:16px;width:50px}
+  .lb-table .course{font-family:'Oswald';font-weight:600;text-transform:uppercase;font-size:15px;letter-spacing:.5px}
+  .lb-table .course .date{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--text-3);margin-top:2px;text-transform:none;letter-spacing:0}
+  .lb-table .res{font-size:22px;width:48px;text-align:center}
+  .pill{display:inline-block;font-family:'Anton';font-size:12px;letter-spacing:1.5px;padding:4px 10px;border-radius:2px;color:#fff;text-transform:uppercase}
+  .pill.george{background:var(--red)}
+  .pill.nachito{background:var(--blue)}
+  .pill.tie{background:var(--gold)}
+  .lb-table .del{width:36px;text-align:right}
+  .lb-table .del button{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:14px;padding:6px;transition:color .15s}
+  .lb-table .del button:hover{color:var(--red-2)}
+  .lb-empty{padding:40px;text-align:center;color:var(--text-3)}
 
   /* ====== ADD MATCH ====== */
-  .add-match{background:#fff;border-radius:6px;border:1px solid var(--gray-100);box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
-  .add-match .am-head{background:var(--red);color:#fff;padding:12px 18px;font-family:'Oswald';font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;display:flex;align-items:center;justify-content:space-between}
-  .add-match .am-head .micro{font-family:'Inter';font-size:11px;text-transform:none;letter-spacing:0;opacity:.85;font-weight:400}
-  .am-body{padding:20px}
+  .add-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:sticky;top:80px}
+  .add-card .ah{background:linear-gradient(90deg, var(--red) 0%, var(--blue) 100%);padding:12px 18px;font-family:'Anton';font-size:14px;letter-spacing:2.5px;color:#fff;text-transform:uppercase}
+  .ab{padding:20px}
   .field{margin-bottom:14px}
-  .field label{display:block;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-700);font-weight:600;margin-bottom:6px}
-  .field input{width:100%;padding:11px 12px;border:1px solid var(--gray-200);border-radius:3px;font-size:14px;font-family:'Inter';color:var(--ink);outline:none;background:#fff;transition:border-color .15s}
-  .field input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,43,92,.1)}
-  .field-row{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+  .field label{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:600;margin-bottom:8px}
+  .field label .hint{font-family:'Inter';font-size:10px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:400}
+  .field input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:3px;font-size:14px;font-family:'Inter';color:#fff;outline:none;background:rgba(255,255,255,.03);transition:border-color .15s}
+  .field input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(225,29,72,.15)}
+  .field input::placeholder{color:var(--text-3)}
+  .quick-courses{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .qc{font-family:'Oswald';font-size:11px;letter-spacing:1px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text-2);padding:4px 9px;border-radius:2px;cursor:pointer;font-weight:600;transition:all .15s}
+  .qc:hover{border-color:var(--red);color:#fff;background:rgba(225,29,72,.1)}
+  .qc.new{border-style:dashed;color:var(--gold-2);border-color:rgba(245,158,11,.4)}
+  .qc.new:hover{background:rgba(245,158,11,.1);border-color:var(--gold)}
   .winner-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-bottom:14px}
-  .wb{padding:14px 8px;border:2px solid var(--gray-200);background:#fff;border-radius:3px;cursor:pointer;font-family:'Oswald';font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:13px;color:var(--gray-700);transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px}
-  .wb .we{font-size:24px;line-height:1}
-  .wb:hover{border-color:var(--navy);color:var(--navy)}
-  .wb.george.selected{border-color:var(--navy);background:var(--navy);color:#fff}
-  .wb.nachito.selected{border-color:var(--red);background:var(--red);color:#fff}
-  .wb.tie.selected{border-color:var(--gold);background:var(--gold);color:#fff}
-  .submit{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:3px;font-family:'Oswald';font-size:14px;text-transform:uppercase;letter-spacing:2px;font-weight:700;cursor:pointer;transition:background .15s}
-  .submit:hover:not(:disabled){background:var(--navy-3)}
-  .submit:disabled{background:var(--gray-200);color:var(--gray-500);cursor:not-allowed}
+  .wb{padding:14px 6px;border:2px solid var(--line);background:rgba(255,255,255,.02);border-radius:3px;cursor:pointer;font-family:'Anton';letter-spacing:1.2px;text-transform:uppercase;font-size:13px;color:var(--text-2);transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .wb .we{font-size:22px;line-height:1}
+  .wb:hover{border-color:var(--line-2);color:#fff}
+  .wb.george.selected{border-color:var(--red);background:rgba(225,29,72,.18);color:#fff;box-shadow:0 0 0 3px rgba(225,29,72,.15)}
+  .wb.nachito.selected{border-color:var(--blue);background:rgba(14,165,233,.18);color:#fff;box-shadow:0 0 0 3px rgba(14,165,233,.15)}
+  .wb.tie.selected{border-color:var(--gold);background:rgba(245,158,11,.18);color:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+  .submit{width:100%;padding:14px;background:linear-gradient(90deg, var(--red) 0%, #c4143e 100%);color:#fff;border:none;border-radius:3px;font-family:'Anton';font-size:14px;text-transform:uppercase;letter-spacing:3px;cursor:pointer;transition:transform .1s, box-shadow .15s;box-shadow:0 8px 20px rgba(225,29,72,.25)}
+  .submit:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 10px 26px rgba(225,29,72,.35)}
+  .submit:disabled{background:rgba(255,255,255,.06);color:var(--text-3);cursor:not-allowed;box-shadow:none}
+
+  /* ====== TWO-COL BOTTOM ====== */
+  .two-col{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
 
   /* ====== FOOTER ====== */
-  footer{background:var(--navy-2);color:rgba(255,255,255,.6);padding:24px;margin-top:40px;border-top:3px solid var(--red);text-align:center;font-size:12px;letter-spacing:.5px}
-  footer .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-  footer button{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  footer{background:var(--bg-2);border-top:1px solid var(--line);padding:24px;margin-top:40px;text-align:center}
+  .foot-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Oswald';font-size:11px;color:var(--text-3);letter-spacing:2px;text-transform:uppercase}
+  footer button{background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 12px;border-radius:3px;cursor:pointer;font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
   footer button:hover{border-color:var(--red);color:#fff}
 
   /* ====== TOAST ====== */
-  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;padding:14px 26px;border-radius:3px;font-family:'Oswald';font-size:14px;text-transform:uppercase;letter-spacing:2px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.25);border-left:4px solid var(--red)}
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--red);color:#fff;padding:14px 22px;border-radius:3px;font-family:'Anton';font-size:14px;text-transform:uppercase;letter-spacing:2.5px;opacity:0;transition:all .3s;pointer-events:none;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.5)}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-  /* ====== TWO COLUMN BOTTOM ====== */
-  .two-col{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
-  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -218,13 +285,13 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <div class="brand-mark"><span class="dot"></span> THE RIVALRY</div>
-      <div class="brand-sub">EST. FOREVER · 9 HOLES OF EGO</div>
+      <span class="brand-mark">THE RIVALRY</span>
+      <span class="brand-sub">George 🍆 vs Nachito 🦷</span>
     </div>
     <nav>
-      <a href="#matchup" class="active">Matchup</a>
-      <a href="#stats">Stats</a>
-      <a href="#ties">Ties</a>
+      <a href="#matchup">Matchup</a>
+      <a href="#tape">Tale of the Tape</a>
+      <a href="#pred">Predicción</a>
       <a href="#leaderboard">Historial</a>
       <a href="#add">Agregar</a>
     </nav>
@@ -234,63 +301,58 @@
 <!-- ============ BANNER ============ -->
 <div class="banner">
   <div class="banner-inner">
-    <div class="event-tag">
-      <span class="pill">EN CURSO</span>
-      <span class="title">George vs Nachito · Lifetime Series</span>
-    </div>
-    <div class="event-meta">
-      <div><span class="em-num" id="meta-total">0</span><span class="em-label">Partidos</span></div>
-      <div><span class="em-num" id="meta-courses">0</span><span class="em-label">Canchas</span></div>
-      <div><span class="em-num" id="meta-last">—</span><span class="em-label">Última</span></div>
+    <div class="kicker"><span class="liveDot"></span> Main Event · Lifetime Series</div>
+    <h1>GEORGE <span class="vs-token">VS</span> NACHITO</h1>
+    <div class="meta-row">
+      <div class="m"><div class="n" id="meta-total">0</div><div class="l">Partidos</div></div>
+      <div class="m"><div class="n" id="meta-courses">0</div><div class="l">Canchas</div></div>
+      <div class="m"><div class="n" id="meta-last">—</div><div class="l">Última</div></div>
+      <div class="m"><div class="n" id="meta-leader">—</div><div class="l">Líder</div></div>
     </div>
   </div>
 </div>
 
 <!-- ============ MAIN ============ -->
 <div class="container">
-  <div class="grid-main">
+  <div class="grid">
 
-    <!-- MATCHUP CARD -->
+    <!-- MATCHUP -->
     <section id="matchup">
       <div class="matchup">
-        <div class="matchup-top">
-          <span class="ttl">Head to Head · Career</span>
-          <span class="live">Live</span>
-        </div>
         <div class="matchup-body">
-          <div class="player left" id="card-george">
+          <div class="corner red" id="corner-george">
+            <span class="corner-tag">🟥 Esquina Roja</span>
             <div class="photo-wrap">
-              <span class="photo-crown">👑</span>
-              <img class="player-photo" src="george.png" alt="George">
-              <span class="badge-rank" id="badge-george">P1</span>
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="george.png" alt="George">
             </div>
-            <div class="player-name">George</div>
-            <div class="player-nick">🍆 LA BENIGENA</div>
-            <div class="player-score" id="score-george">0</div>
-            <div class="player-score-lbl">VICTORIAS</div>
-            <div class="player-streaks" id="streaks-george"></div>
+            <div class="corner-name">GEORGE</div>
+            <div class="corner-nick">🍆 LA <em>BERENJENA</em></div>
+            <div class="record">
+              <span class="big" id="score-george">0</span>
+              <span class="lbl">VICTORIAS</span>
+            </div>
+            <div class="streak-row" id="streaks-george"></div>
           </div>
 
-          <div class="versus">
-            <div class="vs">VS</div>
-            <div class="ties-box">
-              <div class="tn" id="score-ties">0</div>
-              <div class="tl">EMPATES</div>
-              <div class="ts">★ honor compartido ★</div>
-            </div>
+          <div class="vs-block">
+            <div class="versus">VS</div>
+            <div class="vs-tag">21 ROUNDS · NO TIMER</div>
           </div>
 
-          <div class="player right" id="card-nachito">
+          <div class="corner blue" id="corner-nachito">
+            <span class="corner-tag">🟦 Esquina Azul</span>
             <div class="photo-wrap">
-              <span class="photo-crown">👑</span>
-              <img class="player-photo" src="nachito.png" alt="Nachito">
-              <span class="badge-rank" id="badge-nachito">P2</span>
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="nachito.png" alt="Nachito">
             </div>
-            <div class="player-name">Nachito</div>
-            <div class="player-nick">🦷 EL DENTISTA</div>
-            <div class="player-score" id="score-nachito">0</div>
-            <div class="player-score-lbl">VICTORIAS</div>
-            <div class="player-streaks" id="streaks-nachito"></div>
+            <div class="corner-name">NACHITO</div>
+            <div class="corner-nick">🦷 EL <em>DENTISTA</em></div>
+            <div class="record">
+              <span class="big" id="score-nachito">0</span>
+              <span class="lbl">VICTORIAS</span>
+            </div>
+            <div class="streak-row" id="streaks-nachito"></div>
           </div>
         </div>
       </div>
@@ -298,42 +360,78 @@
 
     <!-- COMMENTARY -->
     <div class="commentary">
-      <span class="who">Análisis del comentarista</span>
-      <span id="commentary-text">…</span>
+      <span class="label">🎙 Trash Talk</span>
+      <span class="text" id="commentary-text">…</span>
     </div>
 
+    <!-- TALE OF THE TAPE -->
+    <section id="tape">
+      <div class="sec-head">
+        <h2>Tale of the Tape</h2>
+        <span class="sub">Stats cara a cara</span>
+      </div>
+      <div class="tape">
+        <div class="tape-head">
+          <div class="red-side">🟥 GEORGE</div>
+          <div class="center">VS</div>
+          <div class="blue-side">NACHITO 🟦</div>
+        </div>
+        <div class="tape-body" id="tape-body"></div>
+      </div>
+    </section>
+
+    <!-- PREDICTION -->
+    <section id="pred">
+      <div class="sec-head">
+        <h2>Próximo Match · Predicción</h2>
+        <span class="sub">basado en forma reciente + win rate histórico</span>
+      </div>
+      <div class="pred-grid">
+        <div class="pred-card">
+          <div class="ch"><span>Probabilidad de ganar</span><span class="sub">Last 5 ponderado</span></div>
+          <div class="pred-body">
+            <div class="pred-bar" id="pred-bar"></div>
+            <div class="pred-legend" id="pred-legend"></div>
+            <div class="pred-method">Modelo: 65% últimas 5 vueltas (más peso a las recientes) + 35% win rate histórico. Empate normalizado.</div>
+          </div>
+        </div>
+        <div class="pred-card">
+          <div class="ch"><span>Momentum</span><span class="sub">¿quién viene caliente?</span></div>
+          <div class="pred-body">
+            <div class="momentum-grid" id="momentum"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- STAT STRIP -->
-    <section id="stats">
-      <div class="sec-head"><h2>Tournament Stats</h2><span class="sec-sub">Career totals</span></div>
+    <section>
+      <div class="sec-head"><h2>Career Stats</h2><span class="sub">Totales históricos</span></div>
       <div class="stat-strip" id="stat-strip"></div>
     </section>
 
-    <!-- TIE FEATURE -->
-    <section id="ties">
-      <div class="sec-head"><h2>The Ties · El club del empate</h2><span class="sec-sub">Donde nadie pudo ganar</span></div>
-      <div class="tie-feature">
-        <div class="tie-feature-inner">
-          <div class="tie-headline">
-            <span class="kicker">★ HONORABLE PUSH ★</span>
-            <span class="num" id="tie-num">0</span>
-            <span class="lbl">Empates en la historia</span>
-            <span class="micro" id="tie-micro">El empate honorable: ningún ego herido, ninguna gloria. Sólo dos amigos jugando bien.</span>
-          </div>
-          <div class="tie-list" id="tie-list"></div>
+    <!-- TIES (compact) -->
+    <section>
+      <div class="ties-strip">
+        <div>
+          <div class="tn" id="ties-num">0</div>
+          <span class="tl">Empates</span>
         </div>
+        <div style="border-left:1px solid var(--line);height:48px"></div>
+        <div class="courses" id="ties-courses"></div>
       </div>
     </section>
 
     <!-- CHARTS -->
     <section>
-      <div class="sec-head"><h2>Stat Tracker</h2><span class="sec-sub">Gráficos &amp; tendencias</span></div>
+      <div class="sec-head"><h2>Stat Tracker</h2><span class="sub">Tendencias visuales</span></div>
       <div class="charts-row">
         <div class="chart-card">
           <div class="ch-head">Distribución total</div>
           <div class="ch-body"><canvas id="pieChart"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="ch-head">Evolución acumulada · match por match</div>
+          <div class="ch-head">Evolución acumulada</div>
           <div class="ch-body"><canvas id="lineChart"></canvas></div>
         </div>
         <div class="chart-card full" style="grid-column:1/-1">
@@ -347,13 +445,13 @@
     <section>
       <div class="two-col">
         <div id="leaderboard">
-          <div class="sec-head"><h2>Leaderboard · Historial</h2><span class="sec-sub">Todos los partidos</span></div>
-          <div class="leaderboard">
+          <div class="sec-head"><h2>Historial</h2><span class="sub">Todos los partidos</span></div>
+          <div class="lb-card">
             <div class="lb-toolbar">
               <span class="chip active" data-filter="all">Todos</span>
               <span class="chip" data-filter="george">🍆 George</span>
               <span class="chip" data-filter="nachito">🦷 Nachito</span>
-              <span class="chip tie-chip" data-filter="tie">🤝 Empates</span>
+              <span class="chip" data-filter="tie">🤝 Iguales</span>
             </div>
             <table class="lb-table">
               <thead>
@@ -371,16 +469,14 @@
         </div>
 
         <div id="add">
-          <div class="sec-head"><h2>Sumar Match</h2><span class="sec-sub">Recién jugado</span></div>
-          <div class="add-match">
-            <div class="am-head">
-              <span>Agregar resultado</span>
-              <span class="micro">Persiste local</span>
-            </div>
-            <div class="am-body">
+          <div class="sec-head"><h2>Sumar Match</h2><span class="sub">post-cancha</span></div>
+          <div class="add-card">
+            <div class="ah">¡Acabaron de jugar?</div>
+            <div class="ab">
               <div class="field">
-                <label>Cancha</label>
-                <input type="text" id="input-course" placeholder="ej. Chapelco" list="course-list" autocomplete="off">
+                <label>Cancha <span class="hint">existente o nueva</span></label>
+                <div class="quick-courses" id="quick-courses"></div>
+                <input type="text" id="input-course" placeholder="Escribí el nombre de la cancha…" list="course-list" autocomplete="off">
                 <datalist id="course-list"></datalist>
               </div>
               <div class="field">
@@ -407,7 +503,7 @@
 
 <footer>
   <div class="foot-inner">
-    <div>THE RIVALRY · GEORGE 🍆 vs NACHITO 🦷 · GOLF, EGO Y BENIGENAS</div>
+    <div>THE RIVALRY · GEORGE 🍆 VS NACHITO 🦷</div>
     <div style="display:flex;gap:8px">
       <button id="export-btn">Exportar</button>
       <button id="import-btn">Importar</button>
@@ -449,7 +545,6 @@ function loadMatches() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      // migrate from v1 if present
       const old = localStorage.getItem("rivalidad_nach_v1");
       const seed = old ? JSON.parse(old) : SEED_MATCHES;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
@@ -469,11 +564,11 @@ let pieChart, lineChart, barChart;
 function counts(){ const c={george:0,nachito:0,tie:0}; MATCHES.forEach(m=>c[m.winner]++); return c; }
 function winRate(c){ const t=c.george+c.nachito+c.tie; return t?{g:c.george/t*100,n:c.nachito/t*100,t:c.tie/t*100}:{g:0,n:0,t:0}; }
 function streaks(){
-  let maxG=0,maxN=0,curG=0,curN=0,maxT=0,curT=0;
+  let maxG=0,maxN=0,curG=0,curN=0;
   MATCHES.forEach(m=>{
-    if(m.winner==="george"){curG++;curN=0;curT=0;maxG=Math.max(maxG,curG)}
-    else if(m.winner==="nachito"){curN++;curG=0;curT=0;maxN=Math.max(maxN,curN)}
-    else{curT++;curG=0;curN=0;maxT=Math.max(maxT,curT)}
+    if(m.winner==="george"){curG++;curN=0;maxG=Math.max(maxG,curG)}
+    else if(m.winner==="nachito"){curN++;curG=0;maxN=Math.max(maxN,curN)}
+    else{curG=0;curN=0}
   });
   let cw=null,cl=0;
   for(let i=MATCHES.length-1;i>=0;i--){
@@ -481,7 +576,7 @@ function streaks(){
     if(w==="tie"){ if(cw===null) continue; else break; }
     if(cw===null){cw=w;cl=1} else if(w===cw) cl++; else break;
   }
-  return {maxG,maxN,maxT,currentWho:cw,currentLen:cl};
+  return {maxG,maxN,currentWho:cw,currentLen:cl};
 }
 function byCourse(){
   const map={};
@@ -492,123 +587,236 @@ function byCourse(){
   return Object.values(map).sort((a,b)=>b.total-a.total||a.course.localeCompare(b.course));
 }
 function uniqueCourses(){ return [...new Set(MATCHES.map(m=>m.course))].sort(); }
-function tieList(){ return MATCHES.map((m,i)=>({...m,idx:i+1})).filter(m=>m.winner==="tie"); }
+function lastN(n){ return MATCHES.slice(-n); }
 
-function commentaryText(c,s){
-  const diff = c.george - c.nachito;
-  const tieCt = c.tie;
+function formFor(player, n=5){
+  const arr = lastN(n);
+  return arr.map(m => {
+    if (m.winner === "tie") return "T";
+    return m.winner === player ? "W" : "L";
+  });
+}
+
+function predict(){
+  const last = lastN(5);
+  if (!MATCHES.length) return { george: 1/3, nachito: 1/3, tie: 1/3 };
+  let totalW = 0, rg = 0, rn = 0, rt = 0;
+  last.forEach((m,i) => {
+    const w = i + 1;
+    totalW += w;
+    if (m.winner === "george") rg += w;
+    else if (m.winner === "nachito") rn += w;
+    else rt += w;
+  });
+  if (totalW > 0) { rg /= totalW; rn /= totalW; rt /= totalW; }
+  const c = counts();
   const total = c.george + c.nachito + c.tie;
-  const tiePct = total ? (tieCt/total*100).toFixed(0) : 0;
-  const lines = [];
-  if (diff >= 5) lines.push("La benigena reina sin piedad. Nachito está cobrando rivalidad, no goles.");
-  else if (diff >= 2) lines.push("George manda con la huerta. El dentista no llega a la fila siguiente.");
-  else if (diff === 1) lines.push("George arriba por un suspiro. Una mala vuelta y Nachito empata.");
-  else if (diff === 0) lines.push("Empate técnico en la rivalidad. Hay que jugar mañana aunque llueva.");
-  else if (diff === -1) lines.push("Nachito asoma la muela. Un par de bogeys y George recupera.");
-  else if (diff >= -4) lines.push("El dentista te está abriendo la boca. Reforzá el swing.");
-  else lines.push("Catástrofe odontológica. George necesita prótesis.");
+  const og = total ? c.george/total : 1/3;
+  const on = total ? c.nachito/total : 1/3;
+  const ot = total ? c.tie/total : 1/3;
+  const blend = 0.65;
+  let pg = blend*rg + (1-blend)*og;
+  let pn = blend*rn + (1-blend)*on;
+  let pt = blend*rt + (1-blend)*ot;
+  const s = pg + pn + pt || 1;
+  return { george: pg/s, nachito: pn/s, tie: pt/s };
+}
 
-  if (tieCt >= 3) lines.push(`${tieCt} empates (${tiePct}% del total) — esta rivalidad respeta el honor.`);
-  if (s.currentLen >= 3){
-    if (s.currentWho === "george") lines.push(`Racha actual: ${s.currentLen} benigenas seguidas 🔥`);
-    else lines.push(`Racha actual: ${s.currentLen} muelas seguidas. Hay anestesia en el carrito.`);
+function momentum(){
+  // form % in last 5 vs career %
+  if (MATCHES.length < 3) return { george: 0, nachito: 0 };
+  const last = lastN(5);
+  const c5 = { george:0, nachito:0, tie:0 };
+  last.forEach(m => c5[m.winner]++);
+  const c = counts();
+  const total = c.george + c.nachito + c.tie;
+  const t5 = last.length;
+  return {
+    george: (c5.george/t5) - (total?c.george/total:0),
+    nachito: (c5.nachito/t5) - (total?c.nachito/total:0),
+  };
+}
+
+function commentaryText(c, s){
+  const diff = c.george - c.nachito;
+  // streak takes priority when intense
+  if (s.currentLen >= 4) {
+    return s.currentWho === "george"
+      ? `George clavó ${s.currentLen} berenjenas seguidas. Nachito necesita anestesia.`
+      : `Nachito metió ${s.currentLen} muelas en fila. Llevá cepillo.`;
   }
-  return lines.join(" ");
+  if (s.currentLen === 3) {
+    return s.currentWho === "george"
+      ? `Tres berenjenas al hilo. ¿Recuperación o paliza?`
+      : `Tres muelas seguidas. El dentista huele sangre.`;
+  }
+  // diff-based
+  if (diff >= 5) return "George en modo Tiger. Nachito necesita lentes.";
+  if (diff >= 3) return "Berenjena reina. Nachito juega para el handicap.";
+  if (diff === 2) return "George arriba pero sin festejar.";
+  if (diff === 1) return "Por un golpe. Un bogey lo da vuelta.";
+  if (diff === 0) return "0–0 en la guerra. Que arranque el desempate.";
+  if (diff === -1) return "Nachito asoma la muela. Ojo.";
+  if (diff === -2) return "El dentista te está pidiendo turno.";
+  if (diff <= -3) return "Te están sacando hasta los implantes.";
+  return "La rivalidad sigue.";
 }
 
 /* ======================= RENDER ======================= */
 function render(){
   const c = counts();
   const s = streaks();
-  const tList = tieList();
   const total = c.george + c.nachito + c.tie;
   const courses = uniqueCourses().length;
   const last = MATCHES[MATCHES.length-1];
 
-  // banner meta
+  // Banner meta
   document.getElementById("meta-total").textContent = total;
   document.getElementById("meta-courses").textContent = courses;
   document.getElementById("meta-last").textContent = last ? last.course : "—";
+  const leaderTxt = c.george > c.nachito ? "George" : c.nachito > c.george ? "Nachito" : "Iguales";
+  document.getElementById("meta-leader").textContent = leaderTxt;
 
-  // scores
+  // Scores
   document.getElementById("score-george").textContent = c.george;
   document.getElementById("score-nachito").textContent = c.nachito;
-  document.getElementById("score-ties").textContent = c.tie;
-
-  // leader
   const gLead = c.george > c.nachito, nLead = c.nachito > c.george;
-  document.getElementById("card-george").classList.toggle("leading", gLead);
-  document.getElementById("card-nachito").classList.toggle("leading", nLead);
-  document.getElementById("badge-george").textContent = gLead ? "LEADER" : (c.george===c.nachito?"TIED":"P2");
-  document.getElementById("badge-nachito").textContent = nLead ? "LEADER" : (c.george===c.nachito?"TIED":"P2");
+  document.getElementById("corner-george").classList.toggle("leading", gLead);
+  document.getElementById("corner-nachito").classList.toggle("leading", nLead);
 
-  // streak pills
-  let gpills = `<span class="streak-pill fire">🔥 mejor racha: ${s.maxG}</span>`;
-  if (s.currentWho === "george" && s.currentLen >= 1) gpills += `<span class="streak-pill">⚡ actual: ${s.currentLen}</span>`;
-  document.getElementById("streaks-george").innerHTML = gpills;
-  let npills = `<span class="streak-pill fire">🔥 mejor racha: ${s.maxN}</span>`;
-  if (s.currentWho === "nachito" && s.currentLen >= 1) npills += `<span class="streak-pill">⚡ actual: ${s.currentLen}</span>`;
-  document.getElementById("streaks-nachito").innerHTML = npills;
+  // Streak pills
+  let gp = `<span class="sp hot">🔥 mejor: ${s.maxG}</span>`;
+  if (s.currentWho === "george" && s.currentLen >= 1) gp += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-george").innerHTML = gp;
+  let np = `<span class="sp hot">🔥 mejor: ${s.maxN}</span>`;
+  if (s.currentWho === "nachito" && s.currentLen >= 1) np += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-nachito").innerHTML = np;
 
-  // commentary
+  // Commentary
   document.getElementById("commentary-text").textContent = commentaryText(c, s);
 
-  // stat strip
+  // Tale of the tape
   const wr = winRate(c);
+  const formG = formFor("george", 5);
+  const formN = formFor("nachito", 5);
+  const formGHTML = formG.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const formNHTML = formN.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const last5 = lastN(5);
+  const win5G = last5.filter(m=>m.winner==="george").length;
+  const win5N = last5.filter(m=>m.winner==="nachito").length;
+
+  document.getElementById("tape-body").innerHTML = `
+    <div class="tape-row">
+      <div class="red-val ${c.george>=c.nachito?'win':''}">${c.george}</div>
+      <div class="lbl">Victorias</div>
+      <div class="blue-val ${c.nachito>=c.george?'win':''}">${c.nachito}</div>
+    </div>
+    <div class="tape-row">
+      <div class="red-val ${wr.g>=wr.n?'win':''}">${wr.g.toFixed(0)}%</div>
+      <div class="lbl">Win Rate</div>
+      <div class="blue-val ${wr.n>=wr.g?'win':''}">${wr.n.toFixed(0)}%</div>
+    </div>
+    <div class="tape-row">
+      <div class="red-val ${s.maxG>=s.maxN?'win':''}">${s.maxG}</div>
+      <div class="lbl">Mejor Racha</div>
+      <div class="blue-val ${s.maxN>=s.maxG?'win':''}">${s.maxN}</div>
+    </div>
+    <div class="tape-row">
+      <div class="red-val ${win5G>=win5N?'win':''}">${win5G}-${last5.length-win5G}</div>
+      <div class="lbl">Últimos 5 (W-resto)</div>
+      <div class="blue-val ${win5N>=win5G?'win':''}">${win5N}-${last5.length-win5N}</div>
+    </div>
+    <div class="tape-row">
+      <div class="red-val" style="font-size:22px">${formGHTML || '—'}</div>
+      <div class="lbl">Forma (últimos 5)</div>
+      <div class="blue-val" style="font-size:22px">${formNHTML || '—'}</div>
+    </div>
+  `;
+
+  // Prediction
+  const p = predict();
+  const pg = (p.george*100).toFixed(0);
+  const pt = (p.tie*100).toFixed(0);
+  const pn = (p.nachito*100).toFixed(0);
+  document.getElementById("pred-bar").innerHTML = `
+    <div class="pred-seg g" style="width:${pg}%">${pg >= 8 ? pg+'%' : ''}</div>
+    <div class="pred-seg t" style="width:${pt}%">${pt >= 8 ? pt+'%' : ''}</div>
+    <div class="pred-seg n" style="width:${pn}%">${pn >= 8 ? pn+'%' : ''}</div>
+  `;
+  document.getElementById("pred-legend").innerHTML = `
+    <span><strong>🍆 ${pg}%</strong>George</span>
+    <span><strong>🤝 ${pt}%</strong>Igual</span>
+    <span><strong>${pn}% 🦷</strong>Nachito</span>
+  `;
+
+  // Momentum
+  const mom = momentum();
+  function momCard(player, delta){
+    const dpct = (delta*100);
+    const dir = Math.abs(dpct) < 5 ? "flat" : (dpct > 0 ? "up" : "down");
+    const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "—";
+    const name = player === "george" ? "GEORGE" : "NACHITO";
+    const cls = player === "george" ? "red" : "blue";
+    const desc = dir === "up"
+      ? "Viene caliente. Va arriba de su promedio histórico."
+      : dir === "down"
+      ? "Frío. Rinde menos que su promedio."
+      : "En su promedio histórico.";
+    return `
+      <div class="mom-card ${cls} ${dir}">
+        <div>
+          <div class="name">${name}</div>
+          <div class="arrow">${arrow}</div>
+        </div>
+        <div>
+          <div class="delta">${dpct >= 0 ? "+" : ""}${dpct.toFixed(0)} pts vs. histórico</div>
+          <div class="desc">${desc}</div>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("momentum").innerHTML = momCard("george", mom.george) + momCard("nachito", mom.nachito);
+
+  // Stat strip
   const h2h = c.george > c.nachito ? `+${c.george-c.nachito}` : c.nachito > c.george ? `+${c.nachito-c.george}` : "0";
   const h2hWho = c.george > c.nachito ? "George" : c.nachito > c.george ? "Nachito" : "Empate";
   const cl = byCourse();
-  const mostPlayed = cl[0] ? cl[0].course : "—";
-  const mostPlayedN = cl[0] ? cl[0].total : 0;
   document.getElementById("stat-strip").innerHTML = `
     <div class="stat-cell"><div class="sv">${total}</div><div class="sl">Partidos totales</div></div>
-    <div class="stat-cell"><div class="sv">${h2h}</div><div class="sl">Head to head</div><div class="ss">${h2hWho}</div></div>
-    <div class="stat-cell"><div class="sv">${wr.g.toFixed(0)}%</div><div class="sl">Win % George</div></div>
-    <div class="stat-cell accent"><div class="sv">${wr.n.toFixed(0)}%</div><div class="sl">Win % Nachito</div></div>
-    <div class="stat-cell gold"><div class="sv">${wr.t.toFixed(0)}%</div><div class="sl">Empate %</div></div>
-    <div class="stat-cell"><div class="sv" style="font-size:18px">${mostPlayed}</div><div class="sl">Cancha + jugada</div><div class="ss">${mostPlayedN}× rounds</div></div>
+    <div class="stat-cell"><div class="sv">${h2h}</div><div class="sl">Diferencia</div><div class="ss">${h2hWho}</div></div>
+    <div class="stat-cell red"><div class="sv">${c.george}-${c.nachito}-${c.tie}</div><div class="sl">W-L-T George</div></div>
+    <div class="stat-cell blue"><div class="sv">${c.nachito}-${c.george}-${c.tie}</div><div class="sl">W-L-T Nachito</div></div>
+    <div class="stat-cell"><div class="sv" style="font-size:18px">${cl[0]?cl[0].course:'—'}</div><div class="sl">Cancha + jugada</div><div class="ss">${cl[0]?cl[0].total+'× rounds':''}</div></div>
   `;
 
-  // ties section
-  document.getElementById("tie-num").textContent = c.tie;
-  const tieMicro = c.tie === 0
-    ? "Sin empates todavía. Alguien tiene que ceder."
-    : c.tie === 1
-    ? "Un solo empate honorable. Una historia, una cancha, dos egos."
-    : `${c.tie} empates en la historia. Cuando nadie pudo ganar, ambos ganaron. ${s.maxT >= 2 ? `Máxima racha de empates seguidos: ${s.maxT}.` : ""}`;
-  document.getElementById("tie-micro").textContent = tieMicro;
+  // Ties strip
+  const tList = MATCHES.filter(m=>m.winner==="tie");
+  document.getElementById("ties-num").textContent = c.tie;
+  document.getElementById("ties-courses").innerHTML =
+    tList.length
+      ? tList.map(t=>`<span class="tie-chip">🤝 ${escapeHTML(t.course)}</span>`).join("")
+      : `<span style="color:var(--text-3);font-size:13px">Todavía no hay empates.</span>`;
 
-  const tieListEl = document.getElementById("tie-list");
-  if (!tList.length) {
-    tieListEl.innerHTML = `<div class="tie-empty">Todavía no hay empates registrados.</div>`;
-  } else {
-    tieListEl.innerHTML = tList.map((t,i) => `
-      <div class="tie-row">
-        <div class="pos">#${String(t.idx).padStart(2,"0")}</div>
-        <div>
-          <div class="cn">${escapeHTML(t.course)}</div>
-          <div class="tg">${tieTagline(i, t.course)}</div>
-        </div>
-        <div class="he">🤝</div>
-      </div>
-    `).join("");
-  }
-
+  // Quick courses
+  renderQuickCourses();
+  refreshCourseDatalist();
   renderHistory();
   renderCharts();
-  refreshCourseDatalist();
 }
 
-function tieTagline(i, course){
-  const tags = [
-    "ni vencedor ni vencido",
-    "empate honorable",
-    "el handshake del fairway",
-    "la cancha decidió no decidir",
-    "los dos en el green, los dos en silencio",
-    "respeto mutuo, ego intacto"
-  ];
-  return tags[i % tags.length];
+function renderQuickCourses(){
+  const top = byCourse().slice(0, 4).map(x=>x.course);
+  const el = document.getElementById("quick-courses");
+  el.innerHTML = top.map(c => `<span class="qc" data-course="${escapeHTML(c)}">${escapeHTML(c)}</span>`).join("")
+    + `<span class="qc new" data-new="1">+ cancha nueva</span>`;
+  el.querySelectorAll(".qc").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById("input-course");
+      if (chip.dataset.new) { input.value = ""; input.focus(); }
+      else { input.value = chip.dataset.course; }
+      updateSubmitState();
+    });
+  });
 }
 
 function renderHistory(){
@@ -622,15 +830,14 @@ function renderHistory(){
   }
   tbody.innerHTML = filtered.map(m => {
     const emoji = m.winner === "george" ? "🍆" : m.winner === "nachito" ? "🦷" : "🤝";
-    const whoLabel = m.winner === "george" ? "George" : m.winner === "nachito" ? "Nachito" : "Empate";
-    const rowClass = m.winner === "tie" ? "tie-row-lb" : "";
+    const whoLabel = m.winner === "george" ? "George" : m.winner === "nachito" ? "Nachito" : "Igual";
     const dateLine = m.date ? `<span class="date">${m.date}</span>` : "";
     return `
-      <tr class="${rowClass}">
+      <tr>
         <td class="num">${String(m.idx).padStart(2,"0")}</td>
         <td class="course">${escapeHTML(m.course)}${dateLine}</td>
         <td class="res">${emoji}</td>
-        <td class="who-cell"><span class="pill ${m.winner}">${whoLabel}</span></td>
+        <td><span class="pill ${m.winner}">${whoLabel}</span></td>
         <td class="del"><button data-idx="${m.idx-1}" title="Borrar">✕</button></td>
       </tr>`;
   }).join("");
@@ -650,26 +857,21 @@ function renderHistory(){
 
 function renderCharts(){
   const c = counts();
-
   // Pie
   const ctxP = document.getElementById("pieChart").getContext("2d");
   if (pieChart) pieChart.destroy();
   pieChart = new Chart(ctxP, {
     type: "doughnut",
     data: {
-      labels: ["🍆 George", "🦷 Nachito", "🤝 Empates"],
-      datasets: [{
-        data: [c.george, c.nachito, c.tie],
-        backgroundColor: ["#002b5c", "#d50032", "#c69214"],
-        borderColor: "#fff", borderWidth: 4, hoverOffset: 8
-      }]
+      labels: ["🍆 George", "🦷 Nachito", "🤝 Iguales"],
+      datasets: [{ data: [c.george, c.nachito, c.tie], backgroundColor: ["#e11d48", "#0ea5e9", "#f59e0b"], borderColor: "#10131c", borderWidth: 4, hoverOffset: 8 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false, cutout: "62%",
       plugins: {
-        legend: { position: "bottom", labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } },
+        legend: { position: "bottom", labels: { color: "#cbd5e1", font: { size: 12, weight: "600" }, padding: 14 } },
         tooltip: {
-          backgroundColor: "#002b5c", titleFont:{family:"Oswald",size:13}, bodyFont:{size:13},
+          backgroundColor: "#10131c", titleFont:{family:"Anton",size:13}, bodyFont:{size:13}, borderColor:"#e11d48", borderWidth:1,
           callbacks: { label: ctx => {
             const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
             return `${ctx.label}: ${ctx.parsed} (${t?(ctx.parsed/t*100).toFixed(1):0}%)`;
@@ -679,7 +881,7 @@ function renderCharts(){
     }
   });
 
-  // Line
+  // Line cumulative
   let cg = 0, cn = 0, ct = 0;
   const labels = MATCHES.map((m,i)=>`#${i+1}`);
   const dataG = [], dataN = [], dataT = [];
@@ -696,22 +898,22 @@ function renderCharts(){
     data: {
       labels,
       datasets: [
-        { label: "🍆 George", data: dataG, borderColor: "#002b5c", backgroundColor: "rgba(0,43,92,.08)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
-        { label: "🦷 Nachito", data: dataN, borderColor: "#d50032", backgroundColor: "rgba(213,0,50,.08)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
-        { label: "🤝 Empates", data: dataT, borderColor: "#c69214", backgroundColor: "rgba(198,146,20,.08)", borderWidth: 2, fill: false, tension: .25, pointRadius: 2, pointHoverRadius: 4, borderDash: [5,5] },
+        { label: "🍆 George", data: dataG, borderColor: "#e11d48", backgroundColor: "rgba(225,29,72,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🦷 Nachito", data: dataN, borderColor: "#0ea5e9", backgroundColor: "rgba(14,165,233,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🤝 Iguales", data: dataT, borderColor: "#f59e0b", borderWidth: 2, fill: false, tension: .25, pointRadius: 2, pointHoverRadius: 4, borderDash: [5,5] },
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } } },
+      plugins: { legend: { labels: { color: "#cbd5e1", font: { size: 12, weight: "600" }, padding: 14 } } },
       scales: {
-        x: { ticks: { color: "#6b7280", font:{size:10} }, grid: { color: "#eceef2" } },
-        y: { ticks: { color: "#6b7280", stepSize: 1 }, grid: { color: "#eceef2" }, beginAtZero: true }
+        x: { ticks: { color: "#64748b", font:{size:10} }, grid: { color: "rgba(255,255,255,.05)" } },
+        y: { ticks: { color: "#64748b", stepSize: 1 }, grid: { color: "rgba(255,255,255,.05)" }, beginAtZero: true }
       }
     }
   });
 
-  // Bar
+  // Bar by course
   const courseData = byCourse();
   const ctxB = document.getElementById("barChart").getContext("2d");
   if (barChart) barChart.destroy();
@@ -720,17 +922,17 @@ function renderCharts(){
     data: {
       labels: courseData.map(x=>x.course),
       datasets: [
-        { label: "🍆 George", data: courseData.map(x=>x.george), backgroundColor: "#002b5c" },
-        { label: "🦷 Nachito", data: courseData.map(x=>x.nachito), backgroundColor: "#d50032" },
-        { label: "🤝 Empates", data: courseData.map(x=>x.tie), backgroundColor: "#c69214" },
+        { label: "🍆 George", data: courseData.map(x=>x.george), backgroundColor: "#e11d48" },
+        { label: "🦷 Nachito", data: courseData.map(x=>x.nachito), backgroundColor: "#0ea5e9" },
+        { label: "🤝 Iguales", data: courseData.map(x=>x.tie), backgroundColor: "#f59e0b" },
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: "#3a4150", font: { size: 12, weight: "600" }, padding: 14 } } },
+      plugins: { legend: { labels: { color: "#cbd5e1", font: { size: 12, weight: "600" }, padding: 14 } } },
       scales: {
-        x: { stacked: true, ticks: { color: "#3a4150", font:{size:11,weight:"600"} }, grid: { display: false } },
-        y: { stacked: true, ticks: { color: "#6b7280", stepSize: 1 }, grid: { color: "#eceef2" }, beginAtZero: true }
+        x: { stacked: true, ticks: { color: "#cbd5e1", font:{size:11,weight:"600"} }, grid: { display: false } },
+        y: { stacked: true, ticks: { color: "#64748b", stepSize: 1 }, grid: { color: "rgba(255,255,255,.05)" }, beginAtZero: true }
       }
     }
   });
@@ -739,7 +941,6 @@ function renderCharts(){
 function refreshCourseDatalist(){
   document.getElementById("course-list").innerHTML = uniqueCourses().map(c=>`<option value="${escapeHTML(c)}">`).join("");
 }
-
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
 
 /* ======================= EVENTS ======================= */
@@ -780,7 +981,7 @@ document.getElementById("submit-btn").addEventListener("click", () => {
   updateSubmitState();
   render();
   const e = match.winner === "george" ? "🍆" : match.winner === "nachito" ? "🦷" : "🤝";
-  toast(`${e} ${course}`);
+  toast(`${e} ${course} sumado`);
 });
 
 document.getElementById("export-btn").addEventListener("click", () => {
@@ -819,7 +1020,7 @@ function toast(msg){
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
 }
 
 document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
