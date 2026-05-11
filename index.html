@@ -130,6 +130,54 @@
   @media (max-width:780px){.vs-block .versus{font-size:60px}}
   .vs-tag{font-family:'Oswald';font-size:10px;letter-spacing:3px;color:var(--text-3);text-transform:uppercase;text-align:center}
 
+  /* ====== CURRENT STATUS ====== */
+  .status-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative}
+  .status-card::before{content:'';position:absolute;inset:0;background:
+    radial-gradient(ellipse at 25% 50%, rgba(34,197,94,.10), transparent 55%),
+    radial-gradient(ellipse at 75% 50%, rgba(225,29,72,.12), transparent 55%);
+    pointer-events:none}
+  .status-head{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.25);position:relative;z-index:1}
+  .status-head .lt{display:flex;align-items:center;gap:10px;font-family:'Anton';font-size:14px;letter-spacing:3px;color:#fff;text-transform:uppercase}
+  .status-head .lt .dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.4s infinite}
+  .status-head .rt{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--text-3);text-transform:uppercase}
+  .status-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px 24px;gap:18px;position:relative;z-index:1}
+  .status-side{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .status-circle{position:relative;width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+  .status-circle img{width:100%;height:100%;object-fit:cover;display:block}
+  .status-side.win .status-circle{border-color:#22c55e;animation:winGlow 2.6s ease-in-out infinite}
+  @keyframes winGlow{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6), 0 14px 40px rgba(0,0,0,.55)}50%{box-shadow:0 0 0 14px rgba(34,197,94,0), 0 14px 40px rgba(0,0,0,.55)}}
+  .status-side.lose .status-circle{border-color:#ef4444;filter:saturate(.85)}
+  .status-side.tie .status-circle{border-color:var(--gold)}
+  .status-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:'Anton';letter-spacing:4px;font-size:22px;padding:6px 14px;border:3px solid;border-radius:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);color:#fff}
+  .status-side.win .status-stamp{color:#86efac;border-color:#22c55e;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+  .status-side.lose .status-stamp{color:#fca5a5;border-color:#ef4444}
+  .status-name{font-family:'Anton';font-size:24px;letter-spacing:1.5px;color:#fff;margin-top:14px;text-transform:uppercase}
+  .status-tag{font-family:'Oswald';font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-top:4px;padding:3px 10px;border-radius:2px}
+  .status-side.win .status-tag{background:rgba(34,197,94,.18);color:#86efac;border:1px solid rgba(34,197,94,.4)}
+  .status-side.lose .status-tag{background:rgba(239,68,68,.18);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
+  .status-side.tie .status-tag{background:rgba(245,158,11,.18);color:var(--gold-2);border:1px solid rgba(245,158,11,.4)}
+  .status-vs{font-family:'Anton';font-size:42px;color:var(--text-3);letter-spacing:1px;transform:skewX(-10deg);align-self:center}
+  .status-foot{padding:14px 22px;border-top:1px solid var(--line);background:rgba(0,0,0,.25);font-family:'Oswald';font-size:14px;color:#fff;letter-spacing:.3px;text-align:center;line-height:1.4;position:relative;z-index:1}
+  .status-foot strong{color:var(--gold-2);font-family:'Anton';letter-spacing:1px}
+
+  @media (max-width:780px){
+    .status-head{padding:10px 14px}
+    .status-head .lt{font-size:12px;letter-spacing:2px}
+    .status-body{padding:18px 12px;gap:8px}
+    .status-circle{width:120px;height:120px;border-width:4px}
+    .status-stamp{font-size:14px;padding:4px 9px;letter-spacing:2.5px;border-width:2px}
+    .status-vs{font-size:28px}
+    .status-name{font-size:18px;margin-top:10px;letter-spacing:1px}
+    .status-tag{font-size:9px;letter-spacing:1.8px;padding:2px 8px}
+    .status-foot{padding:11px 14px;font-size:12px}
+  }
+  @media (max-width:380px){
+    .status-circle{width:100px;height:100px}
+    .status-stamp{font-size:11px;padding:3px 7px;letter-spacing:2px}
+    .status-vs{font-size:22px}
+    .status-name{font-size:16px}
+  }
+
   /* ====== COMMENTARY (single punchy line) ====== */
   .commentary{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:6px;padding:16px 22px;display:flex;align-items:center;gap:18px}
   .commentary .label{font-family:'Anton';font-size:12px;letter-spacing:3px;color:var(--red-2);text-transform:uppercase;white-space:nowrap}
@@ -499,6 +547,36 @@
       </div>
     </section>
 
+    <!-- CURRENT STATUS -->
+    <section id="status">
+      <div class="status-card">
+        <div class="status-head">
+          <div class="lt"><span class="dot"></span> Current Status · Live</div>
+          <div class="rt" id="status-meta">—</div>
+        </div>
+        <div class="status-body">
+          <div class="status-side" id="status-left">
+            <div class="status-circle">
+              <img id="status-img-left" src="status-winner.png" alt="winner">
+              <span class="status-stamp" id="status-stamp-left">WINNER</span>
+            </div>
+            <div class="status-name" id="status-name-left">George</div>
+            <div class="status-tag" id="status-tag-left">DOMINATING</div>
+          </div>
+          <div class="status-vs">VS</div>
+          <div class="status-side" id="status-right">
+            <div class="status-circle">
+              <img id="status-img-right" src="status-loser.png" alt="loser">
+              <span class="status-stamp" id="status-stamp-right">LOSER</span>
+            </div>
+            <div class="status-name" id="status-name-right">Nachito</div>
+            <div class="status-tag" id="status-tag-right">ON THE MAT</div>
+          </div>
+        </div>
+        <div class="status-foot" id="status-foot">—</div>
+      </div>
+    </section>
+
     <!-- COMMENTARY -->
     <div class="commentary">
       <span class="label">🎙 Trash Talk</span>
@@ -836,6 +914,9 @@ function render(){
   // Commentary
   document.getElementById("commentary-text").textContent = commentaryText(c, s);
 
+  // Current Status block
+  renderStatus(c, s);
+
   // Tale of the tape
   const wr = winRate(c);
   const formG = formFor("george", 5);
@@ -943,6 +1024,80 @@ function render(){
   refreshCourseDatalist();
   renderHistory();
   renderCharts();
+}
+
+function renderStatus(c, s){
+  const left = document.getElementById("status-left");
+  const right = document.getElementById("status-right");
+  const imgL = document.getElementById("status-img-left");
+  const imgR = document.getElementById("status-img-right");
+  const stampL = document.getElementById("status-stamp-left");
+  const stampR = document.getElementById("status-stamp-right");
+  const nameL = document.getElementById("status-name-left");
+  const nameR = document.getElementById("status-name-right");
+  const tagL = document.getElementById("status-tag-left");
+  const tagR = document.getElementById("status-tag-right");
+  const foot = document.getElementById("status-foot");
+  const meta = document.getElementById("status-meta");
+
+  left.className = "status-side";
+  right.className = "status-side";
+
+  const diff = c.george - c.nachito;
+
+  if (c.george > c.nachito) {
+    // George leads — usar imágenes "épicas"
+    left.classList.add("win");
+    right.classList.add("lose");
+    imgL.src = "status-winner.png"; imgL.alt = "George ganando";
+    imgR.src = "status-loser.png"; imgR.alt = "Nachito perdiendo";
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
+    nameL.textContent = "George"; nameR.textContent = "Nachito";
+    tagL.textContent = momentumNeg(s, "george") ? "EN ALERTA" : "DOMINATING";
+    tagR.textContent = momentumPos(s, "nachito") ? "RESURGIENDO" : "ON THE MAT";
+    foot.innerHTML = statusLine(c, s, "george");
+  } else if (c.nachito > c.george) {
+    // Nachito leads — usar retratos (no tenemos imágenes flippeadas)
+    left.classList.add("win");
+    right.classList.add("lose");
+    imgL.src = "nachito.png"; imgL.alt = "Nachito ganando";
+    imgR.src = "george.png"; imgR.alt = "George perdiendo";
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
+    nameL.textContent = "Nachito"; nameR.textContent = "George";
+    tagL.textContent = "DOMINATING";
+    tagR.textContent = "ON THE MAT";
+    foot.innerHTML = statusLine(c, s, "nachito");
+  } else {
+    // Empate total
+    left.classList.add("tie");
+    right.classList.add("tie");
+    imgL.src = "george.png"; imgL.alt = "George";
+    imgR.src = "nachito.png"; imgR.alt = "Nachito";
+    stampL.textContent = "ON FIRE"; stampR.textContent = "ON FIRE";
+    nameL.textContent = "George"; nameR.textContent = "Nachito";
+    tagL.textContent = "TIED";
+    tagR.textContent = "TIED";
+    foot.innerHTML = `<strong>${c.george}–${c.nachito}</strong> · empate técnico en la rivalidad. Que arranque el desempate.`;
+  }
+
+  meta.textContent = `Actualizado · match #${MATCHES.length}`;
+}
+function momentumNeg(s, who){ return s.currentWho && s.currentWho !== who && s.currentLen >= 3; }
+function momentumPos(s, who){ return s.currentWho === who && s.currentLen >= 3; }
+
+function statusLine(c, s, leader){
+  const diff = Math.abs(c.george - c.nachito);
+  const leadName = leader === "george" ? "George" : "Nachito";
+  const trailName = leader === "george" ? "Nachito" : "George";
+  if (s.currentLen >= 3 && s.currentWho && s.currentWho !== leader) {
+    return `<strong>${leadName} ${c.george}–${c.nachito}</strong> arriba en la historia · pero <strong>${trailName}</strong> viene con ${s.currentLen} seguidas. Cuidado.`;
+  }
+  if (s.currentLen >= 3 && s.currentWho === leader) {
+    return `<strong>${leadName}</strong> domina ${c.george}–${c.nachito} y viene de <strong>${s.currentLen} al hilo</strong>. Masacre en curso.`;
+  }
+  if (diff >= 4) return `<strong>${leadName}</strong> arrasa ${c.george}–${c.nachito}. ${trailName} tiene tarea para el invierno.`;
+  if (diff >= 2) return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Está mandando.`;
+  return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Cualquier mala vuelta lo cambia.`;
 }
 
 function renderQuickCourses(){
