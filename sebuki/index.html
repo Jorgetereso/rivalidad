@@ -562,22 +562,22 @@
         <div class="status-body">
           <div class="status-side" id="status-left">
             <div class="status-circle">
-              <img id="status-img-left" src="george.png" alt="George">
+              <img id="status-img-left" src="george-winner.png" alt="George" onerror="this.onerror=null;this.src='george.png'">
             </div>
-            <div class="zoom-pop"><img id="status-zoom-left" src="george.png" alt="George zoom"></div>
-            <span class="status-stamp" id="status-stamp-left">A LA ESPERA</span>
+            <div class="zoom-pop"><img id="status-zoom-left" src="george-winner.png" alt="George zoom" onerror="this.onerror=null;this.src='george.png'"></div>
+            <span class="status-stamp" id="status-stamp-left">WINNER</span>
             <div class="status-name" id="status-name-left">George</div>
-            <div class="status-tag" id="status-tag-left">CAVA INTACTA</div>
+            <div class="status-tag" id="status-tag-left">DOMINANDO</div>
           </div>
           <div class="status-vs">vs</div>
           <div class="status-side" id="status-right">
             <div class="status-circle">
-              <img id="status-img-right" src="sebuki.png" alt="Sebuki">
+              <img id="status-img-right" src="sebuki-loser.png" alt="Sebuki" onerror="this.onerror=null;this.src='sebuki.png'">
             </div>
-            <div class="zoom-pop"><img id="status-zoom-right" src="sebuki.png" alt="Sebuki zoom"></div>
-            <span class="status-stamp" id="status-stamp-right">A LA ESPERA</span>
+            <div class="zoom-pop"><img id="status-zoom-right" src="sebuki-loser.png" alt="Sebuki zoom" onerror="this.onerror=null;this.src='sebuki.png'"></div>
+            <span class="status-stamp" id="status-stamp-right">LOSER</span>
             <div class="status-name" id="status-name-right">Sebuki</div>
-            <div class="status-tag" id="status-tag-right">CAVA INTACTA</div>
+            <div class="status-tag" id="status-tag-right">EN LA LONA</div>
           </div>
         </div>
         <div class="status-foot" id="status-foot">—</div>
@@ -1016,62 +1016,63 @@ function renderStatus(c, s){
   left.className = "status-side";
   right.className = "status-side";
 
+  // Helper: setear src con fallback al retrato si la imagen UFC todavía no existe
+  function setImgPair(mainEl, zoomEl, src, fallback, alt){
+    [mainEl, zoomEl].forEach(el => {
+      el.onerror = function(){ el.onerror = null; el.src = fallback; };
+      el.src = src;
+      el.alt = alt;
+    });
+  }
+
   const total = c.george + c.sebuki + c.tie;
 
-  if (total === 0) {
-    // Estado inicial: cava intacta
-    left.classList.add("tie");
-    right.classList.add("tie");
-    imgL.src = "george.png"; imgL.alt = "George";
-    imgR.src = "sebuki.png"; imgR.alt = "Sebuki";
-    zoomL.src = "george.png"; zoomR.src = "sebuki.png";
-    stampL.textContent = "A LA ESPERA"; stampR.textContent = "A LA ESPERA";
+  // Default 0-0 y George liderando → mismo visual: George ganador, Sebuki en la lona
+  if (total === 0 || c.george > c.sebuki) {
+    left.classList.add("win");
+    right.classList.add("lose");
+    setImgPair(imgL, zoomL, "george-winner.png", "george.png", "George ganando");
+    setImgPair(imgR, zoomR, "sebuki-loser.png", "sebuki.png", "Sebuki perdiendo");
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
     nameL.textContent = "George"; nameR.textContent = "Sebuki";
-    tagL.textContent = "CAVA INTACTA";
-    tagR.textContent = "CAVA INTACTA";
-    foot.innerHTML = `<strong>0–0</strong> · todavía no se descorchó nada. La primera copa decide el inicio del relato.`;
-    meta.textContent = "Sin rounds · esperando el primer descorche";
+    if (total === 0) {
+      tagL.textContent = "DOMINANDO";
+      tagR.textContent = "EN LA LONA";
+      foot.innerHTML = `<strong>0–0</strong> · cava intacta. La primera copa marca el inicio del relato.`;
+      meta.textContent = "Sin rounds · esperando el primer descorche";
+    } else {
+      tagL.textContent = momentumNeg(s, "george") ? "EN ALERTA" : "DOMINANDO LA CATA";
+      tagR.textContent = momentumPos(s, "sebuki") ? "RESURGIENDO" : "EN LA LONA";
+      foot.innerHTML = statusLine(c, s, "george");
+      meta.textContent = `Actualizado · round #${MATCHES.length}`;
+    }
     return;
   }
 
-  if (c.george > c.sebuki) {
-    // George leads — imagen épica de victoria
+  if (c.sebuki > c.george) {
     left.classList.add("win");
     right.classList.add("lose");
-    imgL.src = "status-winner.png"; imgL.alt = "George ganando";
-    imgR.src = "sebuki.png"; imgR.alt = "Sebuki en sobremesa";
-    zoomL.src = "status-winner.png"; zoomR.src = "sebuki.png";
-    stampL.textContent = "WINNER"; stampR.textContent = "EN LA COPA";
-    nameL.textContent = "George"; nameR.textContent = "Sebuki";
-    tagL.textContent = momentumNeg(s, "george") ? "EN ALERTA" : "DOMINANDO LA CATA";
-    tagR.textContent = momentumPos(s, "sebuki") ? "RESURGIENDO" : "AIREANDO";
-    foot.innerHTML = statusLine(c, s, "george");
-  } else if (c.sebuki > c.george) {
-    // Sebuki leads — su foto con vino
-    left.classList.add("win");
-    right.classList.add("lose");
-    imgL.src = "sebuki-wine.png"; imgL.alt = "Sebuki ganando";
-    imgR.src = "george.png"; imgR.alt = "George en sobremesa";
-    zoomL.src = "sebuki-wine.png"; zoomR.src = "george.png";
-    stampL.textContent = "SOMMELIER"; stampR.textContent = "EN LA COPA";
+    setImgPair(imgL, zoomL, "sebuki-winner.png", "sebuki-wine.png", "Sebuki ganando");
+    setImgPair(imgR, zoomR, "george-loser.png", "george.png", "George perdiendo");
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
     nameL.textContent = "Sebuki"; nameR.textContent = "George";
     tagL.textContent = momentumNeg(s, "sebuki") ? "EN ALERTA" : "DOMINANDO LA CATA";
-    tagR.textContent = momentumPos(s, "george") ? "RESURGIENDO" : "AIREANDO";
+    tagR.textContent = momentumPos(s, "george") ? "RESURGIENDO" : "EN LA LONA";
     foot.innerHTML = statusLine(c, s, "sebuki");
-  } else {
-    // Empate técnico (con partidos jugados)
-    left.classList.add("tie");
-    right.classList.add("tie");
-    imgL.src = "george.png"; imgL.alt = "George";
-    imgR.src = "sebuki.png"; imgR.alt = "Sebuki";
-    zoomL.src = "george.png"; zoomR.src = "sebuki.png";
-    stampL.textContent = "ON FIRE"; stampR.textContent = "ON FIRE";
-    nameL.textContent = "George"; nameR.textContent = "Sebuki";
-    tagL.textContent = "EMPATADOS";
-    tagR.textContent = "EMPATADOS";
-    foot.innerHTML = `<strong>${c.george}–${c.sebuki}</strong> · brindis técnico. El desempate decanta solo.`;
+    meta.textContent = `Actualizado · round #${MATCHES.length}`;
+    return;
   }
 
+  // Empate técnico con partidos jugados → retratos
+  left.classList.add("tie");
+  right.classList.add("tie");
+  setImgPair(imgL, zoomL, "george.png", "george.png", "George");
+  setImgPair(imgR, zoomR, "sebuki.png", "sebuki.png", "Sebuki");
+  stampL.textContent = "ON FIRE"; stampR.textContent = "ON FIRE";
+  nameL.textContent = "George"; nameR.textContent = "Sebuki";
+  tagL.textContent = "EMPATADOS";
+  tagR.textContent = "EMPATADOS";
+  foot.innerHTML = `<strong>${c.george}–${c.sebuki}</strong> · brindis técnico. El desempate decanta solo.`;
   meta.textContent = `Actualizado · round #${MATCHES.length}`;
 }
 function momentumNeg(s, who){ return s.currentWho && s.currentWho !== who && s.currentLen >= 3; }
