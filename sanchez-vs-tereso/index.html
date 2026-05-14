@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUPERCLÁSICO DEL GOLF · Sánchez vs Tereso · Costa Esmeralda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#06080f;
+    --bg-2:#0b101c;
+    --card:#11172a;
+    --card-2:#172040;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.18);
+    --text:#eef2f8;
+    --text-2:#a3b1c6;
+    --text-3:#6a7997;
+
+    /* Boca (Sánchez) */
+    --boca:#0a3b85;
+    --boca-2:#0b54c8;
+    --boca-3:#1d6cf0;
+    --boca-glow:rgba(29,108,240,.55);
+    --boca-gold:#ffba2e;
+    --boca-gold-2:#ffd166;
+
+    /* River (Tereso) */
+    --river:#f6f6f7;
+    --river-cream:#edeef1;
+    --river-red:#cf2030;
+    --river-red-2:#ea394a;
+    --river-red-glow:rgba(234,57,74,.55);
+
+    /* Trofeo */
+    --gold:#d4a04b;
+    --gold-2:#f0c66a;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{
+    background:
+      radial-gradient(ellipse 60% 45% at 18% 12%, rgba(29,108,240,.14), transparent 60%),
+      radial-gradient(ellipse 60% 45% at 82% 88%, rgba(234,57,74,.13), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 50%, rgba(212,160,75,.04), transparent 70%),
+      var(--bg);
+    min-height:100vh;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size:24px 24px;
+    pointer-events:none;z-index:0;
+  }
+
+  /* ====== TOP BAR ====== */
+  .topbar{background:rgba(6,8,15,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .topbar-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{font-family:'Big Shoulders Display',sans-serif;font-weight:900;letter-spacing:4px;text-transform:uppercase;font-size:26px;color:#fff;display:flex;align-items:center;gap:10px}
+  .brand-mark::before{content:'';width:5px;height:24px;background:var(--boca-2);transform:skewX(-15deg)}
+  .brand-mark::after{content:'';width:5px;height:24px;background:var(--river-red);transform:skewX(-15deg)}
+  .brand-sub{font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:2.5px;color:var(--text-2);border-left:1px solid var(--line);padding-left:14px;text-transform:uppercase}
+  .topbar nav{display:flex;gap:6px;font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .topbar nav a{color:var(--text-2);text-decoration:none;padding:8px 12px;border-radius:3px;transition:all .15s}
+  .topbar nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+  @media (max-width:760px){.topbar nav{display:none}.brand-sub{display:none}}
+
+  /* ====== BANNER ====== */
+  .banner{position:relative;background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);border-bottom:1px solid var(--line);overflow:hidden}
+  .banner::before{content:'';position:absolute;top:0;left:0;right:50%;bottom:0;background:linear-gradient(110deg, rgba(11,84,200,.18) 0%, transparent 70%);pointer-events:none}
+  .banner::after{content:'';position:absolute;top:0;left:50%;right:0;bottom:0;background:linear-gradient(-110deg, rgba(207,32,48,.18) 0%, transparent 70%);pointer-events:none}
+  .banner .crest{position:absolute;font-family:'Anton',sans-serif;color:rgba(255,255,255,.025);font-size:280px;line-height:.9;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;user-select:none;letter-spacing:8px}
+  .banner-inner{max-width:1320px;margin:0 auto;padding:36px 24px 28px;position:relative;z-index:1;text-align:center}
+  .banner .kicker{display:inline-flex;align-items:center;gap:10px;background:rgba(212,160,75,.14);border:1px solid var(--gold);color:var(--gold-2);padding:6px 14px;border-radius:3px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3.5px;text-transform:uppercase;font-weight:400;margin-bottom:20px}
+  .banner .kicker .liveDot{width:8px;height:8px;background:var(--gold-2);border-radius:50%;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  .banner h1{font-family:'Anton',sans-serif;font-size:clamp(40px,8.5vw,86px);line-height:.95;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.7)}
+  .banner h1 .vs-token{display:inline-block;font-style:italic;font-size:.7em;margin:0 .25em;background:linear-gradient(135deg, var(--boca-3) 0%, var(--boca-gold-2) 45%, var(--river-red-2) 55%, var(--river-red) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-8deg);text-transform:lowercase;letter-spacing:-1px}
+  .banner h1 .blue{color:var(--boca-gold-2);text-shadow:0 0 30px rgba(11,84,200,.5)}
+  .banner h1 .red{color:var(--river-red-2);text-shadow:0 0 30px rgba(207,32,48,.5)}
+  .banner .venue{font-family:'Oswald';font-size:13px;letter-spacing:4px;color:var(--text-2);text-transform:uppercase;font-weight:600;margin-top:14px}
+  .banner .venue strong{color:var(--gold-2);font-family:'Anton';letter-spacing:2px;font-weight:400;font-size:15px}
+  .banner .meta-row{display:flex;justify-content:center;gap:40px;margin-top:22px;flex-wrap:wrap}
+  .banner .meta-row .m{text-align:center;position:relative}
+  .banner .meta-row .m+.m::before{content:'';position:absolute;left:-20px;top:8px;bottom:8px;width:1px;background:var(--line)}
+  .banner .meta-row .m .n{font-family:'Anton';font-size:28px;color:#fff;line-height:1}
+  .banner .meta-row .m .l{font-family:'Oswald';font-size:10px;letter-spacing:2.8px;color:var(--text-2);text-transform:uppercase;margin-top:5px;font-weight:600}
+
+  /* ====== LAYOUT ====== */
+  .container{max-width:1320px;margin:0 auto;padding:28px 24px 24px;position:relative;z-index:1}
+  .grid{display:grid;grid-template-columns:1fr;gap:30px}
+
+  /* ====== SECTION HEADER ====== */
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:14px}
+  .sec-head h2{font-family:'Anton',sans-serif;font-size:30px;text-transform:uppercase;letter-spacing:2px;color:#fff;display:flex;align-items:center;gap:14px}
+  .sec-head h2::before{content:'';width:5px;height:26px;background:linear-gradient(180deg, var(--boca-2) 0%, var(--river-red) 100%);transform:skewX(-15deg)}
+  .sec-head .sub{font-family:'Oswald';font-size:11px;letter-spacing:2.5px;color:var(--text-3);text-transform:uppercase;font-weight:600;border-top:1px solid var(--line);flex:1;padding-top:6px;text-align:right;margin-left:14px}
+
+  /* ====== MATCHUP CARD ====== */
+  .matchup{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04)}
+  .matchup::before{content:'';position:absolute;top:0;bottom:0;left:0;right:50%;background:radial-gradient(ellipse at 50% 50%, rgba(11,84,200,.18), transparent 70%);pointer-events:none}
+  .matchup::after{content:'';position:absolute;top:0;bottom:0;left:50%;right:0;background:radial-gradient(ellipse at 50% 50%, rgba(207,32,48,.20), transparent 70%);pointer-events:none}
+  .matchup-body{display:grid;grid-template-columns:1fr 100px 1fr;align-items:stretch;padding:38px 30px;gap:20px;position:relative;z-index:1}
+  @media (max-width:780px){.matchup-body{grid-template-columns:1fr;padding:24px 20px}}
+
+  .corner{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:14px}
+  .corner.boca{align-items:flex-end;text-align:right}
+  .corner.river{align-items:flex-start;text-align:left}
+  @media (max-width:780px){.corner.boca,.corner.river{align-items:center;text-align:center}}
+
+  .corner-tag{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3.5px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:14px;color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:400}
+  .corner.boca .corner-tag{background:linear-gradient(90deg, var(--boca) 0%, var(--boca-2) 100%);box-shadow:0 4px 20px var(--boca-glow);color:#fff;border:1px solid var(--boca-gold)}
+  .corner.river .corner-tag{background:linear-gradient(90deg, var(--river-cream) 0%, var(--river) 100%);box-shadow:0 4px 20px var(--river-red-glow);color:var(--river-red);border:2px solid var(--river-red)}
+  .corner.river .corner-tag::before{content:'';width:8px;height:8px;background:var(--river-red);border-radius:50%}
+
+  .photo-wrap{position:relative;display:inline-block;margin-bottom:14px}
+  .photo-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:linear-gradient(135deg, currentColor, transparent);opacity:.5;z-index:-1;filter:blur(8px)}
+  .corner.boca .photo-wrap{color:var(--boca-2)}
+  .corner.river .photo-wrap{color:var(--river-red)}
+  .corner.leading .photo-wrap::before{opacity:.9;animation:glow 2.5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:blur(8px);opacity:.6}50%{filter:blur(14px);opacity:1}}
+  .corner-photo{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid;display:block;box-shadow:0 12px 40px rgba(0,0,0,.55);background:#000}
+  .corner.boca .corner-photo{border-color:var(--boca-gold)}
+  .corner.river .corner-photo{border-color:var(--river-red)}
+  .belt{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:34px;display:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+  .corner.leading .belt{display:block}
+
+  .corner-name{font-family:'Anton',sans-serif;font-size:46px;line-height:.9;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-top:6px}
+  .corner-name .fam{display:block;font-size:.32em;letter-spacing:5px;color:var(--text-3);font-family:'Oswald';font-weight:600;margin-bottom:6px}
+  .corner-nick{font-family:'Oswald';font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--text-2);margin-top:10px;font-weight:600}
+  .corner.boca .corner-nick em{color:var(--boca-gold-2);font-style:normal}
+  .corner.river .corner-nick em{color:var(--river-red-2);font-style:normal}
+
+  .roster{display:flex;flex-direction:column;gap:6px;margin-top:14px;width:100%;max-width:280px}
+  .corner.boca .roster{align-items:flex-end}
+  .corner.river .roster{align-items:flex-start}
+  @media (max-width:780px){.corner.boca .roster,.corner.river .roster{align-items:center}}
+  .player{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;padding:5px 12px;border-radius:3px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text)}
+  .corner.boca .player{border-left:3px solid var(--boca-gold)}
+  .corner.river .player{border-left:3px solid var(--river-red)}
+  .player .hcp{font-family:'Anton';font-size:11px;letter-spacing:1px;color:var(--text-2);background:rgba(255,255,255,.06);padding:1px 7px;border-radius:2px}
+  .corner.boca .player .hcp{color:var(--boca-gold-2);background:rgba(255,186,46,.12)}
+  .corner.river .player .hcp{color:var(--river-red-2);background:rgba(234,57,74,.12)}
+
+  .record{display:flex;align-items:baseline;gap:8px;margin-top:18px}
+  .corner.boca .record{flex-direction:row-reverse}
+  .record .big{font-family:'Anton';font-size:96px;line-height:.85;font-variant-numeric:tabular-nums}
+  .corner.boca .record .big{color:var(--boca-gold-2)}
+  .corner.river .record .big{color:var(--river-red-2)}
+  .record .lbl{font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:700}
+
+  .streak-row{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  .corner.boca .streak-row{justify-content:flex-end}
+  .corner.river .streak-row{justify-content:flex-start}
+  @media (max-width:780px){.corner .streak-row{justify-content:center}}
+  .sp{font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:5px 10px;border-radius:2px;color:var(--text-2);font-weight:600}
+  .sp.hot{background:rgba(212,160,75,.12);border-color:var(--gold);color:var(--gold-2)}
+
+  /* CENTER VS */
+  .vs-block{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative}
+  .vs-block .versus{font-family:'Anton';font-size:96px;line-height:1;color:#fff;background:linear-gradient(135deg, var(--boca-3) 0%, var(--river-red-2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-6deg);letter-spacing:-3px;text-shadow:0 0 40px rgba(255,255,255,.08)}
+  .vs-block .versus-sub{font-family:'Oswald';font-weight:700;font-size:13px;color:var(--gold-2);letter-spacing:3px;margin-top:-6px;opacity:.75}
+  @media (max-width:780px){.vs-block .versus{font-size:66px}}
+  .vs-tag{font-family:'Oswald';font-size:10px;letter-spacing:3px;color:var(--text-3);text-transform:uppercase;text-align:center;font-weight:600}
+
+  /* ====== CURRENT STATUS ====== */
+  .status-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative}
+  .status-card::before{content:'';position:absolute;inset:0;background:
+    radial-gradient(ellipse at 25% 50%, rgba(11,84,200,.10), transparent 55%),
+    radial-gradient(ellipse at 75% 50%, rgba(207,32,48,.12), transparent 55%);
+    pointer-events:none}
+  .status-head{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.3);position:relative;z-index:1}
+  .status-head .lt{display:flex;align-items:center;gap:10px;font-family:'Anton';font-size:16px;letter-spacing:2.5px;color:#fff;text-transform:uppercase}
+  .status-head .lt .dot{width:8px;height:8px;background:var(--gold-2);border-radius:50%;animation:pulse 1.4s infinite}
+  .status-head .rt{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--text-3);text-transform:uppercase;font-weight:600}
+  .status-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px 24px;gap:18px;position:relative;z-index:1}
+  .status-side{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+  .status-circle{cursor:zoom-in;position:relative;width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid;box-shadow:0 0 0 4px #0c0c10, 0 0 0 6px rgba(212,160,75,.10), 0 14px 40px rgba(0,0,0,.6);transition:transform .4s ease}
+  .status-circle img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Zoom popup */
+  .zoom-pop{position:absolute;top:-10px;left:50%;width:340px;max-width:min(86vw, 360px);transform:translateX(-50%) scale(.85);transform-origin:center top;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:200;border-radius:12px;overflow:hidden;border:4px solid;box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(255,255,255,.08)}
+  .status-side.win .zoom-pop{border-color:var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(212,160,75,.6), 0 0 60px rgba(212,160,75,.35)}
+  .status-side.lose .zoom-pop{border-color:var(--text-3);box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(120,140,170,.4)}
+  .status-side.tie .zoom-pop{border-color:var(--gold-2)}
+  .zoom-pop img{width:100%;height:auto;display:block}
+  .status-side:hover .zoom-pop,
+  .status-side.expanded .zoom-pop{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
+  @media (max-width:780px){
+    .zoom-pop{width:260px;max-width:86vw;border-width:3px;top:-6px}
+  }
+  @media (max-width:380px){
+    .zoom-pop{width:230px}
+  }
+  @media (hover:none){
+    .status-side:hover .zoom-pop{opacity:0}
+    .status-side.expanded .zoom-pop{opacity:1}
+  }
+  .status-side.win .status-circle{width:210px;height:210px;border-color:var(--gold);animation:winGlow 2.6s ease-in-out infinite}
+  @keyframes winGlow{
+    0%,100%{box-shadow:0 0 0 4px #0c0c10, 0 0 0 6px rgba(212,160,75,.45), 0 0 30px rgba(212,160,75,.55), 0 14px 40px rgba(0,0,0,.6)}
+    50%{box-shadow:0 0 0 4px #0c0c10, 0 0 0 6px rgba(212,160,75,.75), 0 0 55px rgba(212,160,75,.9), 0 14px 40px rgba(0,0,0,.6)}
+  }
+  .status-side.lose .status-circle{width:130px;height:130px;border-color:var(--text-3);filter:saturate(.55) brightness(.7);transform:rotate(-6deg);box-shadow:0 0 0 4px #0c0c10, 0 0 0 6px rgba(120,140,170,.2), 0 14px 40px rgba(0,0,0,.6)}
+  .status-side.tie .status-circle{border-color:var(--gold-2)}
+  .status-stamp{display:inline-block;position:relative;z-index:3;margin-top:-14px;font-family:'Anton';letter-spacing:3.5px;font-size:15px;padding:5px 14px;border:3px solid;border-radius:4px;background:#0c0c10;color:#fff;transform:rotate(-2deg);box-shadow:0 6px 18px rgba(0,0,0,.5);text-transform:uppercase;white-space:nowrap}
+  .status-side.win .status-stamp{color:var(--gold-2);border-color:var(--gold)}
+  .status-side.lose .status-stamp{color:#9aa6bd;border-color:var(--text-3)}
+  .status-side.tie .status-stamp{color:var(--gold-2);border-color:var(--gold)}
+  .status-name{font-family:'Anton';font-size:26px;letter-spacing:1.8px;color:#fff;margin-top:14px;text-transform:uppercase}
+  .status-tag{font-family:'Oswald';font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-top:4px;padding:3px 12px;border-radius:2px}
+  .status-side.win .status-tag{background:rgba(212,160,75,.15);color:var(--gold-2);border:1px solid rgba(212,160,75,.4)}
+  .status-side.lose .status-tag{background:rgba(120,140,170,.12);color:#9aa6bd;border:1px solid rgba(120,140,170,.3)}
+  .status-side.tie .status-tag{background:rgba(212,160,75,.15);color:var(--gold-2);border:1px solid rgba(212,160,75,.4)}
+  .status-vs{font-family:'Anton';font-size:48px;color:var(--text-3);letter-spacing:1px;transform:skewX(-10deg);align-self:center}
+  .status-foot{padding:14px 22px;border-top:1px solid var(--line);background:rgba(0,0,0,.25);font-family:'Oswald';font-size:15px;color:#fff;letter-spacing:.5px;text-align:center;line-height:1.5;position:relative;z-index:1}
+  .status-foot strong{color:var(--gold-2);font-family:'Anton';letter-spacing:1px;font-weight:400}
+
+  @media (max-width:780px){
+    .status-head{padding:10px 14px}
+    .status-head .lt{font-size:13px;letter-spacing:2px}
+    .status-body{padding:18px 12px;gap:8px}
+    .status-circle{width:130px;height:130px;border-width:4px}
+    .status-side.win .status-circle{width:160px;height:160px}
+    .status-side.lose .status-circle{width:105px;height:105px}
+    .status-stamp{font-size:12px;padding:4px 10px;letter-spacing:2.5px;border-width:2px;margin-top:-11px}
+    .status-vs{font-size:32px}
+    .status-name{font-size:20px;margin-top:10px;letter-spacing:1.2px}
+    .status-tag{font-size:9px;letter-spacing:1.8px;padding:2px 8px}
+    .status-foot{padding:11px 14px;font-size:13px}
+  }
+  @media (max-width:380px){
+    .status-circle{width:108px;height:108px}
+    .status-side.win .status-circle{width:130px;height:130px}
+    .status-side.lose .status-circle{width:86px;height:86px}
+    .status-stamp{font-size:11px;padding:3px 8px;letter-spacing:2px;margin-top:-9px}
+    .status-vs{font-size:26px}
+    .status-name{font-size:17px}
+  }
+
+  /* ====== COMMENTARY ====== */
+  .commentary{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px;padding:16px 22px;display:flex;align-items:center;gap:18px}
+  .commentary .label{font-family:'Anton';font-size:14px;letter-spacing:3.5px;color:var(--gold-2);text-transform:uppercase;white-space:nowrap}
+  .commentary .text{font-family:'Oswald';font-size:18px;color:#fff;font-weight:500;letter-spacing:.3px}
+
+  /* ====== TALE OF THE TAPE ====== */
+  .tape{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .tape-head{background:linear-gradient(90deg, var(--boca) 0%, #0e0e14 50%, var(--river-red) 100%);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .tape-head .boca-side{font-family:'Anton';font-size:20px;color:#fff;letter-spacing:1.8px}
+  .tape-head .center{font-family:'Anton';font-size:14px;letter-spacing:3px;color:#fff;background:rgba(0,0,0,.55);padding:4px 14px;border-radius:2px}
+  .tape-head .river-side{font-family:'Anton';font-size:20px;color:#fff;letter-spacing:1.8px}
+  .tape-body{display:grid}
+  .tape-row{display:grid;grid-template-columns:1fr 200px 1fr;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);gap:14px}
+  .tape-row:last-child{border-bottom:none}
+  .tape-row .boca-val{text-align:right;font-family:'Anton';font-size:34px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .river-val{text-align:left;font-family:'Anton';font-size:34px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .boca-val.win{color:var(--boca-gold-2);text-shadow:0 0 20px var(--boca-glow)}
+  .tape-row .river-val.win{color:var(--river-red-2);text-shadow:0 0 20px var(--river-red-glow)}
+  .tape-row .lbl{font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;text-align:center;color:var(--text-2);font-weight:600}
+  .form-strip{display:inline-flex;gap:4px;justify-content:flex-end}
+  .river-val .form-strip{justify-content:flex-start}
+  .form-dot{width:22px;height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Anton';font-size:11px;color:#fff}
+  .form-dot.W{background:rgba(34,197,94,.85);border:1px solid #16a34a}
+  .form-dot.L{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text-3)}
+  .form-dot.T{background:rgba(212,160,75,.85);border:1px solid var(--gold)}
+  @media (max-width:680px){.tape-row{grid-template-columns:1fr 120px 1fr;padding:12px 14px}.tape-row .boca-val,.tape-row .river-val{font-size:24px}}
+
+  /* ====== PREDICTION ====== */
+  .pred-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
+  @media (max-width:900px){.pred-grid{grid-template-columns:1fr}}
+  .pred-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .pred-card .ch{background:linear-gradient(90deg, var(--boca-2) 0%, var(--river-red) 100%);padding:11px 18px;font-family:'Anton';font-size:15px;letter-spacing:2.5px;color:#fff;text-transform:uppercase;display:flex;justify-content:space-between}
+  .pred-card .ch .sub{font-family:'Oswald';font-size:11px;opacity:.85;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+  .pred-body{padding:22px}
+
+  .pred-bar{position:relative;height:46px;border-radius:4px;overflow:hidden;background:#06060a;display:flex;box-shadow:inset 0 2px 8px rgba(0,0,0,.7)}
+  .pred-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Anton';font-size:18px;letter-spacing:1px;position:relative;transition:width .8s ease}
+  .pred-seg.b{background:linear-gradient(90deg, var(--boca) 0%, var(--boca-2) 100%)}
+  .pred-seg.t{background:linear-gradient(90deg, #aa7d30 0%, var(--gold) 100%)}
+  .pred-seg.r{background:linear-gradient(90deg, var(--river-red-2) 0%, var(--river-red) 100%)}
+  .pred-legend{display:flex;justify-content:space-between;margin-top:12px;font-family:'Oswald';font-size:11px;letter-spacing:1.5px;color:var(--text-2);text-transform:uppercase}
+  .pred-legend span strong{color:#fff;font-family:'Anton';font-size:14px;display:block;letter-spacing:.5px}
+  .pred-method{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.5;font-style:italic;border-top:1px solid var(--line);padding-top:12px}
+
+  .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:100%}
+  .mom-card{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+  .mom-card.boca{border-top:3px solid var(--boca-2)}
+  .mom-card.river{border-top:3px solid var(--river-red)}
+  .mom-card .name{font-family:'Anton';font-size:18px;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
+  .mom-card .arrow{font-family:'Anton';font-size:42px;line-height:1;margin:8px 0}
+  .mom-card.up .arrow{color:#22c55e}
+  .mom-card.down .arrow{color:var(--river-red-2)}
+  .mom-card.flat .arrow{color:var(--text-3)}
+  .mom-card .delta{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;color:var(--text-2);text-transform:uppercase;font-weight:600}
+  .mom-card .desc{font-size:11px;color:var(--text-3);margin-top:8px;line-height:1.45}
+
+  /* ====== STAT STRIP ====== */
+  .stat-strip{background:var(--card);display:grid;grid-template-columns:repeat(5, 1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  @media (max-width:900px){.stat-strip{grid-template-columns:repeat(3, 1fr)}}
+  @media (max-width:500px){.stat-strip{grid-template-columns:repeat(2, 1fr)}}
+  .stat-cell{padding:18px 14px;border-right:1px solid var(--line);text-align:center}
+  .stat-cell:last-child{border-right:none}
+  .stat-cell .sv{font-family:'Anton';font-size:32px;color:#fff;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .stat-cell.boca .sv{color:var(--boca-gold-2)}
+  .stat-cell.river .sv{color:var(--river-red-2)}
+  .stat-cell.gold .sv{color:var(--gold-2)}
+  .stat-cell .sl{font-family:'Oswald';font-size:10px;letter-spacing:2px;color:var(--text-3);margin-top:8px;font-weight:700;text-transform:uppercase}
+  .stat-cell .ss{font-size:11px;color:var(--text-2);margin-top:2px}
+
+  /* ====== CHARTS ====== */
+  .charts-row{display:grid;grid-template-columns:1fr 2fr;gap:20px}
+  @media (max-width:900px){.charts-row{grid-template-columns:1fr}}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .chart-card .ch-head{background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);padding:11px 18px;font-family:'Anton';font-size:14px;letter-spacing:2.8px;color:#fff;text-transform:uppercase}
+  .chart-card .ch-body{padding:18px;position:relative;height:280px}
+  .chart-card.full .ch-body{height:340px}
+
+  /* ====== TIES ====== */
+  .ties-strip{background:linear-gradient(90deg, rgba(212,160,75,.10) 0%, transparent 100%);border:1px solid rgba(212,160,75,.28);border-left:4px solid var(--gold);border-radius:6px;padding:14px 20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .ties-strip .tn{font-family:'Anton';font-size:42px;color:var(--gold-2);line-height:1}
+  .ties-strip .tl{font-family:'Oswald';font-size:11px;letter-spacing:2px;color:var(--text-2);text-transform:uppercase;font-weight:600;display:block}
+  .ties-strip .courses{flex:1;display:flex;gap:8px;flex-wrap:wrap}
+  .tie-chip{font-family:'Oswald';font-size:12px;letter-spacing:1px;background:rgba(212,160,75,.10);border:1px solid rgba(212,160,75,.32);color:var(--gold-2);padding:5px 12px;border-radius:3px;font-weight:600;text-transform:uppercase}
+
+  /* ====== LEADERBOARD ====== */
+  .lb-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .lb-toolbar{padding:12px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-family:'Oswald';font-size:11px;letter-spacing:1.8px;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 12px;border-radius:3px;cursor:pointer;font-weight:600;transition:all .15s}
+  .chip:hover{border-color:var(--line-2);color:#fff}
+  .chip.active{background:#fff;color:#0c0c10;border-color:#fff}
+  .lb-table{width:100%;border-collapse:collapse}
+  .lb-table th{text-align:left;font-family:'Oswald';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);padding:11px 16px;border-bottom:1px solid var(--line);font-weight:600;background:rgba(255,255,255,.01)}
+  .lb-table td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  .lb-table tr:last-child td{border-bottom:none}
+  .lb-table tr:hover td{background:rgba(255,255,255,.02)}
+  .lb-table .num{font-family:'Anton';color:var(--text-3);font-size:16px;width:50px}
+  .lb-table .course{font-family:'Oswald';font-weight:600;text-transform:uppercase;font-size:15px;letter-spacing:.5px}
+  .lb-table .course .date{display:block;font-family:'Inter';font-weight:400;font-size:11px;color:var(--text-3);margin-top:2px;text-transform:none;letter-spacing:0}
+  .lb-table .res{font-size:22px;width:48px;text-align:center}
+  .pill{display:inline-block;font-family:'Anton';font-size:12px;letter-spacing:1.5px;padding:4px 10px;border-radius:2px;color:#fff;text-transform:uppercase}
+  .pill.sanchez{background:var(--boca-2);color:var(--boca-gold-2);border:1px solid var(--boca-gold)}
+  .pill.tereso{background:var(--river-red);color:#fff}
+  .pill.tie{background:var(--gold);color:#1a0d05}
+  .lb-table .del{width:36px;text-align:right}
+  .lb-table .del button{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:14px;padding:6px;transition:color .15s}
+  .lb-table .del button:hover{color:var(--river-red-2)}
+  .lb-empty{padding:40px;text-align:center;color:var(--text-3);font-size:14px}
+
+  /* ====== ADD ROUND ====== */
+  .add-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:sticky;top:80px}
+  .add-card .ah{background:linear-gradient(90deg, var(--boca-2) 0%, var(--river-red) 100%);padding:12px 18px;font-family:'Anton';font-size:15px;letter-spacing:2.5px;color:#fff;text-transform:uppercase}
+  .ab{padding:20px}
+  .field{margin-bottom:14px}
+  .field label{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:600;margin-bottom:8px}
+  .field label .hint{font-family:'Inter';font-size:10px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:400}
+  .field input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:3px;font-size:14px;font-family:'Inter';color:#fff;outline:none;background:rgba(255,255,255,.03);transition:border-color .15s}
+  .field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,75,.15)}
+  .field input::placeholder{color:var(--text-3)}
+  .quick-courses{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .qc{font-family:'Oswald';font-size:11px;letter-spacing:1px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text-2);padding:4px 9px;border-radius:2px;cursor:pointer;font-weight:600;transition:all .15s}
+  .qc:hover{border-color:var(--gold);color:#fff;background:rgba(212,160,75,.1)}
+  .qc.new{border-style:dashed;color:var(--gold-2);border-color:rgba(212,160,75,.4)}
+  .qc.new:hover{background:rgba(212,160,75,.1);border-color:var(--gold)}
+  .winner-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-bottom:14px}
+  .wb{padding:14px 6px;border:2px solid var(--line);background:rgba(255,255,255,.02);border-radius:3px;cursor:pointer;font-family:'Anton';letter-spacing:1.2px;text-transform:uppercase;font-size:13px;color:var(--text-2);transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .wb .we{font-size:22px;line-height:1}
+  .wb:hover{border-color:var(--line-2);color:#fff}
+  .wb.sanchez.selected{border-color:var(--boca-2);background:rgba(11,84,200,.20);color:#fff;box-shadow:0 0 0 3px rgba(11,84,200,.18)}
+  .wb.tereso.selected{border-color:var(--river-red);background:rgba(207,32,48,.20);color:#fff;box-shadow:0 0 0 3px rgba(207,32,48,.18)}
+  .wb.tie.selected{border-color:var(--gold);background:rgba(212,160,75,.18);color:#fff;box-shadow:0 0 0 3px rgba(212,160,75,.15)}
+  .submit{width:100%;padding:14px;background:linear-gradient(90deg, var(--boca-2) 0%, var(--river-red) 100%);color:#fff;border:none;border-radius:3px;font-family:'Anton';font-size:14px;text-transform:uppercase;letter-spacing:3px;cursor:pointer;transition:transform .1s, box-shadow .15s;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+  .submit:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,0,0,.45)}
+  .submit:disabled{background:rgba(255,255,255,.06);color:var(--text-3);cursor:not-allowed;box-shadow:none}
+
+  /* ====== TWO-COL BOTTOM ====== */
+  .two-col{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+
+  /* ====== FOOTER ====== */
+  footer{background:var(--bg-2);border-top:1px solid var(--line);padding:24px;margin-top:40px;text-align:center;position:relative;z-index:1}
+  .foot-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Oswald';font-size:11px;color:var(--text-3);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  footer button{background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 12px;border-radius:3px;cursor:pointer;font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+  footer button:hover{border-color:var(--gold);color:#fff}
+
+  /* ====== TOAST ====== */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);color:#fff;padding:14px 22px;border-radius:3px;font-family:'Anton';font-size:14px;text-transform:uppercase;letter-spacing:2.5px;opacity:0;transition:all .3s;pointer-events:none;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.55);max-width:calc(100vw - 40px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ============ MOBILE ============ */
+  @media (max-width:780px){
+    .topbar-inner{padding:10px 14px}
+    .brand-mark{font-size:20px;letter-spacing:2.5px;gap:6px}
+    .brand-mark::before,.brand-mark::after{height:20px;width:4px}
+    .banner-inner{padding:24px 16px 20px}
+    .banner .crest{font-size:170px}
+    .banner .kicker{font-size:11px;letter-spacing:2.5px;padding:5px 10px;margin-bottom:14px}
+    .banner h1{font-size:clamp(34px,10vw,52px);line-height:.98;letter-spacing:1.5px}
+    .banner h1 .vs-token{display:block;margin:.05em auto}
+    .banner .venue{font-size:11px;letter-spacing:2.5px;margin-top:10px}
+    .banner .venue strong{font-size:13px}
+    .banner .meta-row{gap:22px;margin-top:16px}
+    .banner .meta-row .m+.m::before{left:-11px}
+    .banner .meta-row .m .n{font-size:22px}
+    .banner .meta-row .m .l{font-size:9px;letter-spacing:1.6px}
+    .container{padding:20px 14px 18px}
+    .grid{gap:22px}
+    .sec-head h2{font-size:22px;letter-spacing:1.5px;gap:10px}
+    .sec-head h2::before{height:22px;width:4px}
+    .sec-head .sub{font-size:10px;letter-spacing:1.5px;margin-left:10px}
+    .matchup-body{padding:24px 16px;gap:22px}
+    .corner{padding:6px}
+    .corner-tag{font-size:12px;letter-spacing:2.5px;padding:4px 10px;margin-bottom:10px}
+    .corner-photo{width:130px;height:130px;border-width:4px}
+    .belt{font-size:28px;top:-14px}
+    .corner-name{font-size:36px;margin-top:4px;letter-spacing:1.5px}
+    .corner-name .fam{font-size:.34em;letter-spacing:3.5px}
+    .corner-nick{font-size:11px;letter-spacing:2px;margin-top:6px}
+    .roster{max-width:none}
+    .player{font-size:11px;padding:4px 10px}
+    .record{margin-top:12px;justify-content:center}
+    .corner.boca .record,.corner.river .record{flex-direction:row;align-items:baseline}
+    .record .big{font-size:60px}
+    .record .lbl{font-size:10px;letter-spacing:1.5px}
+    .vs-block{padding:6px 0}
+    .vs-block .versus{font-size:60px}
+    .vs-block .versus-sub{font-size:11px}
+    .vs-tag{font-size:9px;letter-spacing:2px}
+    .commentary{padding:14px 16px;gap:12px;flex-direction:column;align-items:flex-start}
+    .commentary .label{font-size:11px;letter-spacing:2.5px}
+    .commentary .text{font-size:15px;line-height:1.4}
+    .tape-head{padding:11px 14px}
+    .tape-head .boca-side,.tape-head .river-side{font-size:16px;letter-spacing:1.2px}
+    .tape-head .center{font-size:12px;letter-spacing:2px;padding:3px 10px}
+    .tape-row{grid-template-columns:1fr 96px 1fr;padding:11px 12px;gap:8px}
+    .tape-row .boca-val,.tape-row .river-val{font-size:22px;letter-spacing:.3px}
+    .tape-row .lbl{font-size:10px;letter-spacing:1.2px}
+    .form-dot{width:18px;height:18px;font-size:10px}
+    .tape-row .boca-val[style*="22px"]{font-size:14px !important}
+    .tape-row .river-val[style*="22px"]{font-size:14px !important}
+    .pred-card .ch{padding:9px 14px;font-size:13px;letter-spacing:2px}
+    .pred-card .ch .sub{font-size:10px}
+    .pred-body{padding:16px}
+    .pred-bar{height:40px}
+    .pred-seg{font-size:14px}
+    .pred-legend{font-size:10px;letter-spacing:1px;gap:8px}
+    .pred-legend span strong{font-size:13px}
+    .pred-method{font-size:11px;line-height:1.45;padding-top:10px;margin-top:12px}
+    .mom-card{padding:12px}
+    .mom-card .name{font-size:14px}
+    .mom-card .arrow{font-size:32px;margin:6px 0}
+    .mom-card .delta{font-size:11px;letter-spacing:1px}
+    .mom-card .desc{font-size:10px;margin-top:6px}
+    .stat-cell{padding:14px 10px}
+    .stat-cell .sv{font-size:26px}
+    .stat-cell .sl{font-size:9px;letter-spacing:1.5px;margin-top:6px}
+    .stat-cell .ss{font-size:10px}
+    .ties-strip{padding:12px 14px;gap:14px}
+    .ties-strip .tn{font-size:34px}
+    .tie-chip{font-size:11px;padding:4px 8px}
+    .chart-card .ch-head{padding:10px 14px;font-size:12px;letter-spacing:2px}
+    .chart-card .ch-body{padding:12px;height:240px}
+    .chart-card.full .ch-body{height:280px}
+    .lb-toolbar{padding:10px 12px;gap:5px}
+    .chip{font-size:10px;letter-spacing:1.4px;padding:5px 9px}
+    .lb-table th{padding:9px 10px;font-size:9px;letter-spacing:1.4px}
+    .lb-table td{padding:11px 10px;font-size:13px}
+    .lb-table .num{width:34px;font-size:14px}
+    .lb-table .course{font-size:13px;letter-spacing:.3px}
+    .lb-table .course .date{font-size:10px}
+    .lb-table .res{font-size:18px;width:32px}
+    .pill{font-size:10px;letter-spacing:1px;padding:3px 7px}
+    .lb-table .del{width:28px}
+    .lb-table .del button{padding:4px;font-size:13px}
+    .add-card{position:static;top:auto}
+    .add-card .ah{padding:11px 14px;font-size:13px;letter-spacing:2px}
+    .ab{padding:16px}
+    .field{margin-bottom:12px}
+    .field label{font-size:10px;letter-spacing:1.6px}
+    .field input{padding:12px;font-size:15px}
+    .qc{font-size:10px;padding:5px 9px;letter-spacing:.8px}
+    .winner-row{gap:6px;margin-bottom:12px}
+    .wb{padding:12px 4px;font-size:12px;letter-spacing:1px;min-height:60px}
+    .wb .we{font-size:20px}
+    .submit{padding:14px;font-size:13px;letter-spacing:2.5px}
+    .foot-inner{flex-direction:column;gap:12px;text-align:center;font-size:10px;letter-spacing:1.5px}
+    .toast{bottom:20px;font-size:12px;letter-spacing:1.8px;padding:11px 18px}
+  }
+  @media (max-width:380px){
+    .banner h1{font-size:34px}
+    .banner .meta-row{gap:16px}
+    .corner-photo{width:118px;height:118px}
+    .corner-name{font-size:28px}
+    .record .big{font-size:50px}
+    .vs-block .versus{font-size:46px}
+    .tape-row{grid-template-columns:1fr 76px 1fr;gap:6px;padding:10px 10px}
+    .tape-row .boca-val,.tape-row .river-val{font-size:18px}
+    .tape-row .lbl{font-size:9px;letter-spacing:1px}
+    .form-dot{width:15px;height:15px;font-size:9px}
+    .stat-strip{grid-template-columns:repeat(2, 1fr)}
+    .stat-cell:nth-child(odd){border-right:1px solid var(--line)}
+    .stat-cell{border-bottom:1px solid var(--line)}
+    .stat-cell:nth-last-child(-n+2){border-bottom:none}
+    .lb-table .num{display:none}
+    .lb-table th:first-child{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">Superclásico</span>
+      <span class="brand-sub">Sánchez 🔵🟡 vs Tereso ⚪🔴 · Golf</span>
+    </div>
+    <nav>
+      <a href="#matchup">Matchup</a>
+      <a href="#tape">Tale of the Tape</a>
+      <a href="#pred">Pronóstico</a>
+      <a href="#leaderboard">Historial</a>
+      <a href="#add">Sumar</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ BANNER ============ -->
+<div class="banner">
+  <span class="crest">⛳</span>
+  <div class="banner-inner">
+    <div class="kicker"><span class="liveDot"></span> Main Event · Costa Esmeralda · Fin de Semana</div>
+    <h1><span class="blue">SÁNCHEZ</span> <span class="vs-token">vs</span> <span class="red">TERESO</span></h1>
+    <div class="venue">Cancha · <strong>Costa Esmeralda</strong> · 2-3 rondas · Match Familia</div>
+    <div class="meta-row">
+      <div class="m"><div class="n" id="meta-total">0</div><div class="l">Rondas</div></div>
+      <div class="m"><div class="n" id="meta-courses">0</div><div class="l">Tipos jugados</div></div>
+      <div class="m"><div class="n" id="meta-last">—</div><div class="l">Última ronda</div></div>
+      <div class="m"><div class="n" id="meta-leader">—</div><div class="l">Manda</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN ============ -->
+<div class="container">
+  <div class="grid">
+
+    <!-- MATCHUP -->
+    <section id="matchup">
+      <div class="matchup">
+        <div class="matchup-body">
+          <div class="corner boca" id="corner-sanchez">
+            <span class="corner-tag">🔵🟡 Azul y Oro</span>
+            <div class="photo-wrap">
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="sanchez.svg" alt="Familia Sánchez">
+            </div>
+            <div class="corner-name">
+              <span class="fam">Familia</span>
+              SÁNCHEZ
+            </div>
+            <div class="corner-nick">3 JUGADORES · CON <em>HANDICAP</em></div>
+            <div class="roster">
+              <span class="player">Damián <span class="hcp">hcp</span></span>
+              <span class="player">Pedro <span class="hcp">hcp</span></span>
+              <span class="player">Lucas <span class="hcp">hcp</span></span>
+            </div>
+            <div class="record">
+              <span class="big" id="score-sanchez">0</span>
+              <span class="lbl">Rondas Ganadas</span>
+            </div>
+            <div class="streak-row" id="streaks-sanchez"></div>
+          </div>
+
+          <div class="vs-block">
+            <div class="versus">vs</div>
+            <div class="versus-sub">SUPERCLÁSICO</div>
+            <div class="vs-tag">fin de semana · 2-3 rondas · sin piedad</div>
+          </div>
+
+          <div class="corner river" id="corner-tereso">
+            <span class="corner-tag">⚪🔴 Banda Roja</span>
+            <div class="photo-wrap">
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="tereso.svg" alt="Familia Tereso">
+            </div>
+            <div class="corner-name">
+              <span class="fam">Familia</span>
+              TERESO
+            </div>
+            <div class="corner-nick">2 JUGADORES · <em>SCRATCH</em></div>
+            <div class="roster">
+              <span class="player">Francisco <span class="hcp">scratch</span></span>
+              <span class="player">Jorge <span class="hcp">scratch</span></span>
+            </div>
+            <div class="record">
+              <span class="big" id="score-tereso">0</span>
+              <span class="lbl">Rondas Ganadas</span>
+            </div>
+            <div class="streak-row" id="streaks-tereso"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURRENT STATUS -->
+    <section id="status">
+      <div class="status-card">
+        <div class="status-head">
+          <div class="lt"><span class="dot"></span> Estado Actual · Live</div>
+          <div class="rt" id="status-meta">—</div>
+        </div>
+        <div class="status-body">
+          <div class="status-side tie" id="status-left">
+            <div class="status-circle">
+              <img id="status-img-left" src="sanchez.svg" alt="Sánchez">
+            </div>
+            <div class="zoom-pop"><img id="status-zoom-left" src="sanchez.svg" alt="Sánchez zoom"></div>
+            <span class="status-stamp" id="status-stamp-left">EN GUARDIA</span>
+            <div class="status-name" id="status-name-left">Sánchez</div>
+            <div class="status-tag" id="status-tag-left">ESPERANDO</div>
+          </div>
+          <div class="status-vs">vs</div>
+          <div class="status-side tie" id="status-right">
+            <div class="status-circle">
+              <img id="status-img-right" src="tereso.svg" alt="Tereso">
+            </div>
+            <div class="zoom-pop"><img id="status-zoom-right" src="tereso.svg" alt="Tereso zoom"></div>
+            <span class="status-stamp" id="status-stamp-right">EN GUARDIA</span>
+            <div class="status-name" id="status-name-right">Tereso</div>
+            <div class="status-tag" id="status-tag-right">ESPERANDO</div>
+          </div>
+        </div>
+        <div class="status-foot" id="status-foot">—</div>
+      </div>
+    </section>
+
+    <!-- COMMENTARY -->
+    <div class="commentary">
+      <span class="label">⛳ El Caddie</span>
+      <span class="text" id="commentary-text">…</span>
+    </div>
+
+    <!-- TALE OF THE TAPE -->
+    <section id="tape">
+      <div class="sec-head">
+        <h2>Tale of the Tape</h2>
+        <span class="sub">stats cara a cara</span>
+      </div>
+      <div class="tape">
+        <div class="tape-head">
+          <div class="boca-side">🔵🟡 SÁNCHEZ</div>
+          <div class="center">vs</div>
+          <div class="river-side">TERESO ⚪🔴</div>
+        </div>
+        <div class="tape-body" id="tape-body"></div>
+      </div>
+    </section>
+
+    <!-- PREDICTION -->
+    <section id="pred">
+      <div class="sec-head">
+        <h2>Próxima Ronda · Pronóstico</h2>
+        <span class="sub">forma reciente + récord histórico</span>
+      </div>
+      <div class="pred-grid">
+        <div class="pred-card">
+          <div class="ch"><span>Probabilidad de ganar</span><span class="sub">Últimas 5 ponderado</span></div>
+          <div class="pred-body">
+            <div class="pred-bar" id="pred-bar"></div>
+            <div class="pred-legend" id="pred-legend"></div>
+            <div class="pred-method">Modelo: 65% últimas 5 rondas (más peso a las recientes) + 35% win rate histórico. Empate normalizado.</div>
+          </div>
+        </div>
+        <div class="pred-card">
+          <div class="ch"><span>Momentum</span><span class="sub">¿quién viene caliente?</span></div>
+          <div class="pred-body">
+            <div class="momentum-grid" id="momentum"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT STRIP -->
+    <section>
+      <div class="sec-head"><h2>Stats del Fin de Semana</h2><span class="sub">totales del torneo</span></div>
+      <div class="stat-strip" id="stat-strip"></div>
+    </section>
+
+    <!-- TIES -->
+    <section>
+      <div class="ties-strip">
+        <div>
+          <div class="tn" id="ties-num">0</div>
+          <span class="tl">Empates</span>
+        </div>
+        <div style="border-left:1px solid var(--line);height:48px"></div>
+        <div class="courses" id="ties-courses"></div>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section>
+      <div class="sec-head"><h2>Stat Tracker</h2><span class="sub">tendencias visuales</span></div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="ch-head">Distribución total</div>
+          <div class="ch-body"><canvas id="pieChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="ch-head">Evolución acumulada</div>
+          <div class="ch-body"><canvas id="lineChart"></canvas></div>
+        </div>
+        <div class="chart-card full" style="grid-column:1/-1">
+          <div class="ch-head">Por ronda · campo de batalla</div>
+          <div class="ch-body"><canvas id="barChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD + ADD -->
+    <section>
+      <div class="two-col">
+        <div id="leaderboard">
+          <div class="sec-head"><h2>Historial</h2><span class="sub">todas las rondas</span></div>
+          <div class="lb-card">
+            <div class="lb-toolbar">
+              <span class="chip active" data-filter="all">Todas</span>
+              <span class="chip" data-filter="sanchez">🔵🟡 Sánchez</span>
+              <span class="chip" data-filter="tereso">⚪🔴 Tereso</span>
+              <span class="chip" data-filter="tie">🤝 Empate</span>
+            </div>
+            <table class="lb-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ronda</th>
+                  <th style="text-align:center">Res.</th>
+                  <th>Ganador</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="lb-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="add">
+          <div class="sec-head"><h2>Sumar Ronda</h2><span class="sub">post-vuelta</span></div>
+          <div class="add-card">
+            <div class="ah">¿Terminaron la vuelta?</div>
+            <div class="ab">
+              <div class="field">
+                <label>Ronda <span class="hint">qué vuelta o formato</span></label>
+                <div class="quick-courses" id="quick-courses"></div>
+                <input type="text" id="input-course" placeholder="Ronda 1, Match Play, Mejor Pelota…" list="course-list" autocomplete="off">
+                <datalist id="course-list"></datalist>
+              </div>
+              <div class="field">
+                <label>Fecha</label>
+                <input type="date" id="input-date">
+              </div>
+              <div class="field">
+                <label>¿Quién ganó?</label>
+                <div class="winner-row">
+                  <button class="wb sanchez" data-winner="sanchez"><span class="we">🔵🟡</span>Sánchez</button>
+                  <button class="wb tie" data-winner="tie"><span class="we">🤝</span>Empate</button>
+                  <button class="wb tereso" data-winner="tereso"><span class="we">⚪🔴</span>Tereso</button>
+                </div>
+              </div>
+              <button class="submit" id="submit-btn" disabled>Sumar al historial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div>SUPERCLÁSICO DEL GOLF · SÁNCHEZ 🔵🟡 VS TERESO ⚪🔴</div>
+    <div style="display:flex;gap:8px">
+      <button id="export-btn">Exportar</button>
+      <button id="import-btn">Importar</button>
+      <button id="reset-btn">Reset</button>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= DATA ======================= */
+const SEED_MATCHES = [];
+const STORAGE_KEY = "rivalidad_sanchez_tereso_v1";
+const DEFAULT_QUICK = ["Ronda 1", "Ronda 2", "Ronda 3", "Match Play", "Mejor Pelota"];
+
+function loadMatches() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_MATCHES));
+      return [...SEED_MATCHES];
+    }
+    return JSON.parse(raw);
+  } catch(e) { return [...SEED_MATCHES]; }
+}
+function saveMatches(m){ localStorage.setItem(STORAGE_KEY, JSON.stringify(m)); }
+
+let MATCHES = loadMatches();
+let activeFilter = "all";
+let selectedWinner = null;
+let pieChart, lineChart, barChart;
+
+/* ======================= HELPERS ======================= */
+function counts(){ const c={sanchez:0,tereso:0,tie:0}; MATCHES.forEach(m=>c[m.winner]++); return c; }
+function winRate(c){ const t=c.sanchez+c.tereso+c.tie; return t?{s:c.sanchez/t*100,r:c.tereso/t*100,t:c.tie/t*100}:{s:0,r:0,t:0}; }
+function streaks(){
+  let maxS=0,maxR=0,curS=0,curR=0;
+  MATCHES.forEach(m=>{
+    if(m.winner==="sanchez"){curS++;curR=0;maxS=Math.max(maxS,curS)}
+    else if(m.winner==="tereso"){curR++;curS=0;maxR=Math.max(maxR,curR)}
+    else{curS=0;curR=0}
+  });
+  let cw=null,cl=0;
+  for(let i=MATCHES.length-1;i>=0;i--){
+    const w=MATCHES[i].winner;
+    if(w==="tie"){ if(cw===null) continue; else break; }
+    if(cw===null){cw=w;cl=1} else if(w===cw) cl++; else break;
+  }
+  return {maxS,maxR,currentWho:cw,currentLen:cl};
+}
+function byCourse(){
+  const map={};
+  MATCHES.forEach(m=>{
+    if(!map[m.course]) map[m.course]={course:m.course,sanchez:0,tereso:0,tie:0,total:0};
+    map[m.course][m.winner]++; map[m.course].total++;
+  });
+  return Object.values(map).sort((a,b)=>b.total-a.total||a.course.localeCompare(b.course));
+}
+function uniqueCourses(){ return [...new Set(MATCHES.map(m=>m.course))].sort(); }
+function lastN(n){ return MATCHES.slice(-n); }
+
+function formFor(player, n=5){
+  const arr = lastN(n);
+  return arr.map(m => {
+    if (m.winner === "tie") return "T";
+    return m.winner === player ? "W" : "L";
+  });
+}
+
+function predict(){
+  const last = lastN(5);
+  if (!MATCHES.length) return { sanchez: 1/3, tereso: 1/3, tie: 1/3 };
+  let totalW = 0, rs = 0, rr = 0, rt = 0;
+  last.forEach((m,i) => {
+    const w = i + 1;
+    totalW += w;
+    if (m.winner === "sanchez") rs += w;
+    else if (m.winner === "tereso") rr += w;
+    else rt += w;
+  });
+  if (totalW > 0) { rs /= totalW; rr /= totalW; rt /= totalW; }
+  const c = counts();
+  const total = c.sanchez + c.tereso + c.tie;
+  const os = total ? c.sanchez/total : 1/3;
+  const or = total ? c.tereso/total : 1/3;
+  const ot = total ? c.tie/total : 1/3;
+  const blend = 0.65;
+  let ps = blend*rs + (1-blend)*os;
+  let pr = blend*rr + (1-blend)*or;
+  let pt = blend*rt + (1-blend)*ot;
+  const s = ps + pr + pt || 1;
+  return { sanchez: ps/s, tereso: pr/s, tie: pt/s };
+}
+
+function momentum(){
+  if (MATCHES.length < 3) return { sanchez: 0, tereso: 0 };
+  const last = lastN(5);
+  const c5 = { sanchez:0, tereso:0, tie:0 };
+  last.forEach(m => c5[m.winner]++);
+  const c = counts();
+  const total = c.sanchez + c.tereso + c.tie;
+  const t5 = last.length;
+  return {
+    sanchez: (c5.sanchez/t5) - (total?c.sanchez/total:0),
+    tereso: (c5.tereso/t5) - (total?c.tereso/total:0),
+  };
+}
+
+function commentaryText(c, s){
+  const total = c.sanchez + c.tereso + c.tie;
+  if (total === 0) return "Tee del 1. Costa Esmeralda quieta. Los Sánchez ya marcan tarjeta, los Tereso ya pisaron el green.";
+  const diff = c.sanchez - c.tereso;
+  if (s.currentLen >= 4) {
+    return s.currentWho === "sanchez"
+      ? `Sánchez clavó ${s.currentLen} rondas seguidas. Tereso ya está pidiendo doble café en el club house.`
+      : `Tereso enganchó ${s.currentLen} al hilo. Sánchez busca el manual de handicap.`;
+  }
+  if (s.currentLen === 3) {
+    return s.currentWho === "sanchez"
+      ? `Tres rondas al hilo. La bandera azul y oro flamea sobre el 18.`
+      : `Tres bandas rojas seguidas. El scratch limpio le está ganando al hcp.`;
+  }
+  if (diff >= 5) return "Sánchez en modo Boca '00. Tereso necesita milagro de River '18.";
+  if (diff >= 3) return "Azul y oro al palo. Tereso juega para el asado.";
+  if (diff === 2) return "Sánchez arriba pero sin tocar la copa.";
+  if (diff === 1) return "Por un golpe. Cualquier bogey lo da vuelta.";
+  if (diff === 0 && total > 0) return "Empate en el clubhouse. La próxima ronda decide.";
+  if (diff === -1) return "Tereso asoma la banda. Cuidado en el green.";
+  if (diff === -2) return "El scratch te está marcando los hoyos.";
+  if (diff <= -3) return "Te están sirviendo solo handicap. Banda roja al frente.";
+  return "La rivalidad sigue caliente.";
+}
+
+/* ======================= RENDER ======================= */
+function render(){
+  const c = counts();
+  const s = streaks();
+  const total = c.sanchez + c.tereso + c.tie;
+  const courses = uniqueCourses().length;
+  const last = MATCHES[MATCHES.length-1];
+
+  document.getElementById("meta-total").textContent = total;
+  document.getElementById("meta-courses").textContent = courses;
+  document.getElementById("meta-last").textContent = last ? last.course : "—";
+  const leaderTxt = c.sanchez > c.tereso ? "Sánchez" : c.tereso > c.sanchez ? "Tereso" : (total === 0 ? "—" : "Empate");
+  document.getElementById("meta-leader").textContent = leaderTxt;
+
+  document.getElementById("score-sanchez").textContent = c.sanchez;
+  document.getElementById("score-tereso").textContent = c.tereso;
+  const sLead = c.sanchez > c.tereso, rLead = c.tereso > c.sanchez;
+  document.getElementById("corner-sanchez").classList.toggle("leading", sLead);
+  document.getElementById("corner-tereso").classList.toggle("leading", rLead);
+
+  let sp = `<span class="sp hot">🔥 mejor: ${s.maxS}</span>`;
+  if (s.currentWho === "sanchez" && s.currentLen >= 1) sp += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-sanchez").innerHTML = sp;
+  let rp = `<span class="sp hot">🔥 mejor: ${s.maxR}</span>`;
+  if (s.currentWho === "tereso" && s.currentLen >= 1) rp += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-tereso").innerHTML = rp;
+
+  document.getElementById("commentary-text").textContent = commentaryText(c, s);
+
+  renderStatus(c, s);
+
+  const wr = winRate(c);
+  const formS = formFor("sanchez", 5);
+  const formR = formFor("tereso", 5);
+  const formSHTML = formS.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const formRHTML = formR.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const last5 = lastN(5);
+  const win5S = last5.filter(m=>m.winner==="sanchez").length;
+  const win5R = last5.filter(m=>m.winner==="tereso").length;
+
+  document.getElementById("tape-body").innerHTML = `
+    <div class="tape-row">
+      <div class="boca-val ${c.sanchez>=c.tereso?'win':''}">${c.sanchez}</div>
+      <div class="lbl">Rondas Ganadas</div>
+      <div class="river-val ${c.tereso>=c.sanchez?'win':''}">${c.tereso}</div>
+    </div>
+    <div class="tape-row">
+      <div class="boca-val ${wr.s>=wr.r?'win':''}">${wr.s.toFixed(0)}%</div>
+      <div class="lbl">Win Rate</div>
+      <div class="river-val ${wr.r>=wr.s?'win':''}">${wr.r.toFixed(0)}%</div>
+    </div>
+    <div class="tape-row">
+      <div class="boca-val ${s.maxS>=s.maxR?'win':''}">${s.maxS}</div>
+      <div class="lbl">Mejor racha</div>
+      <div class="river-val ${s.maxR>=s.maxS?'win':''}">${s.maxR}</div>
+    </div>
+    <div class="tape-row">
+      <div class="boca-val ${win5S>=win5R?'win':''}">${win5S}-${last5.length-win5S}</div>
+      <div class="lbl">Últimas 5</div>
+      <div class="river-val ${win5R>=win5S?'win':''}">${win5R}-${last5.length-win5R}</div>
+    </div>
+    <div class="tape-row">
+      <div class="boca-val" style="font-size:22px">${formSHTML || '—'}</div>
+      <div class="lbl">Forma (últimas 5)</div>
+      <div class="river-val" style="font-size:22px">${formRHTML || '—'}</div>
+    </div>
+    <div class="tape-row">
+      <div class="boca-val" style="font-size:20px">3 · con hcp</div>
+      <div class="lbl">Roster</div>
+      <div class="river-val" style="font-size:20px">2 · scratch</div>
+    </div>
+  `;
+
+  const p = predict();
+  const ps = (p.sanchez*100).toFixed(0);
+  const pt = (p.tie*100).toFixed(0);
+  const pr = (p.tereso*100).toFixed(0);
+  document.getElementById("pred-bar").innerHTML = `
+    <div class="pred-seg b" style="width:${ps}%">${ps >= 8 ? ps+'%' : ''}</div>
+    <div class="pred-seg t" style="width:${pt}%">${pt >= 8 ? pt+'%' : ''}</div>
+    <div class="pred-seg r" style="width:${pr}%">${pr >= 8 ? pr+'%' : ''}</div>
+  `;
+  document.getElementById("pred-legend").innerHTML = `
+    <span><strong>🔵🟡 ${ps}%</strong>Sánchez</span>
+    <span><strong>🤝 ${pt}%</strong>Empate</span>
+    <span><strong>${pr}% ⚪🔴</strong>Tereso</span>
+  `;
+
+  const mom = momentum();
+  function momCard(player, delta){
+    const dpct = (delta*100);
+    const dir = Math.abs(dpct) < 5 ? "flat" : (dpct > 0 ? "up" : "down");
+    const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "—";
+    const name = player === "sanchez" ? "SÁNCHEZ" : "TERESO";
+    const cls = player === "sanchez" ? "boca" : "river";
+    const desc = dir === "up"
+      ? "Viene caliente. Por encima de su promedio histórico."
+      : dir === "down"
+      ? "Frío. Rinde menos que su promedio."
+      : "En su promedio histórico.";
+    return `
+      <div class="mom-card ${cls} ${dir}">
+        <div>
+          <div class="name">${name}</div>
+          <div class="arrow">${arrow}</div>
+        </div>
+        <div>
+          <div class="delta">${dpct >= 0 ? "+" : ""}${dpct.toFixed(0)} pts vs. histórico</div>
+          <div class="desc">${desc}</div>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("momentum").innerHTML = momCard("sanchez", mom.sanchez) + momCard("tereso", mom.tereso);
+
+  const h2h = c.sanchez > c.tereso ? `+${c.sanchez-c.tereso}` : c.tereso > c.sanchez ? `+${c.tereso-c.sanchez}` : "0";
+  const h2hWho = c.sanchez > c.tereso ? "Sánchez" : c.tereso > c.sanchez ? "Tereso" : (total === 0 ? "—" : "Empate");
+  const cl = byCourse();
+  document.getElementById("stat-strip").innerHTML = `
+    <div class="stat-cell"><div class="sv">${total}</div><div class="sl">Rondas jugadas</div></div>
+    <div class="stat-cell"><div class="sv">${h2h}</div><div class="sl">Diferencia</div><div class="ss">${h2hWho}</div></div>
+    <div class="stat-cell boca"><div class="sv">${c.sanchez}-${c.tereso}-${c.tie}</div><div class="sl">W-L-T Sánchez</div></div>
+    <div class="stat-cell river"><div class="sv">${c.tereso}-${c.sanchez}-${c.tie}</div><div class="sl">W-L-T Tereso</div></div>
+    <div class="stat-cell"><div class="sv" style="font-size:18px">${cl[0]?cl[0].course:'—'}</div><div class="sl">Ronda top</div><div class="ss">${cl[0]?cl[0].total+'× jugada':''}</div></div>
+  `;
+
+  const tList = MATCHES.filter(m=>m.winner==="tie");
+  document.getElementById("ties-num").textContent = c.tie;
+  document.getElementById("ties-courses").innerHTML =
+    tList.length
+      ? tList.map(t=>`<span class="tie-chip">🤝 ${escapeHTML(t.course)}</span>`).join("")
+      : `<span style="color:var(--text-3);font-size:13px">Todavía no hay empates.</span>`;
+
+  renderQuickCourses();
+  refreshCourseDatalist();
+  renderHistory();
+  renderCharts();
+}
+
+function renderStatus(c, s){
+  const left = document.getElementById("status-left");
+  const right = document.getElementById("status-right");
+  const imgL = document.getElementById("status-img-left");
+  const imgR = document.getElementById("status-img-right");
+  const zoomL = document.getElementById("status-zoom-left");
+  const zoomR = document.getElementById("status-zoom-right");
+  const stampL = document.getElementById("status-stamp-left");
+  const stampR = document.getElementById("status-stamp-right");
+  const nameL = document.getElementById("status-name-left");
+  const nameR = document.getElementById("status-name-right");
+  const tagL = document.getElementById("status-tag-left");
+  const tagR = document.getElementById("status-tag-right");
+  const foot = document.getElementById("status-foot");
+  const meta = document.getElementById("status-meta");
+
+  left.className = "status-side";
+  right.className = "status-side";
+
+  function setImgPair(mainEl, zoomEl, src, fallback, alt){
+    [mainEl, zoomEl].forEach(el => {
+      el.onerror = function(){ el.onerror = null; el.src = fallback; };
+      el.src = src;
+      el.alt = alt;
+    });
+  }
+
+  const total = c.sanchez + c.tereso + c.tie;
+
+  // 0-0: ambos en guardia, esperando la primera ronda
+  if (total === 0) {
+    left.classList.add("tie");
+    right.classList.add("tie");
+    setImgPair(imgL, zoomL, "sanchez.svg", "sanchez.svg", "Sánchez");
+    setImgPair(imgR, zoomR, "tereso.svg", "tereso.svg", "Tereso");
+    stampL.textContent = "EN GUARDIA"; stampR.textContent = "EN GUARDIA";
+    nameL.textContent = "Sánchez"; nameR.textContent = "Tereso";
+    tagL.textContent = "AZUL Y ORO";
+    tagR.textContent = "BANDA ROJA";
+    foot.innerHTML = `<strong>0–0</strong> · Costa Esmeralda · primer tee pendiente. El sorteo decide quién abre.`;
+    meta.textContent = "Sin rondas · esperando el primer drive";
+    return;
+  }
+
+  // Sánchez liderando
+  if (c.sanchez > c.tereso) {
+    left.classList.add("win");
+    right.classList.add("lose");
+    setImgPair(imgL, zoomL, "sanchez-winner.png", "sanchez.svg", "Sánchez ganando");
+    setImgPair(imgR, zoomR, "tereso-loser.png", "tereso.svg", "Tereso perdiendo");
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
+    nameL.textContent = "Sánchez"; nameR.textContent = "Tereso";
+    tagL.textContent = momentumNeg(s, "sanchez") ? "EN ALERTA" : "DOMINANDO";
+    tagR.textContent = momentumPos(s, "tereso") ? "RESURGIENDO" : "EN LA LONA";
+    foot.innerHTML = statusLine(c, s, "sanchez");
+    meta.textContent = `Actualizado · ronda #${MATCHES.length}`;
+    return;
+  }
+
+  // Tereso liderando
+  if (c.tereso > c.sanchez) {
+    left.classList.add("win");
+    right.classList.add("lose");
+    setImgPair(imgL, zoomL, "tereso-winner.png", "tereso.svg", "Tereso ganando");
+    setImgPair(imgR, zoomR, "sanchez-loser.png", "sanchez.svg", "Sánchez perdiendo");
+    stampL.textContent = "WINNER"; stampR.textContent = "LOSER";
+    nameL.textContent = "Tereso"; nameR.textContent = "Sánchez";
+    tagL.textContent = momentumNeg(s, "tereso") ? "EN ALERTA" : "DOMINANDO";
+    tagR.textContent = momentumPos(s, "sanchez") ? "RESURGIENDO" : "EN LA LONA";
+    foot.innerHTML = statusLine(c, s, "tereso");
+    meta.textContent = `Actualizado · ronda #${MATCHES.length}`;
+    return;
+  }
+
+  // Empate técnico con partidos jugados
+  left.classList.add("tie");
+  right.classList.add("tie");
+  setImgPair(imgL, zoomL, "sanchez.svg", "sanchez.svg", "Sánchez");
+  setImgPair(imgR, zoomR, "tereso.svg", "tereso.svg", "Tereso");
+  stampL.textContent = "EN LLAMAS"; stampR.textContent = "EN LLAMAS";
+  nameL.textContent = "Sánchez"; nameR.textContent = "Tereso";
+  tagL.textContent = "EMPATADOS";
+  tagR.textContent = "EMPATADOS";
+  foot.innerHTML = `<strong>${c.sanchez}–${c.tereso}</strong> · empate técnico. La próxima ronda lo define.`;
+  meta.textContent = `Actualizado · ronda #${MATCHES.length}`;
+}
+function momentumNeg(s, who){ return s.currentWho && s.currentWho !== who && s.currentLen >= 3; }
+function momentumPos(s, who){ return s.currentWho === who && s.currentLen >= 3; }
+
+function statusLine(c, s, leader){
+  const diff = Math.abs(c.sanchez - c.tereso);
+  const leadName = leader === "sanchez" ? "Sánchez" : "Tereso";
+  const trailName = leader === "sanchez" ? "Tereso" : "Sánchez";
+  if (s.currentLen >= 3 && s.currentWho && s.currentWho !== leader) {
+    return `<strong>${leadName} ${c.sanchez}–${c.tereso}</strong> arriba · pero <strong>${trailName}</strong> viene con ${s.currentLen} al hilo. Ojo al green.`;
+  }
+  if (s.currentLen >= 3 && s.currentWho === leader) {
+    return `<strong>${leadName}</strong> domina ${c.sanchez}–${c.tereso} y viene de <strong>${s.currentLen} al hilo</strong>. El otro perdió el palo.`;
+  }
+  if (diff >= 4) return `<strong>${leadName}</strong> arrasa ${c.sanchez}–${c.tereso}. ${trailName} sigue contando bogeys.`;
+  if (diff >= 2) return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Va embocando.`;
+  return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Cualquier bogey lo da vuelta.`;
+}
+
+function renderQuickCourses(){
+  const used = byCourse().slice(0, 4).map(x=>x.course);
+  const pool = used.length ? used : DEFAULT_QUICK.slice(0, 4);
+  const el = document.getElementById("quick-courses");
+  el.innerHTML = pool.map(c => `<span class="qc" data-course="${escapeHTML(c)}">${escapeHTML(c)}</span>`).join("")
+    + `<span class="qc new" data-new="1">+ ronda nueva</span>`;
+  el.querySelectorAll(".qc").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById("input-course");
+      if (chip.dataset.new) { input.value = ""; input.focus(); }
+      else { input.value = chip.dataset.course; }
+      updateSubmitState();
+    });
+  });
+}
+
+function renderHistory(){
+  const tbody = document.getElementById("lb-body");
+  const filtered = MATCHES.map((m,i)=>({...m,idx:i+1}))
+    .filter(m => activeFilter === "all" || m.winner === activeFilter)
+    .reverse();
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="5" class="lb-empty">${MATCHES.length === 0 ? "Sin rondas. Sumá la primera." : "Nada con ese filtro."}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(m => {
+    const emoji = m.winner === "sanchez" ? "🔵🟡" : m.winner === "tereso" ? "⚪🔴" : "🤝";
+    const whoLabel = m.winner === "sanchez" ? "Sánchez" : m.winner === "tereso" ? "Tereso" : "Empate";
+    const dateLine = m.date ? `<span class="date">${m.date}</span>` : "";
+    return `
+      <tr>
+        <td class="num">${String(m.idx).padStart(2,"0")}</td>
+        <td class="course">${escapeHTML(m.course)}${dateLine}</td>
+        <td class="res">${emoji}</td>
+        <td><span class="pill ${m.winner}">${whoLabel}</span></td>
+        <td class="del"><button data-idx="${m.idx-1}" title="Borrar">✕</button></td>
+      </tr>`;
+  }).join("");
+  tbody.querySelectorAll(".del button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = parseInt(btn.dataset.idx,10);
+      const m = MATCHES[i];
+      if (confirm(`¿Borrar la ronda ${m.course}?`)) {
+        MATCHES.splice(i,1);
+        saveMatches(MATCHES);
+        render();
+        toast("Ronda eliminada");
+      }
+    });
+  });
+}
+
+function renderCharts(){
+  const c = counts();
+  const total = c.sanchez + c.tereso + c.tie;
+
+  const ctxP = document.getElementById("pieChart").getContext("2d");
+  if (pieChart) pieChart.destroy();
+  pieChart = new Chart(ctxP, {
+    type: "doughnut",
+    data: {
+      labels: ["🔵🟡 Sánchez", "⚪🔴 Tereso", "🤝 Empate"],
+      datasets: [{
+        data: total ? [c.sanchez, c.tereso, c.tie] : [1,1,1],
+        backgroundColor: total ? ["#0b54c8", "#cf2030", "#d4a04b"] : ["#1d2237","#1d2237","#1d2237"],
+        borderColor: "#11172a", borderWidth: 4, hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#a3b1c6", font: { size: 12, weight: "600" }, padding: 14 } },
+        tooltip: {
+          backgroundColor: "#11172a", titleFont:{family:"Anton",size:14}, bodyFont:{size:13}, borderColor:"#d4a04b", borderWidth:1,
+          callbacks: { label: ctx => {
+            if (!total) return `${ctx.label}: 0 (—)`;
+            return `${ctx.label}: ${ctx.parsed} (${(ctx.parsed/total*100).toFixed(1)}%)`;
+          }}
+        }
+      }
+    }
+  });
+
+  let cs = 0, cr = 0, ct = 0;
+  const labels = MATCHES.map((m,i)=>`#${i+1}`);
+  const dataS = [], dataR = [], dataT = [];
+  MATCHES.forEach(m => {
+    if (m.winner === "sanchez") cs++;
+    if (m.winner === "tereso") cr++;
+    if (m.winner === "tie") ct++;
+    dataS.push(cs); dataR.push(cr); dataT.push(ct);
+  });
+  const ctxL = document.getElementById("lineChart").getContext("2d");
+  if (lineChart) lineChart.destroy();
+  lineChart = new Chart(ctxL, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "🔵🟡 Sánchez", data: dataS, borderColor: "#0b54c8", backgroundColor: "rgba(11,84,200,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "⚪🔴 Tereso", data: dataR, borderColor: "#cf2030", backgroundColor: "rgba(207,32,48,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🤝 Empate", data: dataT, borderColor: "#d4a04b", borderWidth: 2, fill: false, tension: .25, pointRadius: 2, pointHoverRadius: 4, borderDash: [5,5] },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#a3b1c6", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { ticks: { color: "#6a7997", font:{size:10} }, grid: { color: "rgba(255,255,255,.05)" } },
+        y: { ticks: { color: "#6a7997", stepSize: 1 }, grid: { color: "rgba(255,255,255,.05)" }, beginAtZero: true }
+      }
+    }
+  });
+
+  const courseData = byCourse();
+  const ctxB = document.getElementById("barChart").getContext("2d");
+  if (barChart) barChart.destroy();
+  barChart = new Chart(ctxB, {
+    type: "bar",
+    data: {
+      labels: courseData.length ? courseData.map(x=>x.course) : ["sin rondas aún"],
+      datasets: courseData.length ? [
+        { label: "🔵🟡 Sánchez", data: courseData.map(x=>x.sanchez), backgroundColor: "#0b54c8" },
+        { label: "⚪🔴 Tereso", data: courseData.map(x=>x.tereso), backgroundColor: "#cf2030" },
+        { label: "🤝 Empate", data: courseData.map(x=>x.tie), backgroundColor: "#d4a04b" },
+      ] : [{ label: "—", data: [0], backgroundColor: "#1d2237" }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#a3b1c6", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { stacked: true, ticks: { color: "#a3b1c6", font:{size:11,weight:"600"} }, grid: { display: false } },
+        y: { stacked: true, ticks: { color: "#6a7997", stepSize: 1 }, grid: { color: "rgba(255,255,255,.05)" }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+function refreshCourseDatalist(){
+  const used = uniqueCourses();
+  const merged = [...new Set([...used, ...DEFAULT_QUICK])];
+  document.getElementById("course-list").innerHTML = merged.map(c=>`<option value="${escapeHTML(c)}">`).join("");
+}
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+
+/* ======================= EVENTS ======================= */
+document.querySelectorAll(".lb-toolbar .chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".lb-toolbar .chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderHistory();
+  });
+});
+document.querySelectorAll(".wb").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedWinner = btn.dataset.winner;
+    updateSubmitState();
+  });
+});
+const courseInput = document.getElementById("input-course");
+courseInput.addEventListener("input", updateSubmitState);
+function updateSubmitState(){
+  const ok = courseInput.value.trim().length > 0 && selectedWinner !== null;
+  document.getElementById("submit-btn").disabled = !ok;
+}
+document.getElementById("submit-btn").addEventListener("click", () => {
+  const course = courseInput.value.trim();
+  if (!course || !selectedWinner) return;
+  const date = document.getElementById("input-date").value || null;
+  const match = { course, winner: selectedWinner };
+  if (date) match.date = date;
+  MATCHES.push(match);
+  saveMatches(MATCHES);
+  courseInput.value = "";
+  document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+  document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+  selectedWinner = null;
+  updateSubmitState();
+  render();
+  const e = match.winner === "sanchez" ? "🔵🟡" : match.winner === "tereso" ? "⚪🔴" : "🤝";
+  toast(`${e} ${course} sumada`);
+});
+
+document.getElementById("export-btn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(MATCHES, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `superclasico-golf-sanchez-tereso-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById("import-btn").addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.type = "file"; input.accept = "application/json";
+  input.onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const d = JSON.parse(ev.target.result);
+        if (!Array.isArray(d)) throw new Error("formato inválido");
+        MATCHES = d; saveMatches(MATCHES); render(); toast("Importado");
+      } catch(err){ alert("Error: "+err.message); }
+    };
+    r.readAsText(f);
+  };
+  input.click();
+});
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (confirm("¿Resetear a 0-0?")) {
+    MATCHES = [...SEED_MATCHES]; saveMatches(MATCHES); render(); toast("Reseteado");
+  }
+});
+
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+
+document.querySelectorAll(".status-side .status-circle").forEach(c => {
+  c.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const side = c.closest(".status-side");
+    document.querySelectorAll(".status-side").forEach(s => { if (s !== side) s.classList.remove("expanded"); });
+    side.classList.toggle("expanded");
+  });
+});
+document.addEventListener("click", () => {
+  document.querySelectorAll(".status-side").forEach(s => s.classList.remove("expanded"));
+});
+
+render();
+</script>
+</body>
+</html>
