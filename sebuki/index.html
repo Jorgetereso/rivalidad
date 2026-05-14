@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA SOBREMESA · George vs Sebuki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#140a0d;
+    --bg-2:#1c1014;
+    --card:#22141a;
+    --card-2:#2c1a22;
+    --line:rgba(200,160,75,.10);
+    --line-2:rgba(200,160,75,.25);
+    --text:#f5ebd8;
+    --text-2:#c4b497;
+    --text-3:#8a7960;
+    --wine:#8b1c30;
+    --wine-2:#b22845;
+    --wine-glow:rgba(178,40,69,.55);
+    --copper:#c8782a;
+    --copper-2:#e29547;
+    --copper-glow:rgba(226,149,71,.55);
+    --gold:#c8a04b;
+    --gold-2:#e0bd6c;
+    --gold-glow:rgba(200,160,75,.55);
+    --cream:#f5ebd8;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 15%, rgba(139,28,48,.18), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 85%, rgba(200,160,75,.12), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 100%, rgba(226,149,71,.08), transparent 70%),
+      var(--bg);
+    min-height:100vh;
+  }
+
+  /* ====== TOP BAR ====== */
+  .topbar{background:rgba(20,10,13,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .topbar-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{font-family:'DM Serif Display',serif;letter-spacing:2px;text-transform:uppercase;font-size:24px;color:var(--cream);display:flex;align-items:center;gap:10px;font-style:italic}
+  .brand-mark::before{content:'';width:4px;height:24px;background:var(--wine);transform:skewX(-15deg)}
+  .brand-mark::after{content:'';width:4px;height:24px;background:var(--gold);transform:skewX(-15deg)}
+  .brand-sub{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:2px;color:var(--text-2);border-left:1px solid var(--line);padding-left:14px;text-transform:none}
+  .topbar nav{display:flex;gap:6px;font-family:'Oswald';font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .topbar nav a{color:var(--text-2);text-decoration:none;padding:8px 12px;border-radius:3px;transition:all .15s}
+  .topbar nav a:hover{color:var(--cream);background:rgba(200,160,75,.06)}
+  @media (max-width:760px){.topbar nav{display:none}.brand-sub{display:none}}
+
+  /* ====== BANNER ====== */
+  .banner{position:relative;background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);border-bottom:1px solid var(--line);overflow:hidden}
+  .banner::before{content:'';position:absolute;top:0;left:0;right:50%;bottom:0;background:linear-gradient(110deg, rgba(226,149,71,.10) 0%, transparent 70%);pointer-events:none}
+  .banner::after{content:'';position:absolute;top:0;left:50%;right:0;bottom:0;background:linear-gradient(-110deg, rgba(178,40,69,.18) 0%, transparent 70%);pointer-events:none}
+  /* Subtle grape/vine ornament */
+  .banner .ornament{position:absolute;font-family:'DM Serif Display',serif;font-style:italic;color:rgba(200,160,75,.05);font-size:240px;line-height:1;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;letter-spacing:-8px;user-select:none}
+  .banner-inner{max-width:1320px;margin:0 auto;padding:30px 24px 24px;position:relative;z-index:1;text-align:center}
+  .banner .kicker{display:inline-flex;align-items:center;gap:10px;background:rgba(139,28,48,.18);border:1px solid var(--wine);color:var(--wine-2);padding:6px 14px;border-radius:3px;font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:2px;text-transform:none;font-weight:600;margin-bottom:18px}
+  .banner .kicker .liveDot{width:8px;height:8px;background:var(--wine-2);border-radius:50%;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  .banner h1{font-family:'DM Serif Display',serif;font-size:clamp(40px,8vw,84px);line-height:1;letter-spacing:1px;text-transform:uppercase;color:var(--cream);text-shadow:0 6px 30px rgba(0,0,0,.7)}
+  .banner h1 .vs-token{display:inline-block;font-family:'DM Serif Display',serif;font-style:italic;color:var(--cream);font-size:.55em;margin:0 .25em;background:linear-gradient(135deg, var(--copper-2) 0%, var(--gold-2) 50%, var(--wine-2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-8deg);display:inline-block;text-transform:lowercase}
+  .banner .meta-row{display:flex;justify-content:center;gap:36px;margin-top:22px;flex-wrap:wrap}
+  .banner .meta-row .m{text-align:center}
+  .banner .meta-row .m .n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--cream);line-height:1}
+  .banner .meta-row .m .l{font-family:'Playfair Display';font-style:italic;font-size:11px;letter-spacing:1.5px;color:var(--text-2);text-transform:none;margin-top:4px}
+
+  /* ====== LAYOUT ====== */
+  .container{max-width:1320px;margin:0 auto;padding:28px 24px 24px}
+  .grid{display:grid;grid-template-columns:1fr;gap:30px}
+
+  /* ====== SECTION HEADER ====== */
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:14px}
+  .sec-head h2{font-family:'DM Serif Display',serif;font-size:30px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cream);display:flex;align-items:center;gap:14px}
+  .sec-head h2::before{content:'';width:5px;height:26px;background:linear-gradient(180deg, var(--wine) 0%, var(--gold) 100%);transform:skewX(-15deg)}
+  .sec-head .sub{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:1px;color:var(--text-3);text-transform:none;font-weight:400;border-top:1px solid var(--line);flex:1;padding-top:8px;text-align:right;margin-left:14px}
+
+  /* ====== MATCHUP CARD ====== */
+  .matchup{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(200,160,75,.05)}
+  .matchup::before{content:'';position:absolute;top:0;bottom:0;left:0;right:50%;background:radial-gradient(ellipse at 50% 50%, rgba(226,149,71,.14), transparent 70%);pointer-events:none}
+  .matchup::after{content:'';position:absolute;top:0;bottom:0;left:50%;right:0;background:radial-gradient(ellipse at 50% 50%, rgba(178,40,69,.18), transparent 70%);pointer-events:none}
+  .matchup-body{display:grid;grid-template-columns:1fr 100px 1fr;align-items:stretch;padding:36px 30px;gap:20px;position:relative;z-index:1}
+  @media (max-width:780px){.matchup-body{grid-template-columns:1fr;padding:24px 20px}}
+
+  .corner{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:14px}
+  .corner.copper{align-items:flex-end;text-align:right}
+  .corner.wine{align-items:flex-start;text-align:left}
+  @media (max-width:780px){.corner.copper,.corner.wine{align-items:center;text-align:center}}
+
+  .corner-tag{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:2px;text-transform:none;padding:5px 14px;border-radius:2px;margin-bottom:14px;color:var(--cream);display:inline-flex;align-items:center;gap:8px;font-weight:600}
+  .corner.copper .corner-tag{background:linear-gradient(90deg, var(--copper) 0%, var(--copper-2) 100%);box-shadow:0 4px 20px var(--copper-glow);color:#1a0d05}
+  .corner.wine .corner-tag{background:linear-gradient(90deg, var(--wine) 0%, var(--wine-2) 100%);box-shadow:0 4px 20px var(--wine-glow)}
+
+  .photo-wrap{position:relative;display:inline-block;margin-bottom:14px}
+  .photo-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:linear-gradient(135deg, currentColor, transparent);opacity:.5;z-index:-1;filter:blur(8px)}
+  .corner.copper .photo-wrap{color:var(--copper)}
+  .corner.wine .photo-wrap{color:var(--wine)}
+  .corner.leading .photo-wrap::before{opacity:.9;animation:glow 2.5s ease-in-out infinite}
+  @keyframes glow{0%,100%{filter:blur(8px);opacity:.6}50%{filter:blur(14px);opacity:1}}
+  .corner-photo{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid;display:block;box-shadow:0 12px 40px rgba(0,0,0,.55);background:#000}
+  .corner.copper .corner-photo{border-color:var(--copper)}
+  .corner.wine .corner-photo{border-color:var(--wine-2)}
+  .belt{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:34px;display:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+  .corner.leading .belt{display:block}
+
+  .corner-name{font-family:'DM Serif Display',serif;font-size:52px;line-height:.95;letter-spacing:1px;text-transform:uppercase;color:var(--cream);margin-top:6px}
+  .corner-nick{font-family:'Playfair Display';font-style:italic;font-size:14px;letter-spacing:1.5px;text-transform:none;color:var(--text-2);margin-top:10px;font-weight:600}
+  .corner.copper .corner-nick em{color:var(--copper-2);font-style:italic}
+  .corner.wine .corner-nick em{color:var(--wine-2);font-style:italic}
+
+  .record{display:flex;align-items:baseline;gap:8px;margin-top:18px}
+  .corner.copper .record{flex-direction:row-reverse}
+  .record .big{font-family:'Anton';font-size:90px;line-height:.85;font-variant-numeric:tabular-nums}
+  .corner.copper .record .big{color:var(--copper-2)}
+  .corner.wine .record .big{color:var(--wine-2)}
+  .record .lbl{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:1.5px;text-transform:none;color:var(--text-2);font-weight:700}
+
+  .streak-row{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  .corner.copper .streak-row{justify-content:flex-end}
+  .corner.wine .streak-row{justify-content:flex-start}
+  @media (max-width:780px){.corner .streak-row{justify-content:center}}
+  .sp{font-family:'Oswald';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(245,235,216,.04);border:1px solid var(--line);padding:5px 10px;border-radius:2px;color:var(--text-2);font-weight:600}
+  .sp.hot{background:rgba(200,160,75,.12);border-color:var(--gold);color:var(--gold-2)}
+
+  /* CENTER VS */
+  .vs-block{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative}
+  .vs-block .versus{font-family:'DM Serif Display',serif;font-style:italic;font-size:90px;line-height:1;color:var(--cream);background:linear-gradient(135deg, var(--copper-2) 0%, var(--wine-2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-6deg);letter-spacing:-2px;text-shadow:0 0 40px rgba(245,235,216,.08)}
+  @media (max-width:780px){.vs-block .versus{font-size:64px}}
+  .vs-tag{font-family:'Playfair Display';font-style:italic;font-size:11px;letter-spacing:2px;color:var(--text-3);text-transform:none;text-align:center}
+
+  /* ====== CURRENT STATUS ====== */
+  .status-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative}
+  .status-card::before{content:'';position:absolute;inset:0;background:
+    radial-gradient(ellipse at 25% 50%, rgba(34,197,94,.06), transparent 55%),
+    radial-gradient(ellipse at 75% 50%, rgba(178,40,69,.12), transparent 55%);
+    pointer-events:none}
+  .status-head{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.3);position:relative;z-index:1}
+  .status-head .lt{display:flex;align-items:center;gap:10px;font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;letter-spacing:1.5px;color:var(--cream);text-transform:uppercase}
+  .status-head .lt .dot{width:8px;height:8px;background:var(--wine-2);border-radius:50%;animation:pulse 1.4s infinite}
+  .status-head .rt{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:1.5px;color:var(--text-3);text-transform:none}
+  .status-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px 24px;gap:18px;position:relative;z-index:1}
+  .status-side{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+  .status-circle{cursor:zoom-in}
+
+  /* Zoom popup */
+  .zoom-pop{position:absolute;top:-10px;left:50%;width:340px;max-width:min(86vw, 360px);transform:translateX(-50%) scale(.85);transform-origin:center top;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:200;border-radius:12px;overflow:hidden;border:4px solid;box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(245,235,216,.08)}
+  .status-side.win .zoom-pop{border-color:var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(200,160,75,.6), 0 0 60px rgba(200,160,75,.35)}
+  .status-side.lose .zoom-pop{border-color:var(--wine-2);box-shadow:0 24px 60px rgba(0,0,0,.78), 0 0 0 1px rgba(178,40,69,.55)}
+  .status-side.tie .zoom-pop{border-color:var(--copper-2)}
+  .zoom-pop img{width:100%;height:auto;display:block}
+  .status-side:hover .zoom-pop,
+  .status-side.expanded .zoom-pop{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
+  @media (max-width:780px){
+    .zoom-pop{width:260px;max-width:86vw;border-width:3px;top:-6px}
+  }
+  @media (max-width:380px){
+    .zoom-pop{width:230px}
+  }
+  @media (hover:none){
+    .status-side:hover .zoom-pop{opacity:0}
+    .status-side.expanded .zoom-pop{opacity:1}
+  }
+  .status-circle{position:relative;width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid;box-shadow:0 0 0 4px #110709, 0 0 0 6px rgba(200,160,75,.10), 0 14px 40px rgba(0,0,0,.6);transition:transform .4s ease}
+  .status-circle img{width:100%;height:100%;object-fit:cover;display:block}
+  .status-side.win .status-circle{width:210px;height:210px;border-color:var(--gold);animation:winGlow 2.6s ease-in-out infinite}
+  @keyframes winGlow{
+    0%,100%{box-shadow:0 0 0 4px #110709, 0 0 0 6px rgba(200,160,75,.45), 0 0 30px rgba(200,160,75,.55), 0 14px 40px rgba(0,0,0,.6)}
+    50%{box-shadow:0 0 0 4px #110709, 0 0 0 6px rgba(200,160,75,.75), 0 0 55px rgba(200,160,75,.9), 0 14px 40px rgba(0,0,0,.6)}
+  }
+  .status-side.lose .status-circle{width:130px;height:130px;border-color:var(--wine-2);filter:saturate(.7) brightness(.85);transform:rotate(-6deg);box-shadow:0 0 0 4px #110709, 0 0 0 6px rgba(178,40,69,.25), 0 14px 40px rgba(0,0,0,.6)}
+  .status-side.tie .status-circle{border-color:var(--copper-2)}
+  .status-stamp{display:inline-block;position:relative;z-index:3;margin-top:-14px;font-family:'DM Serif Display',serif;font-style:italic;letter-spacing:2.5px;font-size:15px;padding:5px 14px;border:3px solid;border-radius:4px;background:#110709;color:var(--cream);transform:rotate(-2deg);box-shadow:0 6px 18px rgba(0,0,0,.5);text-transform:uppercase;white-space:nowrap}
+  .status-side.win .status-stamp{color:var(--gold-2);border-color:var(--gold)}
+  .status-side.lose .status-stamp{color:#f3b3bb;border-color:var(--wine-2)}
+  .status-side.tie .status-stamp{color:var(--copper-2);border-color:var(--copper)}
+  .status-name{font-family:'DM Serif Display',serif;font-size:26px;letter-spacing:1.5px;color:var(--cream);margin-top:14px;text-transform:uppercase}
+  .status-tag{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:1.5px;text-transform:none;font-weight:600;margin-top:4px;padding:3px 12px;border-radius:2px}
+  .status-side.win .status-tag{background:rgba(200,160,75,.15);color:var(--gold-2);border:1px solid rgba(200,160,75,.4)}
+  .status-side.lose .status-tag{background:rgba(178,40,69,.18);color:#f3b3bb;border:1px solid rgba(178,40,69,.4)}
+  .status-side.tie .status-tag{background:rgba(226,149,71,.15);color:var(--copper-2);border:1px solid rgba(226,149,71,.4)}
+  .status-vs{font-family:'DM Serif Display',serif;font-style:italic;font-size:48px;color:var(--text-3);letter-spacing:1px;transform:skewX(-10deg);align-self:center}
+  .status-foot{padding:14px 22px;border-top:1px solid var(--line);background:rgba(0,0,0,.25);font-family:'Playfair Display';font-style:italic;font-size:16px;color:var(--cream);letter-spacing:.3px;text-align:center;line-height:1.5;position:relative;z-index:1}
+  .status-foot strong{color:var(--gold-2);font-family:'DM Serif Display',serif;font-style:normal;letter-spacing:1px}
+
+  @media (max-width:780px){
+    .status-head{padding:10px 14px}
+    .status-head .lt{font-size:13px;letter-spacing:1.2px}
+    .status-body{padding:18px 12px;gap:8px}
+    .status-circle{width:130px;height:130px;border-width:4px}
+    .status-side.win .status-circle{width:160px;height:160px}
+    .status-side.lose .status-circle{width:105px;height:105px}
+    .status-stamp{font-size:12px;padding:4px 10px;letter-spacing:2px;border-width:2px;margin-top:-11px}
+    .status-vs{font-size:32px}
+    .status-name{font-size:20px;margin-top:10px;letter-spacing:1px}
+    .status-tag{font-size:10px;letter-spacing:1px;padding:2px 8px}
+    .status-foot{padding:11px 14px;font-size:14px}
+  }
+  @media (max-width:380px){
+    .status-circle{width:108px;height:108px}
+    .status-side.win .status-circle{width:130px;height:130px}
+    .status-side.lose .status-circle{width:86px;height:86px}
+    .status-stamp{font-size:11px;padding:3px 8px;letter-spacing:1.5px;margin-top:-9px}
+    .status-vs{font-size:26px}
+    .status-name{font-size:17px}
+  }
+
+  /* ====== COMMENTARY ====== */
+  .commentary{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--wine);border-radius:6px;padding:16px 22px;display:flex;align-items:center;gap:18px}
+  .commentary .label{font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;letter-spacing:2px;color:var(--wine-2);text-transform:uppercase;white-space:nowrap}
+  .commentary .text{font-family:'Playfair Display';font-style:italic;font-size:19px;color:var(--cream);font-weight:500;letter-spacing:.2px}
+
+  /* ====== TALE OF THE TAPE ====== */
+  .tape{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .tape-head{background:linear-gradient(90deg, var(--copper) 0%, #1a0d12 50%, var(--wine) 100%);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .tape-head .copper-side{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream);letter-spacing:1.5px}
+  .tape-head .center{font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;letter-spacing:2px;color:var(--cream);background:rgba(0,0,0,.55);padding:4px 14px;border-radius:2px}
+  .tape-head .wine-side{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream);letter-spacing:1.5px}
+  .tape-body{display:grid}
+  .tape-row{display:grid;grid-template-columns:1fr 200px 1fr;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);gap:14px}
+  .tape-row:last-child{border-bottom:none}
+  .tape-row .copper-val{text-align:right;font-family:'Anton';font-size:34px;color:var(--cream);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .wine-val{text-align:left;font-family:'Anton';font-size:34px;color:var(--cream);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .tape-row .copper-val.win{color:var(--copper-2);text-shadow:0 0 20px var(--copper-glow)}
+  .tape-row .wine-val.win{color:var(--wine-2);text-shadow:0 0 20px var(--wine-glow)}
+  .tape-row .lbl{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:1px;text-transform:none;text-align:center;color:var(--text-2);font-weight:600}
+  .form-strip{display:inline-flex;gap:4px;justify-content:flex-end}
+  .wine-val .form-strip{justify-content:flex-start}
+  .form-dot{width:22px;height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Anton';font-size:11px;color:#fff}
+  .form-dot.W{background:rgba(34,197,94,.85);border:1px solid #16a34a}
+  .form-dot.L{background:rgba(245,235,216,.05);border:1px solid var(--line);color:var(--text-3)}
+  .form-dot.T{background:rgba(226,149,71,.85);border:1px solid var(--copper)}
+  @media (max-width:680px){.tape-row{grid-template-columns:1fr 120px 1fr;padding:12px 14px}.tape-row .copper-val,.tape-row .wine-val{font-size:24px}}
+
+  /* ====== PREDICTION ====== */
+  .pred-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
+  @media (max-width:900px){.pred-grid{grid-template-columns:1fr}}
+  .pred-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .pred-card .ch{background:linear-gradient(90deg, var(--copper) 0%, var(--wine) 100%);padding:10px 18px;font-family:'DM Serif Display',serif;font-size:15px;letter-spacing:2px;color:var(--cream);text-transform:uppercase;display:flex;justify-content:space-between}
+  .pred-card .ch .sub{font-family:'Playfair Display';font-style:italic;font-size:12px;opacity:.85;letter-spacing:1px;text-transform:none}
+  .pred-body{padding:22px}
+
+  .pred-bar{position:relative;height:46px;border-radius:4px;overflow:hidden;background:#0a0508;display:flex;box-shadow:inset 0 2px 8px rgba(0,0,0,.7)}
+  .pred-seg{display:flex;align-items:center;justify-content:center;color:var(--cream);font-family:'Anton';font-size:18px;letter-spacing:1px;position:relative;transition:width .8s ease}
+  .pred-seg.g{background:linear-gradient(90deg, var(--copper) 0%, var(--copper-2) 100%)}
+  .pred-seg.t{background:linear-gradient(90deg, #9a7430 0%, var(--gold) 100%)}
+  .pred-seg.z{background:linear-gradient(90deg, var(--wine-2) 0%, var(--wine) 100%)}
+  .pred-legend{display:flex;justify-content:space-between;margin-top:12px;font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:1px;color:var(--text-2);text-transform:none}
+  .pred-legend span strong{color:var(--cream);font-family:'DM Serif Display',serif;font-style:normal;font-size:15px;display:block}
+  .pred-method{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.5;font-family:'Playfair Display';font-style:italic;border-top:1px solid var(--line);padding-top:12px}
+
+  .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:100%}
+  .mom-card{background:rgba(245,235,216,.02);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+  .mom-card.copper{border-top:3px solid var(--copper)}
+  .mom-card.wine{border-top:3px solid var(--wine)}
+  .mom-card .name{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:1.2px;text-transform:uppercase;color:var(--cream)}
+  .mom-card .arrow{font-family:'Anton';font-size:42px;line-height:1;margin:8px 0}
+  .mom-card.up .arrow{color:#22c55e}
+  .mom-card.down .arrow{color:var(--wine-2)}
+  .mom-card.flat .arrow{color:var(--text-3)}
+  .mom-card .delta{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:.5px;color:var(--text-2);text-transform:none}
+  .mom-card .desc{font-size:12px;color:var(--text-3);margin-top:8px;line-height:1.45;font-family:'Playfair Display';font-style:italic}
+
+  /* ====== STAT STRIP ====== */
+  .stat-strip{background:var(--card);display:grid;grid-template-columns:repeat(5, 1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  @media (max-width:900px){.stat-strip{grid-template-columns:repeat(3, 1fr)}}
+  @media (max-width:500px){.stat-strip{grid-template-columns:repeat(2, 1fr)}}
+  .stat-cell{padding:18px 14px;border-right:1px solid var(--line);text-align:center}
+  .stat-cell:last-child{border-right:none}
+  .stat-cell .sv{font-family:'Anton';font-size:32px;color:var(--cream);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .stat-cell.copper .sv{color:var(--copper-2)}
+  .stat-cell.wine .sv{color:var(--wine-2)}
+  .stat-cell.gold .sv{color:var(--gold-2)}
+  .stat-cell .sl{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:.5px;color:var(--text-3);margin-top:8px;font-weight:600;text-transform:none}
+  .stat-cell .ss{font-size:11px;color:var(--text-2);margin-top:2px;font-family:'Playfair Display';font-style:italic}
+
+  /* ====== CHARTS ====== */
+  .charts-row{display:grid;grid-template-columns:1fr 2fr;gap:20px}
+  @media (max-width:900px){.charts-row{grid-template-columns:1fr}}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .chart-card .ch-head{background:rgba(245,235,216,.03);border-bottom:1px solid var(--line);padding:11px 18px;font-family:'DM Serif Display',serif;font-size:15px;letter-spacing:1.5px;color:var(--cream);text-transform:uppercase}
+  .chart-card .ch-body{padding:18px;position:relative;height:280px}
+  .chart-card.full .ch-body{height:340px}
+
+  /* ====== TIES ====== */
+  .ties-strip{background:linear-gradient(90deg, rgba(200,160,75,.10) 0%, transparent 100%);border:1px solid rgba(200,160,75,.28);border-left:4px solid var(--gold);border-radius:6px;padding:14px 20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .ties-strip .tn{font-family:'Anton';font-size:42px;color:var(--gold-2);line-height:1}
+  .ties-strip .tl{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:1px;color:var(--text-2);text-transform:none;font-weight:600;display:block}
+  .ties-strip .courses{flex:1;display:flex;gap:8px;flex-wrap:wrap}
+  .tie-chip{font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:.3px;background:rgba(200,160,75,.10);border:1px solid rgba(200,160,75,.32);color:var(--gold-2);padding:5px 12px;border-radius:3px;font-weight:600;text-transform:none}
+
+  /* ====== LEADERBOARD ====== */
+  .lb-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .lb-toolbar{padding:12px 16px;background:rgba(245,235,216,.02);border-bottom:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:1px;text-transform:none;background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 14px;border-radius:3px;cursor:pointer;font-weight:600;transition:all .15s}
+  .chip:hover{border-color:var(--line-2);color:var(--cream)}
+  .chip.active{background:var(--cream);color:#1a0d12;border-color:var(--cream)}
+  .lb-table{width:100%;border-collapse:collapse}
+  .lb-table th{text-align:left;font-family:'Playfair Display';font-style:italic;font-size:11px;letter-spacing:1px;text-transform:none;color:var(--text-3);padding:11px 16px;border-bottom:1px solid var(--line);font-weight:600;background:rgba(245,235,216,.01)}
+  .lb-table td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  .lb-table tr:last-child td{border-bottom:none}
+  .lb-table tr:hover td{background:rgba(245,235,216,.02)}
+  .lb-table .num{font-family:'Anton';color:var(--text-3);font-size:16px;width:50px}
+  .lb-table .course{font-family:'Playfair Display';font-weight:600;text-transform:none;font-size:15px;letter-spacing:.2px;font-style:italic}
+  .lb-table .course .date{display:block;font-family:'Inter';font-style:normal;font-weight:400;font-size:11px;color:var(--text-3);margin-top:2px;letter-spacing:0}
+  .lb-table .res{font-size:22px;width:48px;text-align:center}
+  .pill{display:inline-block;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;letter-spacing:1px;padding:4px 12px;border-radius:2px;color:var(--cream);text-transform:uppercase}
+  .pill.george{background:var(--copper)}
+  .pill.sebuki{background:var(--wine)}
+  .pill.tie{background:var(--gold);color:#1a0d12}
+  .lb-table .del{width:36px;text-align:right}
+  .lb-table .del button{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:14px;padding:6px;transition:color .15s}
+  .lb-table .del button:hover{color:var(--wine-2)}
+  .lb-empty{padding:40px;text-align:center;color:var(--text-3);font-family:'Playfair Display';font-style:italic;font-size:15px}
+
+  /* ====== ADD MATCH ====== */
+  .add-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:sticky;top:80px}
+  .add-card .ah{background:linear-gradient(90deg, var(--copper) 0%, var(--wine) 100%);padding:12px 18px;font-family:'DM Serif Display',serif;font-size:16px;letter-spacing:1.5px;color:var(--cream);text-transform:uppercase}
+  .ab{padding:20px}
+  .field{margin-bottom:14px}
+  .field label{display:flex;justify-content:space-between;align-items:center;font-family:'Playfair Display';font-style:italic;font-size:13px;letter-spacing:.5px;text-transform:none;color:var(--text-2);font-weight:600;margin-bottom:8px}
+  .field label .hint{font-family:'Inter';font-style:normal;font-size:11px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:400}
+  .field input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:3px;font-size:14px;font-family:'Inter';color:var(--cream);outline:none;background:rgba(245,235,216,.04);transition:border-color .15s}
+  .field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,160,75,.15)}
+  .field input::placeholder{color:var(--text-3)}
+  .quick-courses{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .qc{font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:.5px;background:rgba(245,235,216,.04);border:1px solid var(--line);color:var(--text-2);padding:4px 11px;border-radius:2px;cursor:pointer;font-weight:600;transition:all .15s}
+  .qc:hover{border-color:var(--gold);color:var(--cream);background:rgba(200,160,75,.1)}
+  .qc.new{border-style:dashed;color:var(--gold-2);border-color:rgba(200,160,75,.4)}
+  .qc.new:hover{background:rgba(200,160,75,.1);border-color:var(--gold)}
+  .winner-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-bottom:14px}
+  .wb{padding:14px 6px;border:2px solid var(--line);background:rgba(245,235,216,.02);border-radius:3px;cursor:pointer;font-family:'DM Serif Display',serif;letter-spacing:1px;text-transform:uppercase;font-size:14px;color:var(--text-2);transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .wb .we{font-size:22px;line-height:1}
+  .wb:hover{border-color:var(--line-2);color:var(--cream)}
+  .wb.george.selected{border-color:var(--copper);background:rgba(226,149,71,.18);color:var(--cream);box-shadow:0 0 0 3px rgba(226,149,71,.15)}
+  .wb.sebuki.selected{border-color:var(--wine);background:rgba(178,40,69,.20);color:var(--cream);box-shadow:0 0 0 3px rgba(178,40,69,.15)}
+  .wb.tie.selected{border-color:var(--gold);background:rgba(200,160,75,.18);color:var(--cream);box-shadow:0 0 0 3px rgba(200,160,75,.15)}
+  .submit{width:100%;padding:14px;background:linear-gradient(90deg, var(--wine) 0%, #6a1626 100%);color:var(--cream);border:none;border-radius:3px;font-family:'DM Serif Display',serif;font-size:15px;text-transform:uppercase;letter-spacing:2.5px;cursor:pointer;transition:transform .1s, box-shadow .15s;box-shadow:0 8px 20px rgba(139,28,48,.3)}
+  .submit:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 10px 26px rgba(139,28,48,.45)}
+  .submit:disabled{background:rgba(245,235,216,.06);color:var(--text-3);cursor:not-allowed;box-shadow:none}
+
+  /* ====== TWO-COL BOTTOM ====== */
+  .two-col{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+
+  /* ====== FOOTER ====== */
+  footer{background:var(--bg-2);border-top:1px solid var(--line);padding:24px;margin-top:40px;text-align:center}
+  .foot-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Playfair Display';font-style:italic;font-size:12px;color:var(--text-3);letter-spacing:1px;text-transform:none}
+  footer button{background:transparent;border:1px solid var(--line);color:var(--text-2);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'Playfair Display';font-style:italic;font-size:12px;letter-spacing:.5px;text-transform:none;font-weight:600}
+  footer button:hover{border-color:var(--gold);color:var(--cream)}
+
+  /* ====== TOAST ====== */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);color:var(--cream);padding:14px 22px;border-radius:3px;font-family:'DM Serif Display',serif;font-style:italic;font-size:15px;text-transform:none;letter-spacing:1px;opacity:0;transition:all .3s;pointer-events:none;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.55);max-width:calc(100vw - 40px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ============ MOBILE ============ */
+  @media (max-width:780px){
+    .topbar-inner{padding:10px 14px}
+    .brand-mark{font-size:20px;letter-spacing:1.5px;gap:6px}
+    .brand-mark::before,.brand-mark::after{height:20px;width:4px}
+    .banner-inner{padding:22px 16px 18px}
+    .banner .kicker{font-size:11px;letter-spacing:1.5px;padding:5px 10px;margin-bottom:14px}
+    .banner h1{font-size:clamp(34px,11vw,52px);line-height:.98}
+    .banner h1 .vs-token{display:block;margin:.05em auto}
+    .banner .meta-row{gap:18px;margin-top:16px}
+    .banner .meta-row .m .n{font-size:24px}
+    .banner .meta-row .m .l{font-size:10px;letter-spacing:1px}
+    .banner .ornament{font-size:160px}
+    .container{padding:20px 14px 18px}
+    .grid{gap:22px}
+    .sec-head h2{font-size:22px;letter-spacing:1px;gap:10px}
+    .sec-head h2::before{height:22px;width:4px}
+    .sec-head .sub{font-size:11px;letter-spacing:.5px;margin-left:10px}
+    .matchup-body{padding:24px 16px;gap:22px}
+    .corner{padding:6px}
+    .corner-tag{font-size:12px;letter-spacing:1.5px;padding:4px 10px;margin-bottom:10px}
+    .corner-photo{width:130px;height:130px;border-width:4px}
+    .belt{font-size:28px;top:-14px}
+    .corner-name{font-size:40px;margin-top:4px}
+    .corner-nick{font-size:12px;letter-spacing:1px;margin-top:6px}
+    .record{margin-top:12px;justify-content:center}
+    .corner.copper .record,.corner.wine .record{flex-direction:row;align-items:baseline}
+    .record .big{font-size:66px}
+    .record .lbl{font-size:11px;letter-spacing:1px}
+    .vs-block{padding:6px 0}
+    .vs-block .versus{font-size:60px}
+    .vs-tag{font-size:10px;letter-spacing:1.5px}
+    .commentary{padding:14px 16px;gap:12px;flex-direction:column;align-items:flex-start}
+    .commentary .label{font-size:12px;letter-spacing:1.5px}
+    .commentary .text{font-size:16px;line-height:1.4}
+    .tape-head{padding:11px 14px}
+    .tape-head .copper-side,.tape-head .wine-side{font-size:16px;letter-spacing:1px}
+    .tape-head .center{font-size:12px;letter-spacing:1.5px;padding:3px 10px}
+    .tape-row{grid-template-columns:1fr 96px 1fr;padding:11px 12px;gap:8px}
+    .tape-row .copper-val,.tape-row .wine-val{font-size:22px;letter-spacing:.3px}
+    .tape-row .lbl{font-size:11px;letter-spacing:.5px}
+    .form-dot{width:18px;height:18px;font-size:10px}
+    .tape-row .copper-val[style*="22px"]{font-size:14px !important}
+    .tape-row .wine-val[style*="22px"]{font-size:14px !important}
+    .pred-card .ch{padding:9px 14px;font-size:13px;letter-spacing:1.5px}
+    .pred-card .ch .sub{font-size:11px}
+    .pred-body{padding:16px}
+    .pred-bar{height:40px}
+    .pred-seg{font-size:14px}
+    .pred-legend{font-size:11px;letter-spacing:.5px;gap:8px}
+    .pred-legend span strong{font-size:14px}
+    .pred-method{font-size:11px;line-height:1.45;padding-top:10px;margin-top:12px}
+    .mom-card{padding:12px}
+    .mom-card .name{font-size:15px}
+    .mom-card .arrow{font-size:32px;margin:6px 0}
+    .mom-card .delta{font-size:12px}
+    .mom-card .desc{font-size:11px;margin-top:6px}
+    .stat-cell{padding:14px 10px}
+    .stat-cell .sv{font-size:26px}
+    .stat-cell .sl{font-size:11px;letter-spacing:.3px;margin-top:6px}
+    .stat-cell .ss{font-size:10px}
+    .ties-strip{padding:12px 14px;gap:14px}
+    .ties-strip .tn{font-size:34px}
+    .tie-chip{font-size:12px;padding:4px 9px}
+    .chart-card .ch-head{padding:10px 14px;font-size:13px;letter-spacing:1px}
+    .chart-card .ch-body{padding:12px;height:240px}
+    .chart-card.full .ch-body{height:280px}
+    .lb-toolbar{padding:10px 12px;gap:5px}
+    .chip{font-size:11px;letter-spacing:.5px;padding:5px 11px}
+    .lb-table th{padding:9px 10px;font-size:10px;letter-spacing:.5px}
+    .lb-table td{padding:11px 10px;font-size:13px}
+    .lb-table .num{width:34px;font-size:14px}
+    .lb-table .course{font-size:13px;letter-spacing:.2px}
+    .lb-table .course .date{font-size:10px}
+    .lb-table .res{font-size:18px;width:32px}
+    .pill{font-size:11px;letter-spacing:.5px;padding:3px 8px}
+    .lb-table .del{width:28px}
+    .lb-table .del button{padding:4px;font-size:13px}
+    .add-card{position:static;top:auto}
+    .add-card .ah{padding:11px 14px;font-size:14px;letter-spacing:1px}
+    .ab{padding:16px}
+    .field{margin-bottom:12px}
+    .field label{font-size:12px;letter-spacing:.5px}
+    .field input{padding:12px;font-size:15px}
+    .qc{font-size:11px;padding:5px 9px;letter-spacing:.3px}
+    .winner-row{gap:6px;margin-bottom:12px}
+    .wb{padding:12px 4px;font-size:13px;letter-spacing:.5px;min-height:60px}
+    .wb .we{font-size:20px}
+    .submit{padding:14px;font-size:14px;letter-spacing:2px}
+    .foot-inner{flex-direction:column;gap:12px;text-align:center;font-size:11px;letter-spacing:.5px}
+    .toast{bottom:20px;font-size:13px;letter-spacing:.5px;padding:11px 18px}
+  }
+
+  @media (max-width:380px){
+    .banner h1{font-size:36px}
+    .banner .meta-row{gap:14px}
+    .corner-photo{width:118px;height:118px}
+    .corner-name{font-size:32px}
+    .record .big{font-size:54px}
+    .vs-block .versus{font-size:48px}
+    .tape-row{grid-template-columns:1fr 76px 1fr;gap:6px;padding:10px 10px}
+    .tape-row .copper-val,.tape-row .wine-val{font-size:18px}
+    .tape-row .lbl{font-size:10px;letter-spacing:.3px}
+    .form-dot{width:15px;height:15px;font-size:9px}
+    .stat-strip{grid-template-columns:repeat(2, 1fr)}
+    .stat-cell:nth-child(odd){border-right:1px solid var(--line)}
+    .stat-cell{border-bottom:1px solid var(--line)}
+    .stat-cell:nth-last-child(-n+2){border-bottom:none}
+    .lb-table .num{display:none}
+    .lb-table th:first-child{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">La Sobremesa</span>
+      <span class="brand-sub">George 🍆 vs Sebuki 🍷</span>
+    </div>
+    <nav>
+      <a href="#matchup">Matchup</a>
+      <a href="#tape">La Cata</a>
+      <a href="#pred">Pronóstico</a>
+      <a href="#leaderboard">Bitácora</a>
+      <a href="#add">Sumar</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ BANNER ============ -->
+<div class="banner">
+  <span class="ornament">🍷</span>
+  <div class="banner-inner">
+    <div class="kicker"><span class="liveDot"></span> Maridaje Estelar · Lifetime Series</div>
+    <h1>GEORGE <span class="vs-token">vs</span> SEBUKI</h1>
+    <div class="meta-row">
+      <div class="m"><div class="n" id="meta-total">0</div><div class="l">Rounds</div></div>
+      <div class="m"><div class="n" id="meta-courses">0</div><div class="l">Escenarios</div></div>
+      <div class="m"><div class="n" id="meta-last">—</div><div class="l">Última copa</div></div>
+      <div class="m"><div class="n" id="meta-leader">—</div><div class="l">Quien manda</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN ============ -->
+<div class="container">
+  <div class="grid">
+
+    <!-- MATCHUP -->
+    <section id="matchup">
+      <div class="matchup">
+        <div class="matchup-body">
+          <div class="corner copper" id="corner-george">
+            <span class="corner-tag">🥃 Esquina Cobre</span>
+            <div class="photo-wrap">
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="george.png" alt="George">
+            </div>
+            <div class="corner-name">GEORGE</div>
+            <div class="corner-nick">🍆 LA <em>BERENJENA</em></div>
+            <div class="record">
+              <span class="big" id="score-george">0</span>
+              <span class="lbl">VICTORIAS</span>
+            </div>
+            <div class="streak-row" id="streaks-george"></div>
+          </div>
+
+          <div class="vs-block">
+            <div class="versus">vs</div>
+            <div class="vs-tag">21 rounds · sin reloj · sobremesa incluida</div>
+          </div>
+
+          <div class="corner wine" id="corner-sebuki">
+            <span class="corner-tag">🍷 Esquina Bordó</span>
+            <div class="photo-wrap">
+              <span class="belt">🏆</span>
+              <img class="corner-photo" src="sebuki.png" alt="Sebuki">
+            </div>
+            <div class="corner-name">SEBUKI</div>
+            <div class="corner-nick">🍷 EL <em>SOMMELIER</em></div>
+            <div class="record">
+              <span class="big" id="score-sebuki">0</span>
+              <span class="lbl">VICTORIAS</span>
+            </div>
+            <div class="streak-row" id="streaks-sebuki"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURRENT STATUS -->
+    <section id="status">
+      <div class="status-card">
+        <div class="status-head">
+          <div class="lt"><span class="dot"></span> Pulso Actual · En Vivo</div>
+          <div class="rt" id="status-meta">—</div>
+        </div>
+        <div class="status-body">
+          <div class="status-side" id="status-left">
+            <div class="status-circle">
+              <img id="status-img-left" src="george.png" alt="George">
+            </div>
+            <div class="zoom-pop"><img id="status-zoom-left" src="george.png" alt="George zoom"></div>
+            <span class="status-stamp" id="status-stamp-left">A LA ESPERA</span>
+            <div class="status-name" id="status-name-left">George</div>
+            <div class="status-tag" id="status-tag-left">CAVA INTACTA</div>
+          </div>
+          <div class="status-vs">vs</div>
+          <div class="status-side" id="status-right">
+            <div class="status-circle">
+              <img id="status-img-right" src="sebuki.png" alt="Sebuki">
+            </div>
+            <div class="zoom-pop"><img id="status-zoom-right" src="sebuki.png" alt="Sebuki zoom"></div>
+            <span class="status-stamp" id="status-stamp-right">A LA ESPERA</span>
+            <div class="status-name" id="status-name-right">Sebuki</div>
+            <div class="status-tag" id="status-tag-right">CAVA INTACTA</div>
+          </div>
+        </div>
+        <div class="status-foot" id="status-foot">—</div>
+      </div>
+    </section>
+
+    <!-- COMMENTARY -->
+    <div class="commentary">
+      <span class="label">🍷 Sobremesa</span>
+      <span class="text" id="commentary-text">…</span>
+    </div>
+
+    <!-- TALE OF THE TAPE -->
+    <section id="tape">
+      <div class="sec-head">
+        <h2>La Cata</h2>
+        <span class="sub">stats cara a cara · descorchados</span>
+      </div>
+      <div class="tape">
+        <div class="tape-head">
+          <div class="copper-side">🥃 GEORGE</div>
+          <div class="center">vs</div>
+          <div class="wine-side">SEBUKI 🍷</div>
+        </div>
+        <div class="tape-body" id="tape-body"></div>
+      </div>
+    </section>
+
+    <!-- PREDICTION -->
+    <section id="pred">
+      <div class="sec-head">
+        <h2>Próximo Round · Pronóstico</h2>
+        <span class="sub">cosecha reciente + reserva histórica</span>
+      </div>
+      <div class="pred-grid">
+        <div class="pred-card">
+          <div class="ch"><span>Probabilidad de descorche</span><span class="sub">últimas 5, ponderadas</span></div>
+          <div class="pred-body">
+            <div class="pred-bar" id="pred-bar"></div>
+            <div class="pred-legend" id="pred-legend"></div>
+            <div class="pred-method">Mezcla: 65% últimas 5 vueltas (más peso a las recientes) + 35% reserva histórica. Empate normalizado.</div>
+          </div>
+        </div>
+        <div class="pred-card">
+          <div class="ch"><span>Momentum</span><span class="sub">¿quién viene aireado?</span></div>
+          <div class="pred-body">
+            <div class="momentum-grid" id="momentum"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT STRIP -->
+    <section>
+      <div class="sec-head"><h2>Reserva Histórica</h2><span class="sub">totales acumulados</span></div>
+      <div class="stat-strip" id="stat-strip"></div>
+    </section>
+
+    <!-- TIES -->
+    <section>
+      <div class="ties-strip">
+        <div>
+          <div class="tn" id="ties-num">0</div>
+          <span class="tl">Brindis técnicos</span>
+        </div>
+        <div style="border-left:1px solid var(--line);height:48px"></div>
+        <div class="courses" id="ties-courses"></div>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section>
+      <div class="sec-head"><h2>Etiqueta Visual</h2><span class="sub">tendencias en la copa</span></div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="ch-head">Distribución total</div>
+          <div class="ch-body"><canvas id="pieChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="ch-head">Evolución acumulada</div>
+          <div class="ch-body"><canvas id="lineChart"></canvas></div>
+        </div>
+        <div class="chart-card full" style="grid-column:1/-1">
+          <div class="ch-head">Por escenario · campo de batalla</div>
+          <div class="ch-body"><canvas id="barChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD + ADD -->
+    <section>
+      <div class="two-col">
+        <div id="leaderboard">
+          <div class="sec-head"><h2>Bitácora</h2><span class="sub">todos los rounds</span></div>
+          <div class="lb-card">
+            <div class="lb-toolbar">
+              <span class="chip active" data-filter="all">Todos</span>
+              <span class="chip" data-filter="george">🍆 George</span>
+              <span class="chip" data-filter="sebuki">🍷 Sebuki</span>
+              <span class="chip" data-filter="tie">🥂 Brindis</span>
+            </div>
+            <table class="lb-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Escenario</th>
+                  <th style="text-align:center">Res.</th>
+                  <th>Ganador</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="lb-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="add">
+          <div class="sec-head"><h2>Sumar Round</h2><span class="sub">post-sobremesa</span></div>
+          <div class="add-card">
+            <div class="ah">¿Acaban de descorchar?</div>
+            <div class="ab">
+              <div class="field">
+                <label>Escenario <span class="hint">cancha, mesa, donde sea</span></label>
+                <div class="quick-courses" id="quick-courses"></div>
+                <input type="text" id="input-course" placeholder="Escribí dónde fue…" list="course-list" autocomplete="off">
+                <datalist id="course-list"></datalist>
+              </div>
+              <div class="field">
+                <label>Fecha</label>
+                <input type="date" id="input-date">
+              </div>
+              <div class="field">
+                <label>¿Quién se llevó la copa?</label>
+                <div class="winner-row">
+                  <button class="wb george" data-winner="george"><span class="we">🍆</span>George</button>
+                  <button class="wb tie" data-winner="tie"><span class="we">🥂</span>Brindis</button>
+                  <button class="wb sebuki" data-winner="sebuki"><span class="we">🍷</span>Sebuki</button>
+                </div>
+              </div>
+              <button class="submit" id="submit-btn" disabled>Anotar en la bitácora</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div>LA SOBREMESA · GEORGE 🍆 VS SEBUKI 🍷</div>
+    <div style="display:flex;gap:8px">
+      <button id="export-btn">Exportar</button>
+      <button id="import-btn">Importar</button>
+      <button id="reset-btn">Reset</button>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= DATA ======================= */
+const SEED_MATCHES = [];
+const STORAGE_KEY = "rivalidad_sebuki_v1";
+
+function loadMatches() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_MATCHES));
+      return [...SEED_MATCHES];
+    }
+    return JSON.parse(raw);
+  } catch(e) { return [...SEED_MATCHES]; }
+}
+function saveMatches(m){ localStorage.setItem(STORAGE_KEY, JSON.stringify(m)); }
+
+let MATCHES = loadMatches();
+let activeFilter = "all";
+let selectedWinner = null;
+let pieChart, lineChart, barChart;
+
+/* ======================= HELPERS ======================= */
+function counts(){ const c={george:0,sebuki:0,tie:0}; MATCHES.forEach(m=>c[m.winner]++); return c; }
+function winRate(c){ const t=c.george+c.sebuki+c.tie; return t?{g:c.george/t*100,z:c.sebuki/t*100,t:c.tie/t*100}:{g:0,z:0,t:0}; }
+function streaks(){
+  let maxG=0,maxZ=0,curG=0,curZ=0;
+  MATCHES.forEach(m=>{
+    if(m.winner==="george"){curG++;curZ=0;maxG=Math.max(maxG,curG)}
+    else if(m.winner==="sebuki"){curZ++;curG=0;maxZ=Math.max(maxZ,curZ)}
+    else{curG=0;curZ=0}
+  });
+  let cw=null,cl=0;
+  for(let i=MATCHES.length-1;i>=0;i--){
+    const w=MATCHES[i].winner;
+    if(w==="tie"){ if(cw===null) continue; else break; }
+    if(cw===null){cw=w;cl=1} else if(w===cw) cl++; else break;
+  }
+  return {maxG,maxZ,currentWho:cw,currentLen:cl};
+}
+function byCourse(){
+  const map={};
+  MATCHES.forEach(m=>{
+    if(!map[m.course]) map[m.course]={course:m.course,george:0,sebuki:0,tie:0,total:0};
+    map[m.course][m.winner]++; map[m.course].total++;
+  });
+  return Object.values(map).sort((a,b)=>b.total-a.total||a.course.localeCompare(b.course));
+}
+function uniqueCourses(){ return [...new Set(MATCHES.map(m=>m.course))].sort(); }
+function lastN(n){ return MATCHES.slice(-n); }
+
+function formFor(player, n=5){
+  const arr = lastN(n);
+  return arr.map(m => {
+    if (m.winner === "tie") return "T";
+    return m.winner === player ? "W" : "L";
+  });
+}
+
+function predict(){
+  const last = lastN(5);
+  if (!MATCHES.length) return { george: 1/3, sebuki: 1/3, tie: 1/3 };
+  let totalW = 0, rg = 0, rz = 0, rt = 0;
+  last.forEach((m,i) => {
+    const w = i + 1;
+    totalW += w;
+    if (m.winner === "george") rg += w;
+    else if (m.winner === "sebuki") rz += w;
+    else rt += w;
+  });
+  if (totalW > 0) { rg /= totalW; rz /= totalW; rt /= totalW; }
+  const c = counts();
+  const total = c.george + c.sebuki + c.tie;
+  const og = total ? c.george/total : 1/3;
+  const oz = total ? c.sebuki/total : 1/3;
+  const ot = total ? c.tie/total : 1/3;
+  const blend = 0.65;
+  let pg = blend*rg + (1-blend)*og;
+  let pz = blend*rz + (1-blend)*oz;
+  let pt = blend*rt + (1-blend)*ot;
+  const s = pg + pz + pt || 1;
+  return { george: pg/s, sebuki: pz/s, tie: pt/s };
+}
+
+function momentum(){
+  if (MATCHES.length < 3) return { george: 0, sebuki: 0 };
+  const last = lastN(5);
+  const c5 = { george:0, sebuki:0, tie:0 };
+  last.forEach(m => c5[m.winner]++);
+  const c = counts();
+  const total = c.george + c.sebuki + c.tie;
+  const t5 = last.length;
+  return {
+    george: (c5.george/t5) - (total?c.george/total:0),
+    sebuki: (c5.sebuki/t5) - (total?c.sebuki/total:0),
+  };
+}
+
+function commentaryText(c, s){
+  const total = c.george + c.sebuki + c.tie;
+  if (total === 0) return "Cava intacta. Que se descorche la primera botella.";
+  const diff = c.george - c.sebuki;
+  if (s.currentLen >= 4) {
+    return s.currentWho === "george"
+      ? `George clavó ${s.currentLen} berenjenas seguidas. El sommelier mira la etiqueta.`
+      : `Sebuki descorchó ${s.currentLen} en fila. Llamen al maître.`;
+  }
+  if (s.currentLen === 3) {
+    return s.currentWho === "george"
+      ? `Tres berenjenas al hilo. La copa del sommelier tiembla.`
+      : `Tres descorches consecutivos. Sebuki ya pidió la carta de postres.`;
+  }
+  if (diff >= 5) return "George en modo Grand Reserva. Sebuki necesita decantar.";
+  if (diff >= 3) return "Berenjena al palo. Sebuki juega para la sobremesa.";
+  if (diff === 2) return "George arriba pero sin descorchar el espumante.";
+  if (diff === 1) return "Por un sorbo. Cualquier copa torcida lo da vuelta.";
+  if (diff === 0 && total > 0) return "Empate en la cata. Decida la próxima copa.";
+  if (diff === -1) return "Sebuki asoma la copa. Aireá bien.";
+  if (diff === -2) return "El sommelier te está marcando la carta.";
+  if (diff <= -3) return "Te están haciendo probar de la peor cosecha.";
+  return "La rivalidad sigue, bien servida.";
+}
+
+/* ======================= RENDER ======================= */
+function render(){
+  const c = counts();
+  const s = streaks();
+  const total = c.george + c.sebuki + c.tie;
+  const courses = uniqueCourses().length;
+  const last = MATCHES[MATCHES.length-1];
+
+  document.getElementById("meta-total").textContent = total;
+  document.getElementById("meta-courses").textContent = courses;
+  document.getElementById("meta-last").textContent = last ? last.course : "—";
+  const leaderTxt = c.george > c.sebuki ? "George" : c.sebuki > c.george ? "Sebuki" : (total === 0 ? "—" : "Empate");
+  document.getElementById("meta-leader").textContent = leaderTxt;
+
+  document.getElementById("score-george").textContent = c.george;
+  document.getElementById("score-sebuki").textContent = c.sebuki;
+  const gLead = c.george > c.sebuki, zLead = c.sebuki > c.george;
+  document.getElementById("corner-george").classList.toggle("leading", gLead);
+  document.getElementById("corner-sebuki").classList.toggle("leading", zLead);
+
+  let gp = `<span class="sp hot">🔥 mejor: ${s.maxG}</span>`;
+  if (s.currentWho === "george" && s.currentLen >= 1) gp += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-george").innerHTML = gp;
+  let zp = `<span class="sp hot">🔥 mejor: ${s.maxZ}</span>`;
+  if (s.currentWho === "sebuki" && s.currentLen >= 1) zp += `<span class="sp">⚡ actual: ${s.currentLen}</span>`;
+  document.getElementById("streaks-sebuki").innerHTML = zp;
+
+  document.getElementById("commentary-text").textContent = commentaryText(c, s);
+
+  renderStatus(c, s);
+
+  const wr = winRate(c);
+  const formG = formFor("george", 5);
+  const formZ = formFor("sebuki", 5);
+  const formGHTML = formG.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const formZHTML = formZ.map(x => `<span class="form-dot ${x}">${x}</span>`).join("");
+  const last5 = lastN(5);
+  const win5G = last5.filter(m=>m.winner==="george").length;
+  const win5Z = last5.filter(m=>m.winner==="sebuki").length;
+
+  document.getElementById("tape-body").innerHTML = `
+    <div class="tape-row">
+      <div class="copper-val ${c.george>=c.sebuki?'win':''}">${c.george}</div>
+      <div class="lbl">Victorias</div>
+      <div class="wine-val ${c.sebuki>=c.george?'win':''}">${c.sebuki}</div>
+    </div>
+    <div class="tape-row">
+      <div class="copper-val ${wr.g>=wr.z?'win':''}">${wr.g.toFixed(0)}%</div>
+      <div class="lbl">Tasa de descorche</div>
+      <div class="wine-val ${wr.z>=wr.g?'win':''}">${wr.z.toFixed(0)}%</div>
+    </div>
+    <div class="tape-row">
+      <div class="copper-val ${s.maxG>=s.maxZ?'win':''}">${s.maxG}</div>
+      <div class="lbl">Mejor racha</div>
+      <div class="wine-val ${s.maxZ>=s.maxG?'win':''}">${s.maxZ}</div>
+    </div>
+    <div class="tape-row">
+      <div class="copper-val ${win5G>=win5Z?'win':''}">${win5G}-${last5.length-win5G}</div>
+      <div class="lbl">Últimas 5</div>
+      <div class="wine-val ${win5Z>=win5G?'win':''}">${win5Z}-${last5.length-win5Z}</div>
+    </div>
+    <div class="tape-row">
+      <div class="copper-val" style="font-size:22px">${formGHTML || '—'}</div>
+      <div class="lbl">Forma (últimas 5)</div>
+      <div class="wine-val" style="font-size:22px">${formZHTML || '—'}</div>
+    </div>
+  `;
+
+  const p = predict();
+  const pg = (p.george*100).toFixed(0);
+  const pt = (p.tie*100).toFixed(0);
+  const pz = (p.sebuki*100).toFixed(0);
+  document.getElementById("pred-bar").innerHTML = `
+    <div class="pred-seg g" style="width:${pg}%">${pg >= 8 ? pg+'%' : ''}</div>
+    <div class="pred-seg t" style="width:${pt}%">${pt >= 8 ? pt+'%' : ''}</div>
+    <div class="pred-seg z" style="width:${pz}%">${pz >= 8 ? pz+'%' : ''}</div>
+  `;
+  document.getElementById("pred-legend").innerHTML = `
+    <span><strong>🍆 ${pg}%</strong>George</span>
+    <span><strong>🥂 ${pt}%</strong>Brindis</span>
+    <span><strong>${pz}% 🍷</strong>Sebuki</span>
+  `;
+
+  const mom = momentum();
+  function momCard(player, delta){
+    const dpct = (delta*100);
+    const dir = Math.abs(dpct) < 5 ? "flat" : (dpct > 0 ? "up" : "down");
+    const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "—";
+    const name = player === "george" ? "GEORGE" : "SEBUKI";
+    const cls = player === "george" ? "copper" : "wine";
+    const desc = dir === "up"
+      ? "Viene aireado. Por encima de su cosecha promedio."
+      : dir === "down"
+      ? "Cosecha mala. Rinde menos que su promedio."
+      : "En su cosecha promedio.";
+    return `
+      <div class="mom-card ${cls} ${dir}">
+        <div>
+          <div class="name">${name}</div>
+          <div class="arrow">${arrow}</div>
+        </div>
+        <div>
+          <div class="delta">${dpct >= 0 ? "+" : ""}${dpct.toFixed(0)} pts vs. cosecha</div>
+          <div class="desc">${desc}</div>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("momentum").innerHTML = momCard("george", mom.george) + momCard("sebuki", mom.sebuki);
+
+  const h2h = c.george > c.sebuki ? `+${c.george-c.sebuki}` : c.sebuki > c.george ? `+${c.sebuki-c.george}` : "0";
+  const h2hWho = c.george > c.sebuki ? "George" : c.sebuki > c.george ? "Sebuki" : (total === 0 ? "—" : "Empate");
+  const cl = byCourse();
+  document.getElementById("stat-strip").innerHTML = `
+    <div class="stat-cell"><div class="sv">${total}</div><div class="sl">Rounds totales</div></div>
+    <div class="stat-cell"><div class="sv">${h2h}</div><div class="sl">Diferencia</div><div class="ss">${h2hWho}</div></div>
+    <div class="stat-cell copper"><div class="sv">${c.george}-${c.sebuki}-${c.tie}</div><div class="sl">W-L-T George</div></div>
+    <div class="stat-cell wine"><div class="sv">${c.sebuki}-${c.george}-${c.tie}</div><div class="sl">W-L-T Sebuki</div></div>
+    <div class="stat-cell"><div class="sv" style="font-size:18px">${cl[0]?cl[0].course:'—'}</div><div class="sl">Escenario top</div><div class="ss">${cl[0]?cl[0].total+'× rounds':''}</div></div>
+  `;
+
+  const tList = MATCHES.filter(m=>m.winner==="tie");
+  document.getElementById("ties-num").textContent = c.tie;
+  document.getElementById("ties-courses").innerHTML =
+    tList.length
+      ? tList.map(t=>`<span class="tie-chip">🥂 ${escapeHTML(t.course)}</span>`).join("")
+      : `<span style="color:var(--text-3);font-size:14px;font-family:'Playfair Display';font-style:italic">Todavía nadie chocó copas.</span>`;
+
+  renderQuickCourses();
+  refreshCourseDatalist();
+  renderHistory();
+  renderCharts();
+}
+
+function renderStatus(c, s){
+  const left = document.getElementById("status-left");
+  const right = document.getElementById("status-right");
+  const imgL = document.getElementById("status-img-left");
+  const imgR = document.getElementById("status-img-right");
+  const zoomL = document.getElementById("status-zoom-left");
+  const zoomR = document.getElementById("status-zoom-right");
+  const stampL = document.getElementById("status-stamp-left");
+  const stampR = document.getElementById("status-stamp-right");
+  const nameL = document.getElementById("status-name-left");
+  const nameR = document.getElementById("status-name-right");
+  const tagL = document.getElementById("status-tag-left");
+  const tagR = document.getElementById("status-tag-right");
+  const foot = document.getElementById("status-foot");
+  const meta = document.getElementById("status-meta");
+
+  left.className = "status-side";
+  right.className = "status-side";
+
+  const total = c.george + c.sebuki + c.tie;
+
+  if (total === 0) {
+    // Estado inicial: cava intacta
+    left.classList.add("tie");
+    right.classList.add("tie");
+    imgL.src = "george.png"; imgL.alt = "George";
+    imgR.src = "sebuki.png"; imgR.alt = "Sebuki";
+    zoomL.src = "george.png"; zoomR.src = "sebuki.png";
+    stampL.textContent = "A LA ESPERA"; stampR.textContent = "A LA ESPERA";
+    nameL.textContent = "George"; nameR.textContent = "Sebuki";
+    tagL.textContent = "CAVA INTACTA";
+    tagR.textContent = "CAVA INTACTA";
+    foot.innerHTML = `<strong>0–0</strong> · todavía no se descorchó nada. La primera copa decide el inicio del relato.`;
+    meta.textContent = "Sin rounds · esperando el primer descorche";
+    return;
+  }
+
+  if (c.george > c.sebuki) {
+    // George leads — imagen épica de victoria
+    left.classList.add("win");
+    right.classList.add("lose");
+    imgL.src = "status-winner.png"; imgL.alt = "George ganando";
+    imgR.src = "sebuki.png"; imgR.alt = "Sebuki en sobremesa";
+    zoomL.src = "status-winner.png"; zoomR.src = "sebuki.png";
+    stampL.textContent = "WINNER"; stampR.textContent = "EN LA COPA";
+    nameL.textContent = "George"; nameR.textContent = "Sebuki";
+    tagL.textContent = momentumNeg(s, "george") ? "EN ALERTA" : "DOMINANDO LA CATA";
+    tagR.textContent = momentumPos(s, "sebuki") ? "RESURGIENDO" : "AIREANDO";
+    foot.innerHTML = statusLine(c, s, "george");
+  } else if (c.sebuki > c.george) {
+    // Sebuki leads — su foto con vino
+    left.classList.add("win");
+    right.classList.add("lose");
+    imgL.src = "sebuki-wine.png"; imgL.alt = "Sebuki ganando";
+    imgR.src = "george.png"; imgR.alt = "George en sobremesa";
+    zoomL.src = "sebuki-wine.png"; zoomR.src = "george.png";
+    stampL.textContent = "SOMMELIER"; stampR.textContent = "EN LA COPA";
+    nameL.textContent = "Sebuki"; nameR.textContent = "George";
+    tagL.textContent = momentumNeg(s, "sebuki") ? "EN ALERTA" : "DOMINANDO LA CATA";
+    tagR.textContent = momentumPos(s, "george") ? "RESURGIENDO" : "AIREANDO";
+    foot.innerHTML = statusLine(c, s, "sebuki");
+  } else {
+    // Empate técnico (con partidos jugados)
+    left.classList.add("tie");
+    right.classList.add("tie");
+    imgL.src = "george.png"; imgL.alt = "George";
+    imgR.src = "sebuki.png"; imgR.alt = "Sebuki";
+    zoomL.src = "george.png"; zoomR.src = "sebuki.png";
+    stampL.textContent = "ON FIRE"; stampR.textContent = "ON FIRE";
+    nameL.textContent = "George"; nameR.textContent = "Sebuki";
+    tagL.textContent = "EMPATADOS";
+    tagR.textContent = "EMPATADOS";
+    foot.innerHTML = `<strong>${c.george}–${c.sebuki}</strong> · brindis técnico. El desempate decanta solo.`;
+  }
+
+  meta.textContent = `Actualizado · round #${MATCHES.length}`;
+}
+function momentumNeg(s, who){ return s.currentWho && s.currentWho !== who && s.currentLen >= 3; }
+function momentumPos(s, who){ return s.currentWho === who && s.currentLen >= 3; }
+
+function statusLine(c, s, leader){
+  const diff = Math.abs(c.george - c.sebuki);
+  const leadName = leader === "george" ? "George" : "Sebuki";
+  const trailName = leader === "george" ? "Sebuki" : "George";
+  if (s.currentLen >= 3 && s.currentWho && s.currentWho !== leader) {
+    return `<strong>${leadName} ${c.george}–${c.sebuki}</strong> arriba en la cosecha · pero <strong>${trailName}</strong> viene con ${s.currentLen} descorches al hilo. Ojo.`;
+  }
+  if (s.currentLen >= 3 && s.currentWho === leader) {
+    return `<strong>${leadName}</strong> domina ${c.george}–${c.sebuki} y viene de <strong>${s.currentLen} al hilo</strong>. Masacre con maridaje.`;
+  }
+  if (diff >= 4) return `<strong>${leadName}</strong> arrasa ${c.george}–${c.sebuki}. ${trailName} sigue eligiendo botella.`;
+  if (diff >= 2) return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Va sirviendo.`;
+  return `<strong>${leadName}</strong> arriba por <strong>${diff}</strong>. Cualquier copa torcida lo da vuelta.`;
+}
+
+function renderQuickCourses(){
+  const top = byCourse().slice(0, 4).map(x=>x.course);
+  const el = document.getElementById("quick-courses");
+  el.innerHTML = top.map(c => `<span class="qc" data-course="${escapeHTML(c)}">${escapeHTML(c)}</span>`).join("")
+    + `<span class="qc new" data-new="1">+ escenario nuevo</span>`;
+  el.querySelectorAll(".qc").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById("input-course");
+      if (chip.dataset.new) { input.value = ""; input.focus(); }
+      else { input.value = chip.dataset.course; }
+      updateSubmitState();
+    });
+  });
+}
+
+function renderHistory(){
+  const tbody = document.getElementById("lb-body");
+  const filtered = MATCHES.map((m,i)=>({...m,idx:i+1}))
+    .filter(m => activeFilter === "all" || m.winner === activeFilter)
+    .reverse();
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="5" class="lb-empty">${MATCHES.length === 0 ? "Cava intacta. Sumá el primer round." : "Nada con ese filtro."}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(m => {
+    const emoji = m.winner === "george" ? "🍆" : m.winner === "sebuki" ? "🍷" : "🥂";
+    const whoLabel = m.winner === "george" ? "George" : m.winner === "sebuki" ? "Sebuki" : "Brindis";
+    const dateLine = m.date ? `<span class="date">${m.date}</span>` : "";
+    return `
+      <tr>
+        <td class="num">${String(m.idx).padStart(2,"0")}</td>
+        <td class="course">${escapeHTML(m.course)}${dateLine}</td>
+        <td class="res">${emoji}</td>
+        <td><span class="pill ${m.winner}">${whoLabel}</span></td>
+        <td class="del"><button data-idx="${m.idx-1}" title="Borrar">✕</button></td>
+      </tr>`;
+  }).join("");
+  tbody.querySelectorAll(".del button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = parseInt(btn.dataset.idx,10);
+      const m = MATCHES[i];
+      if (confirm(`¿Borrar el round en ${m.course}?`)) {
+        MATCHES.splice(i,1);
+        saveMatches(MATCHES);
+        render();
+        toast("Round eliminado");
+      }
+    });
+  });
+}
+
+function renderCharts(){
+  const c = counts();
+  const total = c.george + c.sebuki + c.tie;
+
+  const ctxP = document.getElementById("pieChart").getContext("2d");
+  if (pieChart) pieChart.destroy();
+  pieChart = new Chart(ctxP, {
+    type: "doughnut",
+    data: {
+      labels: ["🍆 George", "🍷 Sebuki", "🥂 Brindis"],
+      datasets: [{
+        data: total ? [c.george, c.sebuki, c.tie] : [1,1,1],
+        backgroundColor: total ? ["#e29547", "#b22845", "#c8a04b"] : ["#3a2530","#3a2530","#3a2530"],
+        borderColor: "#22141a", borderWidth: 4, hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#c4b497", font: { size: 12, weight: "600" }, padding: 14 } },
+        tooltip: {
+          backgroundColor: "#22141a", titleFont:{family:"DM Serif Display",size:14}, bodyFont:{size:13}, borderColor:"#b22845", borderWidth:1,
+          callbacks: { label: ctx => {
+            if (!total) return `${ctx.label}: 0 (—)`;
+            return `${ctx.label}: ${ctx.parsed} (${(ctx.parsed/total*100).toFixed(1)}%)`;
+          }}
+        }
+      }
+    }
+  });
+
+  let cg = 0, cz = 0, ct = 0;
+  const labels = MATCHES.map((m,i)=>`#${i+1}`);
+  const dataG = [], dataZ = [], dataT = [];
+  MATCHES.forEach(m => {
+    if (m.winner === "george") cg++;
+    if (m.winner === "sebuki") cz++;
+    if (m.winner === "tie") ct++;
+    dataG.push(cg); dataZ.push(cz); dataT.push(ct);
+  });
+  const ctxL = document.getElementById("lineChart").getContext("2d");
+  if (lineChart) lineChart.destroy();
+  lineChart = new Chart(ctxL, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "🍆 George", data: dataG, borderColor: "#e29547", backgroundColor: "rgba(226,149,71,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🍷 Sebuki", data: dataZ, borderColor: "#b22845", backgroundColor: "rgba(178,40,69,.1)", borderWidth: 3, fill: false, tension: .25, pointRadius: 2.5, pointHoverRadius: 5 },
+        { label: "🥂 Brindis", data: dataT, borderColor: "#c8a04b", borderWidth: 2, fill: false, tension: .25, pointRadius: 2, pointHoverRadius: 4, borderDash: [5,5] },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#c4b497", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { ticks: { color: "#8a7960", font:{size:10} }, grid: { color: "rgba(245,235,216,.05)" } },
+        y: { ticks: { color: "#8a7960", stepSize: 1 }, grid: { color: "rgba(245,235,216,.05)" }, beginAtZero: true }
+      }
+    }
+  });
+
+  const courseData = byCourse();
+  const ctxB = document.getElementById("barChart").getContext("2d");
+  if (barChart) barChart.destroy();
+  barChart = new Chart(ctxB, {
+    type: "bar",
+    data: {
+      labels: courseData.length ? courseData.map(x=>x.course) : ["sin rounds aún"],
+      datasets: courseData.length ? [
+        { label: "🍆 George", data: courseData.map(x=>x.george), backgroundColor: "#e29547" },
+        { label: "🍷 Sebuki", data: courseData.map(x=>x.sebuki), backgroundColor: "#b22845" },
+        { label: "🥂 Brindis", data: courseData.map(x=>x.tie), backgroundColor: "#c8a04b" },
+      ] : [{ label: "—", data: [0], backgroundColor: "#3a2530" }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#c4b497", font: { size: 12, weight: "600" }, padding: 14 } } },
+      scales: {
+        x: { stacked: true, ticks: { color: "#c4b497", font:{size:11,weight:"600"} }, grid: { display: false } },
+        y: { stacked: true, ticks: { color: "#8a7960", stepSize: 1 }, grid: { color: "rgba(245,235,216,.05)" }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+function refreshCourseDatalist(){
+  document.getElementById("course-list").innerHTML = uniqueCourses().map(c=>`<option value="${escapeHTML(c)}">`).join("");
+}
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+
+/* ======================= EVENTS ======================= */
+document.querySelectorAll(".lb-toolbar .chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".lb-toolbar .chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderHistory();
+  });
+});
+document.querySelectorAll(".wb").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedWinner = btn.dataset.winner;
+    updateSubmitState();
+  });
+});
+const courseInput = document.getElementById("input-course");
+courseInput.addEventListener("input", updateSubmitState);
+function updateSubmitState(){
+  const ok = courseInput.value.trim().length > 0 && selectedWinner !== null;
+  document.getElementById("submit-btn").disabled = !ok;
+}
+document.getElementById("submit-btn").addEventListener("click", () => {
+  const course = courseInput.value.trim();
+  if (!course || !selectedWinner) return;
+  const date = document.getElementById("input-date").value || null;
+  const match = { course, winner: selectedWinner };
+  if (date) match.date = date;
+  MATCHES.push(match);
+  saveMatches(MATCHES);
+  courseInput.value = "";
+  document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+  document.querySelectorAll(".wb").forEach(b => b.classList.remove("selected"));
+  selectedWinner = null;
+  updateSubmitState();
+  render();
+  const e = match.winner === "george" ? "🍆" : match.winner === "sebuki" ? "🍷" : "🥂";
+  toast(`${e} ${course} sumado`);
+});
+
+document.getElementById("export-btn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(MATCHES, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `sobremesa-sebuki-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById("import-btn").addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.type = "file"; input.accept = "application/json";
+  input.onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const d = JSON.parse(ev.target.result);
+        if (!Array.isArray(d)) throw new Error("formato inválido");
+        MATCHES = d; saveMatches(MATCHES); render(); toast("Importado");
+      } catch(err){ alert("Error: "+err.message); }
+    };
+    r.readAsText(f);
+  };
+  input.click();
+});
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (confirm("¿Volver a cava intacta (0-0)?")) {
+    MATCHES = [...SEED_MATCHES]; saveMatches(MATCHES); render(); toast("Cava intacta");
+  }
+});
+
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+document.getElementById("input-date").value = new Date().toISOString().slice(0,10);
+
+document.querySelectorAll(".status-side .status-circle").forEach(c => {
+  c.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const side = c.closest(".status-side");
+    document.querySelectorAll(".status-side").forEach(s => { if (s !== side) s.classList.remove("expanded"); });
+    side.classList.toggle("expanded");
+  });
+});
+document.addEventListener("click", () => {
+  document.querySelectorAll(".status-side").forEach(s => s.classList.remove("expanded"));
+});
+
+render();
+</script>
+</body>
+</html>
