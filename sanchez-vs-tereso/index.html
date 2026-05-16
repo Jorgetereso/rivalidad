@@ -645,6 +645,20 @@ const SEED_ROUNDS = [
       pedro:  [5,11,4,6,8,5,7,7,6, 9,5,7,5,7,10,10,6,7],
     },
     fourball: { teamA:["damian","popo"], teamB:["quico","pedro"], winner:"A", result:"4&3" }
+  },
+  {
+    id:"r2",
+    courseId:"pinamar",
+    date:"2026-05-16",
+    label:"Día 2",
+    scores: {
+      popo:   [4,4,3,4,6,3,5,6,5, 6,4,4,4,7,6,3,6,5],
+      quico:  [5,7,3,4,5,3,5,6,4, 7,4,4,4,6,5,4,5,6],
+      damian: [7,6,5,4,6,5,5,9,5, 10,5,6,6,7,6,8,8,6],
+      pedro:  [9,4,6,6,6,4,8,9,6, 6,3,5,4,5,7,5,6,5],
+      lucas:  [6,5,5,4,5,5,5,6,5, 5,4,6,6,5,4,5,6,5],
+    },
+    fourball: { teamA:["damian","pedro","lucas"], teamB:["popo","quico"], winner:"A", result:"" }
   }
 ];
 
@@ -672,7 +686,7 @@ const POINTS_LABEL = {
   doubleDigit:      "Hoyo de doble cifra (10+)",
 };
 
-const STORAGE_KEY = "rivalidad_golf_tour_v1";
+const STORAGE_KEY = "rivalidad_golf_tour_v2";
 const POINTS_STORAGE_KEY = "rivalidad_golf_points_v1";
 const TEAM_LABEL = { river:"River", boca:"Boca" };
 const PLAYER_BY_ID = Object.fromEntries(PLAYERS.map(p=>[p.id,p]));
@@ -1372,7 +1386,7 @@ function renderFourballBlock() {
       const arr = team === "A" ? fourballState.teamA : fourballState.teamB;
       const idx = arr.indexOf(pid);
       if (idx >= 0) arr.splice(idx, 1);
-      else { if (arr.length < 2) arr.push(pid); }
+      else { if (arr.length < 3) arr.push(pid); }
       renderFourballBlock();
     });
   });
@@ -1594,7 +1608,7 @@ document.getElementById("submit-btn").addEventListener("click", () => {
   if (Object.keys(scores).length === 0) { alert("Cargá al menos un jugador completo (18 hoyos)"); return; }
   const id = "r" + (Date.now().toString(36));
   const newRound = { id, courseId, date, label, scores };
-  if (fourballState.enabled && fourballState.teamA.length === 2 && fourballState.teamB.length === 2 && fourballState.winner) {
+  if (fourballState.enabled && fourballState.teamA.length >= 1 && fourballState.teamB.length >= 1 && fourballState.winner) {
     newRound.fourball = {
       teamA: [...fourballState.teamA],
       teamB: [...fourballState.teamB],
