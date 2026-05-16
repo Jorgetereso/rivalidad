@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOUR DE GOLF · Player Rankings · Pinamar / Costa Esmeralda</title>
+<title>EL FAMILY OPEN · Player Rankings · Pinamar / Costa Esmeralda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -434,7 +434,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-mark">Tour de Golf</span>
+      <span class="brand-mark">El Family Open</span>
       <span class="brand-sub">Rankings · Pinamar / Costa Esmeralda</span>
     </div>
     <nav>
@@ -451,8 +451,8 @@
 <div class="banner">
   <span class="crest">⛳</span>
   <div class="banner-inner">
-    <div class="kicker"><span class="liveDot"></span> En curso · Fin de Semana</div>
-    <h1><span class="gold">TOUR DE GOLF</span></h1>
+    <div class="kicker"><span class="liveDot"></span> Edición I · En curso</div>
+    <h1><span class="gold">EL FAMILY OPEN</span></h1>
     <div class="venue">Canchas · <strong id="meta-courses-list">—</strong></div>
     <div class="teams-tag"><span class="b-r">⚪🔴 Popo · Quico</span> &middot; <span class="b-b">🔵🟡 Damián · Pedro · Lucas</span></div>
     <div class="meta-row">
@@ -475,13 +475,13 @@
     </section>
 
     <section>
-      <div class="sec-head"><h2>Premios del Tour</h2><span class="sub">acumulado del fin de semana</span></div>
+      <div class="sec-head"><h2>Premios del Open</h2><span class="sub">acumulado del fin de semana</span></div>
       <div class="awards-grid" id="tour-awards"></div>
     </section>
 
     <!-- POINTS LEADERBOARD -->
     <section id="points">
-      <div class="sec-head"><h2>Puntos del Tour</h2><span class="sub">ranking total · pesos editables abajo</span></div>
+      <div class="sec-head"><h2>Puntos del Open</h2><span class="sub">ranking total · pesos editables abajo</span></div>
       <div class="points-card">
         <div class="pts-toolbar">
           <span class="lbl">Pesos:</span>
@@ -508,9 +508,10 @@
           <span class="chip" data-sort="grossAvg">Gross Promedio</span>
           <span class="chip" data-sort="bestNet">Mejor Net</span>
           <span class="chip" data-sort="bestGross">Mejor Gross</span>
-          <span class="chip" data-sort="birdies">Birdies</span>
-          <span class="chip" data-sort="pars">Pares</span>
-          <span class="chip" data-sort="eagles">Eagles</span>
+          <span class="chip" data-sort="netBirdies">Birdies Net</span>
+          <span class="chip" data-sort="netPars">Pares Net</span>
+          <span class="chip" data-sort="grossBirdies">Birdies Gross</span>
+          <span class="chip" data-sort="netEagles">Eagles Net</span>
           <span class="chip" data-sort="rounds">Rondas Jugadas</span>
         </div>
         <div style="overflow-x:auto">
@@ -521,15 +522,15 @@
                 <th>Jugador</th>
                 <th class="num">Rondas</th>
                 <th class="num">Net Avg</th>
-                <th class="num">Gross Avg</th>
-                <th class="num hide-sm">Mejor Net</th>
+                <th class="num hide-sm">Gross Avg</th>
+                <th class="num">Mejor Net</th>
                 <th class="num hide-sm">Mejor Gross</th>
-                <th class="num">🦅</th>
-                <th class="num">🐦</th>
-                <th class="num">Pares</th>
+                <th class="num">🦅 net</th>
+                <th class="num">🐦 net</th>
+                <th class="num">⚪ net</th>
+                <th class="num hide-sm">🐦 gross</th>
                 <th class="num hide-sm">Bogeys</th>
-                <th class="num hide-sm">Dobles</th>
-                <th class="num hide-sm">Triples+</th>
+                <th class="num hide-sm">Dobles+</th>
               </tr>
             </thead>
             <tbody id="rk-body"></tbody>
@@ -580,7 +581,7 @@
           <div class="ch-body"><canvas id="lineChart"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="ch-head">Stroke distribution · todo el tour</div>
+          <div class="ch-head">Net stroke distribution · todo el tour</div>
           <div class="ch-body"><canvas id="barChart"></canvas></div>
         </div>
       </div>
@@ -591,7 +592,7 @@
 
 <footer>
   <div class="foot-inner">
-    <div>TOUR DE GOLF · POPO · QUICO · DAMIÁN · PEDRO · LUCAS</div>
+    <div>EL FAMILY OPEN · POPO · QUICO · DAMIÁN · PEDRO · LUCAS</div>
     <div style="display:flex;gap:8px">
       <button id="export-btn">Exportar</button>
       <button id="import-btn">Importar</button>
@@ -638,7 +639,7 @@ const SEED_ROUNDS = [
     date:"2026-05-15",
     label:"Día 1",
     scores: {
-      popo:   [4,4,4,4,6,3,7,3,4, 6,4,4,5,5,5,5,6,5],
+      popo:   [3,4,4,4,6,3,7,4,4, 6,4,4,5,5,5,5,6,5],
       quico:  [4,5,4,4,5,3,5,6,5, 6,3,4,4,5,5,6,7,6],
       damian: [7,7,5,6,9,5,7,8,5, 7,3,8,7,6,5,5,9,9],
       pedro:  [5,11,4,6,8,5,7,7,6, 9,5,7,5,7,10,10,6,7],
@@ -648,21 +649,27 @@ const SEED_ROUNDS = [
 ];
 
 const DEFAULT_POINTS = {
-  fourballWin: 5,
-  bestGross:   4,
-  bestNet:     4,
-  birdie:      1,
-  eagle:       3,
-  doubleDigit: 1,
+  fourballWin:      5,
+  bestNet:          6,
+  bestGross:        4,
+  netEagle:         4,
+  netBirdie:        2,
+  netPar:           1,
+  grossEagleBonus:  2,
+  grossBirdieBonus: 1,
+  doubleDigit:      1,
 };
 
 const POINTS_LABEL = {
-  fourballWin: "Ganar fourball",
-  bestGross:   "Mejor gross del día",
-  bestNet:     "Mejor net del día",
-  birdie:      "Cada birdie",
-  eagle:       "Cada eagle",
-  doubleDigit: "Hoyo de doble cifra (10+)",
+  fourballWin:      "Ganar fourball",
+  bestNet:          "Mejor net del día",
+  bestGross:        "Mejor gross del día",
+  netEagle:         "Eagle neto",
+  netBirdie:        "Birdie neto",
+  netPar:           "Par neto",
+  grossEagleBonus:  "Eagle gross (bonus)",
+  grossBirdieBonus: "Birdie gross (bonus)",
+  doubleDigit:      "Hoyo de doble cifra (10+)",
 };
 
 const STORAGE_KEY = "rivalidad_golf_tour_v1";
@@ -708,6 +715,15 @@ function strokeClass(diff){
   return "worse";
 }
 
+function strokesReceived(player, holeIdx, course) {
+  const hcp = player.hcp;
+  if (hcp <= 0) return 0;
+  const sx = course.strokeIdx[holeIdx]; // 1-18, 1 = hardest
+  const base = Math.floor(hcp / 18);    // 1 stroke per hole for every full 18 hcp
+  const extra = hcp - base * 18;        // remainder strokes on the `extra` hardest holes
+  return base + (sx <= extra ? 1 : 0);
+}
+
 function playedRoundsFor(playerId){
   return ROUNDS.filter(r => r.scores[playerId] && r.scores[playerId].length === 18);
 }
@@ -718,15 +734,18 @@ function roundStats(round, playerId){
   const scores = round.scores[playerId];
   if (!scores || scores.length !== 18 || !course) return null;
   let gross = 0;
-  const stroke = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
+  const stroke    = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
+  const netStroke = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
   scores.forEach((s, i) => {
     gross += s;
-    const diff = s - course.pars[i];
-    stroke[strokeClass(diff)]++;
+    const par = course.pars[i];
+    stroke[strokeClass(s - par)]++;
+    const sxRecv = strokesReceived(player, i, course);
+    netStroke[strokeClass((s - sxRecv) - par)]++;
   });
   const net = gross - player.hcp;
   const par = course.pars.reduce((a,b)=>a+b,0);
-  return { gross, net, vsPar: gross - par, vsParNet: net - par, stroke, par };
+  return { gross, net, vsPar: gross - par, vsParNet: net - par, stroke, netStroke, par };
 }
 
 function playerStats(playerId){
@@ -737,12 +756,14 @@ function playerStats(playerId){
       player, rounds:0, netTotal:0, grossTotal:0, netAvg:null, grossAvg:null,
       bestNet:null, bestGross:null, worstNet:null, worstGross:null,
       eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0,
+      netEagle:0, netBirdie:0, netPar:0, netBogey:0, netDouble:0, netWorse:0,
       vsParAvg:null, vsParNetAvg:null
     };
   }
   let netT = 0, grossT = 0, vsParT = 0, vsParNetT = 0;
   let bestNet = Infinity, bestGross = Infinity, worstNet = -Infinity, worstGross = -Infinity;
-  const stroke = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
+  const stroke    = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
+  const netStroke = { eagle:0, birdie:0, par:0, bogey:0, double:0, worse:0 };
   rounds.forEach(r => {
     const st = roundStats(r, playerId);
     if (!st) return;
@@ -753,6 +774,7 @@ function playerStats(playerId){
     if (st.net > worstNet) worstNet = st.net;
     if (st.gross > worstGross) worstGross = st.gross;
     Object.keys(stroke).forEach(k => stroke[k] += st.stroke[k]);
+    Object.keys(netStroke).forEach(k => netStroke[k] += st.netStroke[k]);
   });
   const n = rounds.length;
   return {
@@ -761,7 +783,10 @@ function playerStats(playerId){
     netAvg: netT/n, grossAvg: grossT/n,
     bestNet, bestGross, worstNet, worstGross,
     vsParAvg: vsParT/n, vsParNetAvg: vsParNetT/n,
-    ...stroke
+    eagle: stroke.eagle, birdie: stroke.birdie, par: stroke.par,
+    bogey: stroke.bogey, double: stroke.double, worse: stroke.worse,
+    netEagle: netStroke.eagle, netBirdie: netStroke.birdie, netPar: netStroke.par,
+    netBogey: netStroke.bogey, netDouble: netStroke.double, netWorse: netStroke.worse,
   };
 }
 
@@ -793,14 +818,21 @@ function rankByMetric(metric, ascending=true){
 function roundPointsBreakdown(round) {
   const out = {};
   PLAYERS.forEach(p => {
-    out[p.id] = { fourball:0, bestGross:0, bestNet:0, birdies:0, eagles:0, doubleDigits:0, total:0, played:false, eagleCount:0, birdieCount:0, ddCount:0 };
+    out[p.id] = {
+      fourball:0, bestGross:0, bestNet:0,
+      netEagles:0, netBirdies:0, netPars:0,
+      grossEagleBonus:0, grossBirdieBonus:0,
+      doubleDigits:0, total:0, played:false,
+      netEagleCount:0, netBirdieCount:0, netParCount:0,
+      grossEagleCount:0, grossBirdieCount:0, ddCount:0
+    };
   });
 
   // Per-player stats
-  const playerStats = {};
+  const psMap = {};
   Object.keys(round.scores).forEach(pid => {
     const st = roundStats(round, pid);
-    if (st && out[pid]) { playerStats[pid] = st; out[pid].played = true; }
+    if (st && out[pid]) { psMap[pid] = st; out[pid].played = true; }
   });
 
   // Fourball
@@ -809,22 +841,32 @@ function roundPointsBreakdown(round) {
     (winners || []).forEach(pid => { if (out[pid]) out[pid].fourball = POINTS.fourballWin; });
   }
 
-  const pids = Object.keys(playerStats);
+  // Best gross / best net (lowest score; allow ties)
+  const pids = Object.keys(psMap);
   if (pids.length) {
-    const minGross = Math.min(...pids.map(pid => playerStats[pid].gross));
-    const minNet   = Math.min(...pids.map(pid => playerStats[pid].net));
+    const minGross = Math.min(...pids.map(pid => psMap[pid].gross));
+    const minNet   = Math.min(...pids.map(pid => psMap[pid].net));
     pids.forEach(pid => {
-      if (playerStats[pid].gross === minGross) out[pid].bestGross = POINTS.bestGross;
-      if (playerStats[pid].net   === minNet)   out[pid].bestNet   = POINTS.bestNet;
+      if (psMap[pid].gross === minGross) out[pid].bestGross = POINTS.bestGross;
+      if (psMap[pid].net   === minNet)   out[pid].bestNet   = POINTS.bestNet;
     });
   }
 
+  // Net stroke stats (eagles/birdies/pars) + gross excellence bonuses + double digit
   pids.forEach(pid => {
-    const st = playerStats[pid];
-    out[pid].birdieCount = st.stroke.birdie;
-    out[pid].eagleCount  = st.stroke.eagle;
-    out[pid].birdies = st.stroke.birdie * POINTS.birdie;
-    out[pid].eagles  = st.stroke.eagle  * POINTS.eagle;
+    const st = psMap[pid];
+    out[pid].netEagleCount    = st.netStroke.eagle;
+    out[pid].netBirdieCount   = st.netStroke.birdie;
+    out[pid].netParCount      = st.netStroke.par;
+    out[pid].grossEagleCount  = st.stroke.eagle;
+    out[pid].grossBirdieCount = st.stroke.birdie;
+
+    out[pid].netEagles        = st.netStroke.eagle  * POINTS.netEagle;
+    out[pid].netBirdies       = st.netStroke.birdie * POINTS.netBirdie;
+    out[pid].netPars          = st.netStroke.par    * POINTS.netPar;
+    out[pid].grossEagleBonus  = st.stroke.eagle     * POINTS.grossEagleBonus;
+    out[pid].grossBirdieBonus = st.stroke.birdie    * POINTS.grossBirdieBonus;
+
     const ddCount = round.scores[pid].filter(s => s >= 10).length;
     out[pid].ddCount = ddCount;
     out[pid].doubleDigits = ddCount * POINTS.doubleDigit;
@@ -832,7 +874,10 @@ function roundPointsBreakdown(round) {
 
   Object.keys(out).forEach(pid => {
     const o = out[pid];
-    o.total = o.fourball + o.bestGross + o.bestNet + o.birdies + o.eagles + o.doubleDigits;
+    o.total = o.fourball + o.bestGross + o.bestNet
+            + o.netEagles + o.netBirdies + o.netPars
+            + o.grossEagleBonus + o.grossBirdieBonus
+            + o.doubleDigits;
   });
   return out;
 }
@@ -840,16 +885,32 @@ function roundPointsBreakdown(round) {
 function tourPointsTotals() {
   const totals = {};
   PLAYERS.forEach(p => {
-    totals[p.id] = { player:p, fourball:0, bestGross:0, bestNet:0, birdies:0, eagles:0, doubleDigits:0, total:0, eagleCount:0, birdieCount:0, ddCount:0, fourballWins:0 };
+    totals[p.id] = {
+      player:p,
+      fourball:0, bestGross:0, bestNet:0,
+      netEagles:0, netBirdies:0, netPars:0,
+      grossEagleBonus:0, grossBirdieBonus:0,
+      doubleDigits:0, total:0, fourballWins:0,
+      netEagleCount:0, netBirdieCount:0, netParCount:0,
+      grossEagleCount:0, grossBirdieCount:0, ddCount:0,
+    };
   });
   ROUNDS.forEach(r => {
     const rp = roundPointsBreakdown(r);
     Object.keys(rp).forEach(pid => {
-      ["fourball","bestGross","bestNet","birdies","eagles","doubleDigits","total","eagleCount","birdieCount","ddCount"].forEach(k => totals[pid][k] += rp[pid][k]);
+      ["fourball","bestGross","bestNet","netEagles","netBirdies","netPars",
+       "grossEagleBonus","grossBirdieBonus","doubleDigits","total",
+       "netEagleCount","netBirdieCount","netParCount",
+       "grossEagleCount","grossBirdieCount","ddCount"].forEach(k => totals[pid][k] += rp[pid][k]);
       if (rp[pid].fourball > 0) totals[pid].fourballWins++;
     });
   });
-  return Object.values(totals).sort((a,b) => b.total - a.total || b.birdieCount - a.birdieCount || b.eagleCount - a.eagleCount);
+  return Object.values(totals).sort((a,b) =>
+    b.total - a.total ||
+    b.netBirdieCount - a.netBirdieCount ||
+    b.netParCount - a.netParCount ||
+    b.grossEagleCount - a.grossEagleCount
+  );
 }
 
 function todayLeader() {
@@ -871,7 +932,7 @@ function todayLeader() {
 }
 
 function tourLeaders() {
-  // Player del Tour ahora se calcula por puntos totales (sistema balanceado).
+  // Player del Open ahora se calcula por puntos totales (sistema balanceado).
   // Mantenemos también netAvg para la award row tradicional si hace falta.
   const totals = tourPointsTotals();
   const played = totals.filter(t => ROUNDS.some(r => r.scores[t.player.id]));
@@ -952,7 +1013,7 @@ function renderTourAwards() {
   const { best, worst } = tourLeaders();
   const el = document.getElementById("tour-awards");
   if (!best) {
-    el.innerHTML = awardCard("best", null, "Player del Tour", "más puntos")
+    el.innerHTML = awardCard("best", null, "Player del Open", "más puntos")
                  + awardCard("worst", null, "Copa del Peor", "menos puntos");
     return;
   }
@@ -961,7 +1022,7 @@ function renderTourAwards() {
   const worstVal = `${worst.points} <span style="font-size:14px;color:var(--text-3);font-family:Oswald;letter-spacing:1px">pts</span>`;
   const worstLbl = `Net avg ${worst.netAvg !== null ? worst.netAvg.toFixed(1) : '—'} · ${worst.rounds} ${worst.rounds === 1 ? 'ronda' : 'rondas'}`;
   el.innerHTML =
-    awardCard("best", best, "Player del Tour", "más puntos totales", bestVal, bestLbl)
+    awardCard("best", best, "Player del Open", "más puntos totales", bestVal, bestLbl)
   + awardCard("worst", worst, "Copa del Peor", "menos puntos totales", worstVal, worstLbl);
 }
 
@@ -1013,12 +1074,15 @@ function renderPointsList() {
     if (!didPlay) {
       chips.push(`<span class="ch">no jugó todavía</span>`);
     } else {
-      if (t.fourball > 0) chips.push(`<span class="ch f">⛳ ${t.fourballWins}× fourball · +${t.fourball}p</span>`);
-      if (t.bestGross > 0) chips.push(`<span class="ch bg">Mejor gross · +${t.bestGross}p</span>`);
-      if (t.bestNet > 0) chips.push(`<span class="ch bn">Mejor net · +${t.bestNet}p</span>`);
-      if (t.eagles > 0) chips.push(`<span class="ch eg">🦅 ${t.eagleCount} · +${t.eagles}p</span>`);
-      if (t.birdies > 0) chips.push(`<span class="ch bd">🐦 ${t.birdieCount} · +${t.birdies}p</span>`);
-      if (t.doubleDigits > 0) chips.push(`<span class="ch dd">😬 ${t.ddCount} de doble cifra · +${t.doubleDigits}p</span>`);
+      if (t.fourball > 0)         chips.push(`<span class="ch f">⛳ ${t.fourballWins}× fourball · +${t.fourball}p</span>`);
+      if (t.bestNet > 0)          chips.push(`<span class="ch bn">Mejor net · +${t.bestNet}p</span>`);
+      if (t.bestGross > 0)        chips.push(`<span class="ch bg">Mejor gross · +${t.bestGross}p</span>`);
+      if (t.netEagles > 0)        chips.push(`<span class="ch eg">🦅 net ${t.netEagleCount} · +${t.netEagles}p</span>`);
+      if (t.netBirdies > 0)       chips.push(`<span class="ch bd">🐦 net ${t.netBirdieCount} · +${t.netBirdies}p</span>`);
+      if (t.netPars > 0)          chips.push(`<span class="ch">⚪ par net ${t.netParCount} · +${t.netPars}p</span>`);
+      if (t.grossEagleBonus > 0)  chips.push(`<span class="ch eg">🦅 gross bonus · +${t.grossEagleBonus}p</span>`);
+      if (t.grossBirdieBonus > 0) chips.push(`<span class="ch bd">🐦 gross bonus · +${t.grossBirdieBonus}p</span>`);
+      if (t.doubleDigits > 0)     chips.push(`<span class="ch dd">😬 ${t.ddCount} de doble cifra · +${t.doubleDigits}p</span>`);
       if (!chips.length) chips.push(`<span class="ch">jugó pero sin puntos</span>`);
     }
     const posLabel = didPlay ? (idx + 1) : "—";
@@ -1037,20 +1101,18 @@ function renderPointsList() {
 function renderPlayers() {
   const ranked = rankByMetric("netAvg", true);
   const el = document.getElementById("players-grid");
-  el.innerHTML = ranked.map((stats, idx) => {
+  el.innerHTML = ranked.map((stats) => {
     const p = stats.player;
-    const rank = stats.rounds > 0 ? idx + 1 : "—";
-    const isLast = stats.rounds > 0 && idx === ranked.filter(s => s.rounds > 0).length - 1;
-    const rClass = stats.rounds === 0 ? "r-na" : (idx === 0 ? "r-1" : idx === 1 ? "r-2" : idx === 2 ? "r-3" : isLast ? "r-last" : "");
-    const imgPath = `img/${p.id}-${isLast ? 'lose' : 'win'}.png`;
+    // Player cards: sin ranking visible, todos con su imagen "lose" (las llorando son las graciosas)
+    const imgPath = `img/${p.id}-lose.png`;
     const fallback = p.team === 'river' ? 'tereso.svg' : 'sanchez.svg';
     const strokeChips = [];
-    if (stats.eagle > 0) strokeChips.push(`<span class="chip eagle">🦅 ${stats.eagle}</span>`);
-    if (stats.birdie > 0) strokeChips.push(`<span class="chip birdie">🐦 ${stats.birdie}</span>`);
-    if (stats.par > 0) strokeChips.push(`<span class="chip par">Par ${stats.par}</span>`);
+    if (stats.netEagle > 0)  strokeChips.push(`<span class="chip eagle">🦅 net ${stats.netEagle}</span>`);
+    if (stats.netBirdie > 0) strokeChips.push(`<span class="chip birdie">🐦 net ${stats.netBirdie}</span>`);
+    if (stats.netPar > 0)    strokeChips.push(`<span class="chip par">⚪ par net ${stats.netPar}</span>`);
+    if (stats.birdie > 0)    strokeChips.push(`<span class="chip birdie">gross 🐦 ${stats.birdie}</span>`);
     strokeChips.push(`<span class="chip hcp">hcp ${p.hcp}</span>`);
-    return `<div class="player-card team-${p.team} ${rClass}">
-      <div class="pc-rank">${typeof rank === 'number' ? '#'+rank : '—'}</div>
+    return `<div class="player-card team-${p.team}">
       <div class="pc-team">${TEAM_LABEL[p.team]}</div>
       <div class="pc-photo">
         <img src="${imgPath}" alt="${p.name}" onerror="this.onerror=null;this.src='${fallback}'">
@@ -1071,14 +1133,15 @@ function renderPlayers() {
    RENDER · RANKING TABLE
    ============================================================ */
 const SORT_METRICS = {
-  netAvg:    { key:"netAvg",    asc:true,  primary:"netAvg",    format: v => v?.toFixed(1) ?? "—" },
-  grossAvg:  { key:"grossAvg",  asc:true,  primary:"grossAvg",  format: v => v?.toFixed(1) ?? "—" },
-  bestNet:   { key:"bestNet",   asc:true,  primary:"bestNet",   format: v => v ?? "—" },
-  bestGross: { key:"bestGross", asc:true,  primary:"bestGross", format: v => v ?? "—" },
-  birdies:   { key:"birdie",    asc:false, primary:"birdie",    format: v => v ?? "—" },
-  pars:      { key:"par",       asc:false, primary:"par",       format: v => v ?? "—" },
-  eagles:    { key:"eagle",     asc:false, primary:"eagle",     format: v => v ?? "—" },
-  rounds:    { key:"rounds",    asc:false, primary:"rounds",    format: v => v ?? "0" },
+  netAvg:       { key:"netAvg",     asc:true,  primary:"netAvg",    format: v => v?.toFixed(1) ?? "—" },
+  grossAvg:     { key:"grossAvg",   asc:true,  primary:"grossAvg",  format: v => v?.toFixed(1) ?? "—" },
+  bestNet:      { key:"bestNet",    asc:true,  primary:"bestNet",   format: v => v ?? "—" },
+  bestGross:    { key:"bestGross",  asc:true,  primary:"bestGross", format: v => v ?? "—" },
+  netBirdies:   { key:"netBirdie",  asc:false, primary:"netBirdie", format: v => v ?? "—" },
+  netPars:      { key:"netPar",     asc:false, primary:"netPar",    format: v => v ?? "—" },
+  grossBirdies: { key:"birdie",     asc:false, primary:"birdie",    format: v => v ?? "—" },
+  netEagles:    { key:"netEagle",   asc:false, primary:"netEagle",  format: v => v ?? "—" },
+  rounds:       { key:"rounds",     asc:false, primary:"rounds",    format: v => v ?? "0" },
 };
 
 function renderRanking() {
@@ -1103,15 +1166,15 @@ function renderRanking() {
       </td>
       <td class="num muted">${s.rounds}</td>
       <td class="num ${activeSort === 'netAvg' ? 'primary' : ''}">${s.netAvg !== null ? s.netAvg.toFixed(1) : '—'}</td>
-      <td class="num ${activeSort === 'grossAvg' ? 'primary' : ''}">${s.grossAvg !== null ? s.grossAvg.toFixed(1) : '—'}</td>
-      <td class="num hide-sm ${activeSort === 'bestNet' ? 'primary' : ''}">${s.bestNet !== null ? s.bestNet : '—'}</td>
+      <td class="num hide-sm ${activeSort === 'grossAvg' ? 'primary' : ''}">${s.grossAvg !== null ? s.grossAvg.toFixed(1) : '—'}</td>
+      <td class="num ${activeSort === 'bestNet' ? 'primary' : ''}">${s.bestNet !== null ? s.bestNet : '—'}</td>
       <td class="num hide-sm ${activeSort === 'bestGross' ? 'primary' : ''}">${s.bestGross !== null ? s.bestGross : '—'}</td>
-      <td class="num ${activeSort === 'eagles' ? 'primary' : ''}">${s.eagle}</td>
-      <td class="num ${activeSort === 'birdies' ? 'primary' : ''}">${s.birdie}</td>
-      <td class="num ${activeSort === 'pars' ? 'primary' : ''}">${s.par}</td>
+      <td class="num ${activeSort === 'netEagles' ? 'primary' : ''}">${s.netEagle}</td>
+      <td class="num ${activeSort === 'netBirdies' ? 'primary' : ''}">${s.netBirdie}</td>
+      <td class="num ${activeSort === 'netPars' ? 'primary' : ''}">${s.netPar}</td>
+      <td class="num hide-sm ${activeSort === 'grossBirdies' ? 'primary' : ''}">${s.birdie}</td>
       <td class="num hide-sm">${s.bogey}</td>
-      <td class="num hide-sm">${s.double}</td>
-      <td class="num hide-sm">${s.worse}</td>
+      <td class="num hide-sm">${s.double + s.worse}</td>
     </tr>`;
   }).join("");
 }
@@ -1244,12 +1307,15 @@ function renderRoundTable(round, course) {
     </tr>`;
   });
 
-  // Stroke summary row (counts)
+  // Stroke summary rows (gross + net)
   playersIn.forEach(p => {
     const st = roundStats(round, p.id);
     if (!st) return;
-    const breakdown = `🦅${st.stroke.eagle} · 🐦${st.stroke.birdie} · Par ${st.stroke.par} · Bog ${st.stroke.bogey} · Db ${st.stroke.double} · Tr+ ${st.stroke.worse}`;
-    html += `<tr class="sub-total"><td class="lbl" colspan="${front9.length + back9.length + 5}" style="font-family:Oswald;font-weight:600;font-size:11px;letter-spacing:1.5px;color:var(--text-2);text-transform:none">${p.name}: ${breakdown}</td></tr>`;
+    const gross = `Gross: 🦅${st.stroke.eagle} · 🐦${st.stroke.birdie} · Par ${st.stroke.par} · Bog ${st.stroke.bogey} · Db ${st.stroke.double} · Tr+ ${st.stroke.worse}`;
+    const net   = p.hcp > 0
+      ? `Net (hcp ${p.hcp}): 🦅${st.netStroke.eagle} · 🐦${st.netStroke.birdie} · Par ${st.netStroke.par} · Bog ${st.netStroke.bogey} · Db ${st.netStroke.double} · Tr+ ${st.netStroke.worse}`
+      : `Net = Gross (scratch)`;
+    html += `<tr class="sub-total"><td class="lbl" colspan="${front9.length + back9.length + 5}" style="font-family:Oswald;font-weight:600;font-size:11px;letter-spacing:1.5px;color:var(--text-2);text-transform:none">${p.name} · ${gross} · ${net}</td></tr>`;
   });
 
   html += `</tbody></table>`;
@@ -1454,7 +1520,7 @@ function renderCharts() {
     }
   });
 
-  // Bar chart: stacked stroke distribution per player
+  // Bar chart: stacked NET stroke distribution per player
   const ctxB = document.getElementById("barChart").getContext("2d");
   if (barChart) barChart.destroy();
   const stats = allStats();
@@ -1464,12 +1530,12 @@ function renderCharts() {
     data: {
       labels,
       datasets: [
-        { label: "🦅 Eagle", data: stats.map(s=>s.eagle), backgroundColor: "#d4a04b" },
-        { label: "🐦 Birdie", data: stats.map(s=>s.birdie), backgroundColor: "#10b981" },
-        { label: "Par", data: stats.map(s=>s.par), backgroundColor: "#94a3b8" },
-        { label: "Bogey", data: stats.map(s=>s.bogey), backgroundColor: "#475569" },
-        { label: "Doble", data: stats.map(s=>s.double), backgroundColor: "#9a1d1d" },
-        { label: "Triple+", data: stats.map(s=>s.worse), backgroundColor: "#cf2030" },
+        { label: "🦅 Eagle net",  data: stats.map(s=>s.netEagle),  backgroundColor: "#d4a04b" },
+        { label: "🐦 Birdie net", data: stats.map(s=>s.netBirdie), backgroundColor: "#10b981" },
+        { label: "Par net",        data: stats.map(s=>s.netPar),    backgroundColor: "#94a3b8" },
+        { label: "Bogey net",      data: stats.map(s=>s.netBogey),  backgroundColor: "#475569" },
+        { label: "Doble net",      data: stats.map(s=>s.netDouble), backgroundColor: "#9a1d1d" },
+        { label: "Triple+ net",    data: stats.map(s=>s.netWorse),  backgroundColor: "#cf2030" },
       ]
     },
     options: {
