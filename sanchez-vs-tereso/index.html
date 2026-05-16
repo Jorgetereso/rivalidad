@@ -991,28 +991,42 @@ function renderPointsToolbar() {
 function renderPointsList() {
   const totals = tourPointsTotals();
   const el = document.getElementById("pts-list");
-  // Only mark r-last if there's clear differentiation (more than one unique total value)
-  const uniqueTotals = new Set(totals.map(t => t.total));
-  el.innerHTML = totals.map((t, idx) => {
+  // Played vs. didn't play: rank only those who played; never mark non-players as "last"
+  const playedTotals = totals.filter(t => ROUNDS.some(r => r.scores[t.player.id]));
+  const playedIds = new Set(playedTotals.map(t => t.player.id));
+  const uniquePlayedTotals = new Set(playedTotals.map(t => t.total));
+  // Re-sort: players first (by points desc), then non-players at the bottom (alphabetical)
+  const sorted = [
+    ...playedTotals,
+    ...totals.filter(t => !playedIds.has(t.player.id)).sort((a,b) => a.player.name.localeCompare(b.player.name))
+  ];
+  const playedCount = playedTotals.length;
+  el.innerHTML = sorted.map((t, idx) => {
     const p = t.player;
-    const isFirst = idx === 0 && t.total > 0;
-    const isLast = idx === totals.length - 1 && uniqueTotals.size > 1;
+    const didPlay = playedIds.has(p.id);
+    const isFirst = didPlay && idx === 0 && t.total > 0;
+    const isLast = didPlay && idx === playedCount - 1 && uniquePlayedTotals.size > 1;
     const rClass = isFirst ? "r-1" : isLast ? "r-last" : "";
     const fallback = p.team === 'river' ? 'tereso.svg' : 'sanchez.svg';
     const variant = isLast ? "lose" : "win";
     const chips = [];
-    if (t.fourball > 0) chips.push(`<span class="ch f">⛳ ${t.fourballWins}× fourball · +${t.fourball}p</span>`);
-    if (t.bestGross > 0) chips.push(`<span class="ch bg">Mejor gross · +${t.bestGross}p</span>`);
-    if (t.bestNet > 0) chips.push(`<span class="ch bn">Mejor net · +${t.bestNet}p</span>`);
-    if (t.eagles > 0) chips.push(`<span class="ch eg">🦅 ${t.eagleCount} · +${t.eagles}p</span>`);
-    if (t.birdies > 0) chips.push(`<span class="ch bd">🐦 ${t.birdieCount} · +${t.birdies}p</span>`);
-    if (t.doubleDigits > 0) chips.push(`<span class="ch dd">😬 ${t.ddCount} de doble cifra · +${t.doubleDigits}p</span>`);
-    if (!chips.length) chips.push(`<span class="ch">sin puntos todavía</span>`);
-    return `<div class="pts-row team-${p.team} ${rClass}">
-      <div class="pos">${idx + 1}</div>
+    if (!didPlay) {
+      chips.push(`<span class="ch">no jugó todavía</span>`);
+    } else {
+      if (t.fourball > 0) chips.push(`<span class="ch f">⛳ ${t.fourballWins}× fourball · +${t.fourball}p</span>`);
+      if (t.bestGross > 0) chips.push(`<span class="ch bg">Mejor gross · +${t.bestGross}p</span>`);
+      if (t.bestNet > 0) chips.push(`<span class="ch bn">Mejor net · +${t.bestNet}p</span>`);
+      if (t.eagles > 0) chips.push(`<span class="ch eg">🦅 ${t.eagleCount} · +${t.eagles}p</span>`);
+      if (t.birdies > 0) chips.push(`<span class="ch bd">🐦 ${t.birdieCount} · +${t.birdies}p</span>`);
+      if (t.doubleDigits > 0) chips.push(`<span class="ch dd">😬 ${t.ddCount} de doble cifra · +${t.doubleDigits}p</span>`);
+      if (!chips.length) chips.push(`<span class="ch">jugó pero sin puntos</span>`);
+    }
+    const posLabel = didPlay ? (idx + 1) : "—";
+    return `<div class="pts-row team-${p.team} ${rClass}" style="${didPlay ? '' : 'opacity:.55'}">
+      <div class="pos">${posLabel}</div>
       <div class="av"><img src="img/${p.id}-${variant}.png" onerror="this.onerror=null;this.src='${fallback}'"></div>
       <div class="who"><span class="nm">${p.name}</span><div class="br">${chips.join('')}</div></div>
-      <div class="total">${t.total}<small>puntos</small></div>
+      <div class="total">${didPlay ? t.total : '—'}${didPlay ? '<small>puntos</small>' : '<small>esperando</small>'}</div>
     </div>`;
   }).join("");
 }
